@@ -1,0 +1,17 @@
+@import 'src/variables';
+
+.avatar_wrapper {
+  background-color: $light-gray-chat;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 2.94rem;
+  width: 2.94rem;
+}
+
+.avatar_image {
+  height: 2.94rem;
+  width: auto;
+}

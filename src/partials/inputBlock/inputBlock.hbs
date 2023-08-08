@@ -1,0 +1,16 @@
+<div class='input-block {{class}}'>
+    {{#if value }}
+       <label for='{{for}}' class='input-block_label font_9'>{{placeholder}}</label>
+    {{/if}}
+    <input
+        id='{{for}}'
+        name='{{name}}'
+        value='{{value}}'
+        type='{{type}}'
+        placeholder='{{placeholder}}'
+        class='form_input font_13 {{errorClass}}'
+    />
+    {{#if error}}
+        <span class='error-indicator font_9 {{errorClass}}'>{{errorText}}</span>
+    {{/if}}
+</div>

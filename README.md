@@ -1,83 +1,88 @@
-### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
+# My Chat
 
-### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
-### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).
+## Description
 
-### Например, задания для проектной работы во втором спринте вы делаете в ветке sprint_2. Открываете из неё pull request в ветку main. Ссылку на этот pr добавляете в README.md в ветке main. После этого на платформе Практикума нажимаете «Проверить задание».
+My Chat is a chat application with various features and pages. You can explore the live version of the application through the following links:
 
-### Также не забудьте проверить, что репозиторий публичный.
----
+- [Start Page](https://unique-sprite-357797.netlify.app/) - Entry point
+- [Login Page](https://unique-sprite-357797.netlify.app/pages/login/login) - Access the login form
+- [Registration Page](https://unique-sprite-357797.netlify.app/pages/registration/registration) - Sign up for a new account
+- [Chat Page](https://unique-sprite-357797.netlify.app/pages/chat/chat) - Engage in chat
+- [5XX Error Page](https://unique-sprite-357797.netlify.app/pages/5xx/5xx) - View the page for 5xx errors
+- [404 Error Page](https://unique-sprite-357797.netlify.app/pages/404/404) - View the page for 404 errors
+- [UI Library](https://unique-sprite-357797.netlify.app/pages/uilib/uilib) - Explore all UI components
+
+The `deploy` branch of this project is configured for continuous deployment on [Netlify](https://www.netlify.com), enabling seamless updates and delivery of the latest version of the application.
+
+## Live Demo
+
+The application is hosted on Netlify and is accessible [here](https://unique-sprite-357797.netlify.app/).
+
+## Design
+
+The design mockups for this project are available on Figma. You can view them [here](https://www.figma.com/file/HXZ2xzTHtiTplJZF9RQbGu/Chat_external_link-(Copy)?type=design&node-id=0%3A1&mode=design&t=8AW5ByDVISVcHlg2-1).
 
 
-Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.
+## Version
 
-README — первое, что прочитает пользователь, когда попадёт в репозиторий на «Гитхабе». Хороший REAMDE отвечает на четыре вопроса:
+0.0.0
 
-- Готов ли проект к использованию?
-- В чём его польза?
-- Как установить?
-- Как применять?
+## Installation
 
-## Бейджи
+You can install the required dependencies using:
 
-Быстро понять статус проекта помогают бейджи на «Гитхабе». Иногда разработчики ограничиваются парой бейджев, которые сообщат о статусе тестов кода:
+```bash
+npm install
+```
 
-![Бэйджи](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/b.png)
+# Build Configuration
 
-Если пользователь увидит ошибку в работе тестов, то поймёт: использовать текущую версию в важном проекте — не лучшая идея.
+This project uses Vite for building and the configuration includes:
 
-Бейджи помогают похвастаться достижениями: насколько популярен проект, как много разработчиков создавало этот код. Через бейджи можно даже пригласить пользователя в чат:
+### - Root Directory: `src`
+### - Output Directory: `dist`
+### - Entry Points: Various entry points such as index, login, registration, chat, user profile, error pages, and a UI library.
+### - Plugins: Utilizes the Handlebars' plugin with specific helpers and partials.
 
-![Версии](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/vers.png)
+# Server Configuration
 
-В README **Webpack** строка бейджев подробно рассказывает о покрытии кода тестами. Когда проект протестирован, это вызывает доверие пользователя. Последний бейдж приглашает присоединиться к разработке. 
+This project uses Express to serve the application. The server is configured to:
 
-Другая строка убедит пользователя в стабильности инфраструктуры и популярности проекта. Последний бейдж зовёт в чат проекта.
+- Serve static files from the ./dist directory
+- You can start the server using:
+```bash
+npm run start
+- ```
 
-## Описание
+# Continuous Deployment on Netlify
 
-Краткое опишите, какую задачу решает проект. Пользователь не верит обещаниям и не готов читать «полотна» текста. Поэтому в описании достаточно нескольких строк:
+This project is set up for continuous deployment through the `deploy` branch on Netlify. Any changes pushed to this branch will be automatically built and deployed to the live site.
 
-![Описание](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/desc.png)
+# Scripts
 
-Авторы **React** дробят описание на абзацы и списки — так проще пробежаться глазами по тексту и найти ключевую информацию.
+You can run the following scripts defined in `package.json`:
 
-Если у проекта есть сайт, добавьте ссылку в заголовок.
+- `npm run dev`: Starts the Vite development server
+- `npm run build`: Builds the application using Vite
+- `npm run start`: Builds the application and then starts the Express server
+- `npm run preview`: Starts the Vite preview server
 
-## Установка
+# Dependencies
 
-Лучше всего пользователя убеждает собственный опыт. Чем быстрее он начнёт пользоваться проектом, тем раньше почувствует пользу. Для этого помогите ему установить приложение: напишите краткую пошаговую инструкцию.
+## Development Dependencies
 
-Если проект предназначен для разработчиков, добавьте информацию об установке тестовых версий. Например:
+- `@types/node`
+- `autoprefixer`
+- `express`
+- `sass`
+- `typescript`
+- `vite`
+- `vite-plugin-handlebars`
 
-- `npm install` — установка стабильной версии,
-- `npm start` — запуск версии для разработчика,
-- `npm run build:prod` — сборка стабильной версии.
+# Production Dependencies
 
-## **Примеры использования**
+- `normalize.css`
 
-Хорошо, если сразу после установки пользователь сможет решить свои задачи без изучения проекта. Это особенно верно, если ваш пользователь — не профессиональный разработчик. Но даже профессионал поймёт вас лучше, если показать примеры использования:
+# Author
 
-![Ссылки](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/link.png)
-
-Для более подробных инструкции добавьте новые разделы или ссылки:
-
-- на документацию,
-- вики проекта,
-- описание API.
-
-В учебном проекте будут полезен раздел с описанием стиля кода и правилами разработки: как работать с ветками, пул-реквестами и релизами.
-
-### **Команда**
-
-Если вы работаете в команде, укажите основных участников: им будет приятно, а новые разработчики охотнее присоединятся к проекту. «Гитхаб» — не просто инструмент, это социальная сеть разработчиков.
-
-![Команда](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/team.png)
-
-### **Примеры README**
-
-- «[Реакт](https://github.com/facebook/react)»,
-- «[Эхо](https://github.com/labstack/echo)»,
-- «[Вебпак](https://github.com/webpack/webpack)»,
-- «[ТДенгине](https://github.com/taosdata/TDengine)»,
-- «[Соул-хантинг](https://github.com/vladpereskokov/soul-hunting/)».
+https://github.com/EvgeniyGrokholskiy

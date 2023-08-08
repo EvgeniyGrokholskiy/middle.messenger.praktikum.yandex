@@ -1,0 +1,105 @@
+@import "src/variables";
+
+.user-profile_wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-profile_avatar-load-popup-wrapper {
+  position: absolute;
+  top:0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: $avatar-hover-background;
+}
+
+.avatar-load-popup-wrapper_open {
+  display: flex;
+}
+
+.user-profile_avatar-load-popup {
+  background-color: white;
+  height: fit-content;
+  transform: translateX(2.5rem);
+  z-index: 1;
+}
+
+.user-profile_setting-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  max-width: 31.875rem;
+  width: 100%;
+}
+
+.user-profile_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.back-button {
+  background: $back-button-background url('/img/leftArrow.svg') center no-repeat;
+  height: 100vh;
+  width: 4rem;
+}
+
+.avatar-big {
+  background-color: rgba(128, 128, 128, 0.17);
+  height: 8.125rem;
+  width: 8.125rem;
+}
+
+.user-profile_name {
+  margin-top: 1.3125rem;
+  margin-bottom: 3.75rem;
+}
+
+.user-profile_change-links {
+  margin-top: 3.75rem;
+}
+
+.user-profile_change-password-block {
+  display: none;
+}
+
+.user-profile_password-save-button {
+  margin-top: 10.125rem;
+}
+
+.user-profile_exit-button {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: $red-exit-link;
+}
+
+.last {
+  border: none;
+}
+
+.user-profile_save-button {
+  display: none;
+  margin-top: 3.75rem;
+}
+
+.hide-block {
+  display: none;
+}
+
+.hide-user-name-block {
+  font-size: 0;
+}
+
+.show-block {
+  display: flex;
+}

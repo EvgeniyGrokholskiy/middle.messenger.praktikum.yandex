@@ -1,0 +1,21 @@
+@import 'src/variables';
+
+.show-more_button {
+  background: none;
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5625rem;
+  width: 1.5625rem;
+}
+
+.show-more_button:hover {
+  background-color: $add-user-button-background;
+}
+
+.show-more_button:hover svg {
+  fill: $light-blue;
+}
