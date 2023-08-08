@@ -61,8 +61,8 @@ export const registrationInputsBlockData = [
   },
   {
     error: 'true',
-    name: 'password',
-    for: 'password',
+    name: 'rep_password',
+    for: 'rep_password',
     type: 'password',
     placeholder: 'Пароль (ещё раз)',
     value: '123456789',
