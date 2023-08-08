@@ -25,7 +25,7 @@ The design mockups for this project are available on Figma. You can view them [h
 
 ## Version
 
-0.0.0
+0.0.1
 
 ## Installation
 
