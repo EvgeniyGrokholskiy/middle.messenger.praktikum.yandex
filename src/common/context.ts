@@ -1,10 +1,14 @@
+import { links } from './indexPage';
 import { chatPage } from './chatPage';
+import { uiLibPage } from './uiLibPage';
 import { userProfilePage } from './userProfilePage';
 import { loginPageInputBlockData } from './loginPage';
 import { registrationInputsBlockData } from './registrationPage';
-import { uiLibPage } from './uiLibPage';
 
 export const context = {
+  indexPage: {
+    links,
+  },
   links: {
     cuteCat: 'user-profile_avatar-image',
   },

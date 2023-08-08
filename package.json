@@ -7,9 +7,9 @@
     "node": ">=12"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
-    "start": "vite build && node server.js",
+    "start": "vite build && node server.js --open",
     "preview": "vite preview"
   },
   "devDependencies": {
