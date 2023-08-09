@@ -1,0 +1,21 @@
+<div class='addFile_wrapper'>
+    {{#if isError}}
+        <p class='addFile_error font_15'>Ошибка, попробуйте ещё раз</p>
+    {{/if}}
+    {{#if file}}
+        <p class='addFile_header-file-added font_15'>Файл загружен</p>
+    {{/if}}
+    {{#if isShowText}}
+        <p class='addFile_header font_15'>Загрузите файл</p>
+    {{/if}}
+    <label class='font_12 addFile_label'>
+        {{text}}
+        <input type='file' accept='{{accept}}' class='add-file_input'>
+    </label>
+    <div class='addFile_button-block'>
+        <button onclick='{{onClick}}' type='button' class='button form_button add-file_replace-button'>Поменять</button>
+        {{#if addFileError}}
+            <p class='addFile_error font_11'>Нужно выбрать файл</p>
+        {{/if}}
+    </div>
+</div>

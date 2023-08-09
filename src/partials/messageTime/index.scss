@@ -1,0 +1,25 @@
+@import 'src/variables';
+
+.send-time {
+  background-color: $light-gray-message-time;
+  border-radius: 1.875rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.96rem;
+  width: 2.3125rem;
+}
+
+.send-time_no-background {
+  background: none;
+  width: fit-content;
+}
+
+.send-incoming {
+  color: $light-gray;
+}
+
+.send-time-outgoing {
+  color: $light-blue;
+}

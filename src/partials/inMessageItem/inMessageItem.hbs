@@ -1,0 +1,11 @@
+<div class='message-wrapper {{class}}'>
+    <p class='font_12 message-text'>{{messageText}}</p>
+    {{#if imageUrl}}
+        <img src='{{imageUrl}}' alt='send image' class='message_img' />
+    {{/if}}
+    {{#if imageUrl}}
+        <p class='message_send-time font_9'>{{sendTime}}</p>
+    {{else}}
+        <p class='message_send-time send-time_image font_9'>{{sendTime}}</p>
+    {{/if}}
+</div>

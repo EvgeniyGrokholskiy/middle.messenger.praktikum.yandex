@@ -1,0 +1,48 @@
+{{#>layouts/page title='Chat' }}
+    <div class='chat-page_wrapper'>
+        <div class='chat-page_chat-list'>
+            <div class='chat-list_search-block'>
+                <div class='search-block_profile-link-wrapper'>
+                    {{> link/link
+                        href='/pages/userProfile/userProfile.html'
+                        linkText='Профиль'
+                        class='profile-link_link font_12'
+                    }}
+                    <img src='/img/chevronRight.svg' alt='chevron' height='10' width='6' />
+                </div>
+                {{> searchInput/searchInput value='' placeholder='Поиск' }}
+            </div>
+            <div class='chat-list_wrapper'>
+                {{#each chatPage.chatList }}
+                    {{> chatItem/chatItem this }}
+                {{/each}}
+            </div>
+        </div>
+        <div class='chat-page_chat'>
+            <div class='chat-page_header'>
+                <div class='chat-name_wrapper'>
+                    {{> avatar/avatar }}
+                    {{> paragraph/paragraph text='Вадим' class='chat-name' }}
+                </div>
+                {{> addUserButton/addUserButton }}
+            </div>
+            <div class='chat-page_message-list'>
+                <div class='message-list_date font_12'>19 июня</div>
+                {{> inMessageItem/inMessageItem messageText=chatPage.longMessage sendTime='11:56' }}
+                {{> inMessageItem/inMessageItem
+                    imageUrl='/img/messageImage.jpg'
+                    sendTime='11:56'
+                    class='message_image-message'
+                }}
+                {{> outMessageItem/outMessageItem messageText='Круто!' sendTime='12:00' class='' }}
+            </div>
+            <div class='chat-page_new-message'>
+                {{#> newMessage/newMessage }}
+                    {{> addFileButton/addFileButton }}
+                    {{> newMessageInput/newMessageInput value='' placeholder='Сообщение' }}
+                    {{> sendButton/sendButton }}
+                {{/newMessage/newMessage }}
+            </div>
+        </div>
+    </div>
+{{/layouts/page}}

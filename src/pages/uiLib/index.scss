@@ -1,0 +1,31 @@
+.ui-lib-page_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.large-block_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+}
+
+.large-block-slim {
+  width: 600px;
+}
+
+.small-block_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin: 50px 0;
+  width: 100%;
+}

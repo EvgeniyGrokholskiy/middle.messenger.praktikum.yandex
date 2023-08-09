@@ -1,0 +1,8 @@
+@import 'src/variables';
+
+.send-button {
+  background-color: $light-blue;
+  border-radius: 999px;
+  height: 1.75rem;
+  min-width: 1.75rem;
+}
