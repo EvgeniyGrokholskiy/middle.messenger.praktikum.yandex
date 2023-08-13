@@ -1,19 +1,23 @@
 import { resolve } from 'path';
-import { defineConfig } from 'vite'
+
+import { defineConfig } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
+
 //
-import {context} from "./src/common/context";
-import eachWithPartial from "./src/layouts/eachWithPartial/eachWithPartial";
+import { context } from './src/common/context';
+import eachWithPartial from './src/layouts/eachWithPartial/eachWithPartial';
 
 export default defineConfig({
   root: resolve(__dirname, 'src'),
-  plugins: [handlebars({
-    partialDirectory: resolve(__dirname, 'src/partials'),
-    context,
-    helpers: {
-      eachWithPartial,
-    },
-  })],
+  plugins: [
+    handlebars({
+      partialDirectory: resolve(__dirname, 'src/partials'),
+      context,
+      helpers: {
+        eachWithPartial,
+      },
+    }),
+  ],
   build: {
     outDir: resolve(__dirname, 'dist'),
     rollupOptions: {
@@ -26,10 +30,10 @@ export default defineConfig({
         '5XX': resolve(__dirname, 'src/pages/5XX/5XX.html'),
         404: resolve(__dirname, 'src/pages/404/404.html'),
         uiLib: resolve(__dirname, 'src/pages/uiLib/uiLib.html'),
-      }
-    }
+      },
+    },
   },
   server: {
-    open: '/index.html'
-  }
-})
+    open: '/index.html',
+  },
+});
