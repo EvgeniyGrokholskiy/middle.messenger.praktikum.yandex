@@ -79,7 +79,7 @@ export const uiLibPage = {
         value: '••••••••••••',
         errorText: 'Неверный пароль',
       },
-    ]
+    ],
   },
   chatItem: [
     {
@@ -117,14 +117,14 @@ export const uiLibPage = {
       id: 'email',
       name: 'email',
       type: 'text',
-      value: 'pochta@yandex.ru'
+      value: 'pochta@yandex.ru',
     },
     {
       header: 'Старый пароль',
       id: 'oldPassword',
       name: 'oldPassword',
       type: 'password',
-      value: '1111111'
+      value: '1111111',
     },
     {
       header: 'Повторите новый пароль',
@@ -132,7 +132,7 @@ export const uiLibPage = {
       name: 'repeatNewPassword',
       type: 'password',
       value: '123456789',
-      class: 'last'
+      class: 'last',
     },
   ],
-}
+};

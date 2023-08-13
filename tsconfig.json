@@ -18,7 +18,10 @@
 
     /* Linting */
     "strict": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
+    "strictNullChecks": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },

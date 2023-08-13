@@ -1,12 +1,13 @@
-export default function card(context, options) {
+import * as handlebars from 'handlebars';
 
-  const template = Handlebars.compile(
+export default function card(context, options) {
+  const template = handlebars.compile(
     `
       <div class='{{class}}'>
         ${options.fn(this)}
         {{text}}
       </div>
-    `
+    `,
   );
   return template({ ...context, ...options });
-};
+}
