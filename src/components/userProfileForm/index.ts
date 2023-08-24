@@ -1,16 +1,16 @@
 import Block from '../../utils/block';
 import template from './userProfileForm.hbs';
 import { formDataLogger } from '../../utils/helpers';
-import { UserProfileInputBlock } from '../userProfileInputBlock/index';
+import { UserProfileInputBlock } from '../userProfileInputBlock';
 
 export class UserProfileForm extends Block {
   private state = {
     isValid: false,
-  }
+  };
 
   constructor(props) {
     super({
-      ... props,
+      ...props,
       data: props.data,
       class: props.class,
       saveButtonInnerText: props.saveButtonInnerText,
@@ -31,7 +31,7 @@ export class UserProfileForm extends Block {
       item.validateInput();
     });
 
-    inputs.forEach(input => !input.getIsValid() ? isValid = false : '');
+    inputs.forEach(input => (!input.getIsValid() ? (isValid = false) : ''));
 
     this.state.isValid = isValid;
 
@@ -54,11 +54,9 @@ export class UserProfileForm extends Block {
     const inputValues: Record<string, string> = {};
     const refsArray = this.getInputsBlocks();
 
-    const inputs = refsArray.map(inputBlock => {
-      return inputBlock.getContent()!.querySelector('input');
-    });
+    const inputs = refsArray.map(inputBlock => inputBlock.getContent()!.querySelector('input'));
 
-    inputs.forEach(input => inputValues[input.name] = input.value);
+    inputs.forEach(input => (inputValues[input.name] = input.value));
 
     return inputValues;
   }
@@ -94,7 +92,9 @@ export class UserProfileForm extends Block {
       input.element!.querySelector('input')?.setAttribute('disabled', 'true');
     });
 
-    this.props.onClick && this.props.onClick();
+    if (this.props.onClick) {
+      this.props.onClick();
+    }
   }
 
   protected render(): DocumentFragment {

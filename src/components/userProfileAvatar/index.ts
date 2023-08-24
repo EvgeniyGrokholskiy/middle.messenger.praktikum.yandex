@@ -4,11 +4,11 @@ import avatarBackground from '../../img/avatarBackground.jpg';
 
 type TProps = {
   imageSrc: string;
-  class: string,
+  class: string;
   onClick: () => void;
   events: {
     click: () => void;
-  }
+  };
 };
 
 export class UserProfileAvatar extends Block {

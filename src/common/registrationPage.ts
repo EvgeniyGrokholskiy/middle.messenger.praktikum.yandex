@@ -1,11 +1,11 @@
 export enum REGISTRATION_PAGE_INPUT_REFS {
-  EMAIL_INPUT = 'loginInput',
+  EMAIL_INPUT = 'emailInput',
   LOGIN_INPUT = 'loginInput',
   FIRST_NAME_INPUT = 'firstNameInput',
   SECOND_NAME_INPUT = 'secondNameInput',
   PHONE_INPUT = 'phoneInput',
   PASSWORD_INPUT = 'passwordInput',
-  REP_PASSWORD_INPUT = 'repPasswordInput'
+  REP_PASSWORD_INPUT = 'repPasswordInput',
 }
 
 export const registrationPageButtonData = {
@@ -91,7 +91,7 @@ export const registrationInputsBlockData = [
     class: 'form_input font_13',
   },
   {
-    ref: REGISTRATION_PAGE_INPUT_REFS.PASSWORD_INPUT ,
+    ref: REGISTRATION_PAGE_INPUT_REFS.PASSWORD_INPUT,
     regex: '',
     required: true,
     error: '',
@@ -116,6 +116,6 @@ export const registrationInputsBlockData = [
     value: '123456789',
     errorText: 'Пароли не совпадают',
     errorClass: '',
-    class: 'form_input font_13'
+    class: 'form_input font_13',
   },
 ];

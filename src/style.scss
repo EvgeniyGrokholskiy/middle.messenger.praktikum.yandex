@@ -1,7 +1,7 @@
-@import 'variables.scss';
+@import 'variables';
 @import 'fonts';
 
-//components
+// components
 @import '/components/link';
 @import '/components/form';
 @import '/components/popup';
@@ -11,7 +11,6 @@
 @import '/components/chatItem';
 @import '/components/sendButton';
 @import '/components/inputBlock';
-@import '/components/searchInput';
 @import '/components/searchInput';
 @import '/components/inputElement';
 @import '/components/addFileButton';
@@ -25,7 +24,7 @@
 @import '/components/userProfileInputBlock';
 @import '/components/unreadMessageIndicator';
 
-//partials
+// partials
 @import '/partials/divider';
 @import '/partials/messageTime';
 
@@ -106,5 +105,5 @@ button {
 }
 
 .form_input-error {
-  color: #FF2F2F;
+  color: #ff2f2f;
 }

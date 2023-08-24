@@ -1,6 +1,5 @@
 import Block from '../../utils/block';
 import template from './registration.hbs';
-
 import { renderLogin, renderLoginPage } from '../../utils/helpers';
 import {
   registrationInputsBlockData,

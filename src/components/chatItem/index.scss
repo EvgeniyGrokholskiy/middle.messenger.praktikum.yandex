@@ -4,7 +4,8 @@
   position: relative;
   padding: 2px 0;
   width: 100%;
-  &:before {
+
+  &::before {
     content : "";
     position: absolute;
     left    : calc(5% / 2);
@@ -35,10 +36,11 @@
   justify-content: center;
   height: 2.937rem;
   min-width: 2.937rem;
-  & img {
-    height: 2.937rem;
-    width: 2.937rem;
-  }
+}
+
+.chat-item-avatar-wrapper img {
+  height: 2.937rem;
+  width: 2.937rem;
 }
 
 .chat-item-message-data-wrapper {
@@ -52,8 +54,6 @@
   flex-grow: 1;
   justify-content: space-between;
 }
-
-.chat-item-chat-name {}
 
 .chat-item-last-message-time {
   color: $light-gray;

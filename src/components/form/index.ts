@@ -1,8 +1,7 @@
 import Block from '../../utils/block';
 import template from './form.hbs';
-
 import { formDataLogger } from '../../utils/helpers';
-import { InputBlock } from '../inputBlock/index';
+import { InputBlock } from '../inputBlock';
 
 export class Form extends Block {
   constructor(props) {
@@ -14,15 +13,15 @@ export class Form extends Block {
     });
   }
 
-  submit (event: Event): void {
+  submit(event: Event): void {
     const inputs = this.getInputsBlocks();
     let isValid = true;
 
     inputs.forEach(item => {
       item.validateInput();
-    })
+    });
 
-    inputs.forEach(input => !input.getIsValid() ?  isValid = false : '' )
+    inputs.forEach(input => (!input.getIsValid() ? (isValid = false) : ''));
 
     event.preventDefault();
     if (isValid) {
@@ -38,11 +37,9 @@ export class Form extends Block {
     const inputValues: Record<string, string> = {};
     const refsArray = this.getInputsBlocks();
 
-    const inputs = refsArray.map(inputBlock => {
-      return inputBlock.getContent()!.querySelector('input');
-    });
+    const inputs = refsArray.map(inputBlock => inputBlock.getContent()!.querySelector('input'));
 
-    inputs.forEach(input => inputValues[input.name] = input.value);
+    inputs.forEach(input => (inputValues[input.name] = input.value));
 
     return inputValues;
   }

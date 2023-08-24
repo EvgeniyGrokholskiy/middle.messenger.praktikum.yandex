@@ -1,7 +1,7 @@
 import Block from '../../utils/block';
 import template from './userProfileInputBlock.hbs';
 import { validate } from '../../utils/validator';
-import { InputElement } from '../inputElement/index';
+import { InputElement } from '../inputElement';
 
 type TProps = {
   ref: string;
@@ -16,7 +16,7 @@ type TProps = {
   error: boolean;
   errorText: string;
   class: string;
-}
+};
 
 export class UserProfileInputBlock extends Block {
   private state: Record<string, any> = {
@@ -80,7 +80,7 @@ export class UserProfileInputBlock extends Block {
       error: '',
       errorText: '',
       errorClass: '',
-    })
+    });
   }
 
   protected render(): DocumentFragment {

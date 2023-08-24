@@ -23,7 +23,7 @@ type TProps = {
 export class InputElement extends Block {
   constructor(props: TProps) {
     super({
-      ... props,
+      ...props,
       disabled: props.disabled,
       events: {
         blur: props.onBlur,
@@ -31,7 +31,7 @@ export class InputElement extends Block {
         focus: props.onFocus,
       },
     });
-  };
+  }
 
   public getName(): InputType | '' {
     const element = this.getContent() as HTMLInputElement;

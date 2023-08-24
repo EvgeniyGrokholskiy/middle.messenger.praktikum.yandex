@@ -3,7 +3,7 @@ export enum LOGIN_PAGE_INPUT_REFS {
   PASSWORD_INPUT = 'passwordInput',
 }
 
-export type TInputProps = typeof loginPageInputBlockData[0];
+export type TInputProps = (typeof loginPageInputBlockData)[0];
 
 export const loginPageButtonData = {
   innerText: 'Вход',
@@ -29,7 +29,7 @@ export const loginPageInputBlockData = [
     placeholder: 'Логин',
     value: '',
     errorText: 'Неверный логин',
-    class: 'form_input font_13'
+    class: 'form_input font_13',
   },
   {
     ref: LOGIN_PAGE_INPUT_REFS.PASSWORD_INPUT,

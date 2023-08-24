@@ -1,6 +1,6 @@
 import Block from '../../utils/block';
 import template from './newMessageInput.hbs';
-import { InputElement } from '../inputElement/index';
+import { InputElement } from '../inputElement';
 import { validate } from '../../utils/validator';
 
 type TProps = {
@@ -17,13 +17,14 @@ const inputProps = {
   name: 'message',
   class: 'new-message font_12',
   value: '',
-}
+};
 
 export class NewMessageInput extends Block {
   private state = {
     value: '',
     isValid: false,
-  }
+  };
+
   constructor(props: TProps) {
     super({
       ...props,
@@ -49,7 +50,6 @@ export class NewMessageInput extends Block {
 
   public validateInput(): void {
     const [element] = this.getInputsBlocks();
-    console.log('blur', element.getName());
     const name = element.getName();
     const errorMessage = validate(this.state.value, name);
 
@@ -77,7 +77,7 @@ export class NewMessageInput extends Block {
       error: '',
       errorText: '',
       errorClass: '',
-    })
+    });
   }
 
   protected render(): DocumentFragment {

@@ -12,7 +12,7 @@ type TProps = {
   events: {
     click: () => void;
   };
-}
+};
 
 export class AddFile extends Block {
   constructor(props: TProps) {
