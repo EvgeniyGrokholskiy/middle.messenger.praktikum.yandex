@@ -1,0 +1,10 @@
+<div class='user-profile_avatar-wrapper {{class}}'>
+    {{#if imageSrc}}
+        <img src='{{imageSrc}}' class='user-profile_avatar-image'>
+    {{else}}
+        {{{Avatar src=avatarBackground class='avatar-big' }}}
+        <div class='user-profile_avatar-cover'>
+            <span class='avatar-cover_text'>Поменять аватар</span>
+        </div>
+    {{/if}}
+</div>

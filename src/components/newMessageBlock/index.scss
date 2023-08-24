@@ -1,0 +1,13 @@
+@import 'src/variables';
+
+.new-message_wrapper {
+  border-top: 1px solid $divider;
+  display: flex;
+  align-items: center;
+  padding-top:0.6875rem;
+}
+
+.new-message_error-message {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}

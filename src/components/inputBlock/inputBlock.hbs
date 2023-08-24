@@ -1,0 +1,23 @@
+<div class='input-block {{wrapperClass}}'>
+    {{#if isValue }}
+       <label for='{{for}}' class='input-block_label font_9'>{{placeholder}}</label>
+    {{/if}}
+    {{{InputElement
+            ref=ref
+            regex=regex
+            required=required
+            for=for
+            name=name
+            type=type
+            value=value
+            onBlur=onBlur
+            onKeyup=onKeyup
+            onFocus=onFocus
+            errorClass=errorClass
+            placeholder=placeholder
+            class=class
+    }}}
+    {{#if error}}
+        <span class='error-indicator font_9 {{errorClass}}'>{{errorText}}</span>
+    {{/if}}
+</div>

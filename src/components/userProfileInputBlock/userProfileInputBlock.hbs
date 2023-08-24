@@ -1,0 +1,33 @@
+{{#if isShowButton}}
+    <div class='block-wrapper block-wrapper_link {{class}}'>
+        <button class='block_link link font_13'>{{header}}</button>
+    </div>
+{{else}}
+    <div class='user-input-block_wrapper'>
+        <div class='block-wrapper'>
+            {{#unless isShowButton}}
+                <label for='{{id}}' class='block_header font_13'>{{header}}</label>
+            {{/unless}}
+            {{{InputElement
+                    ref=ref
+                    regex=regex
+                    required=required
+                    disabled=disabled
+                    for=id
+                    name=name
+                    type=type
+                    value=value
+                    onBlur=onBlur
+                    onKeyup=onKeyup
+                    onFocus=onFocus
+                    errorClass=errorClass
+                    placeholder=placeholder
+                    class=class
+            }}}
+        </div>
+        {{#if error}}
+            <p class='error-indicator font_9 {{errorClass}}'>{{errorText}}</p>
+        {{/if}}
+    </div>
+{{/if}}
+

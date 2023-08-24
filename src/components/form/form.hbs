@@ -1,0 +1,35 @@
+<form class='login-form' action=''>
+    <div class='login-form_header-wrapper header-wrapper'>
+        {{{ Paragraph text='Вход' class='font_20' }}}
+    </div>
+    <div class='login-form_input-block form_inputs-wrapper'>
+        {{#each inputData}}
+            {{{InputBlock
+                    ref=this.ref
+                    for=this.for
+                    name=this.name
+                    type=this.type
+                    class=this.class
+                    value=this.value
+                    error=this.error
+                    regex=this.regex
+                    focus=this.onFocus
+                    onBlur=this.onBlur
+                    onKeyup=this.onKeyup
+                    errorClass=errorClass
+                    required=this.required
+                    errorText=this.errorText
+                    placeholder=this.placeholder
+            }}}
+        {{/each}}
+    </div>
+    <div class='form_buttons-wrapper {{buttonData.class}}'>
+        {{{ Button innerText=buttonData.innerText class='form_button' type=buttonData.type }}}
+        {{{ Link
+                href=linkData.href
+                linkText=linkData.linkText
+                onClick=renderRegisterPage
+                class='font_13'
+        }}}
+    </div>
+</form>
