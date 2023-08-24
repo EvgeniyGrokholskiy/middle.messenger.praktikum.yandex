@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '../../utils/block';
 import template from './login.hbs';
 import { renderChat, renderRegisterPage } from '../../utils/helpers';
 import {

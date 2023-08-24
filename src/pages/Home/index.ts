@@ -1,4 +1,4 @@
-import Block from '../../utils/Block';
+import Block from '../../utils/block';
 import template from './home.hbs';
 import { links } from '../../common/indexPage';
 
