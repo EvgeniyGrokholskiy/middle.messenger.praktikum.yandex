@@ -3,8 +3,12 @@ import template from './form.hbs';
 import { formDataLogger } from '../../utils/helpers';
 import { InputBlock } from '../inputBlock';
 
+type TProps = {
+  events: Record<string, Function>;
+}
+
 export class Form extends Block {
-  constructor(props) {
+  constructor(props: TProps) {
     super({
       ...props,
       events: {
