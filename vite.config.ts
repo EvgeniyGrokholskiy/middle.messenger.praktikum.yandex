@@ -1,5 +1,7 @@
 import { resolve } from 'path';
+
 import { defineConfig } from 'vite';
+
 import vitePluginHandlebarsPrecompile from './vite-plugin-handelbars-precompile';
 
 export default defineConfig({

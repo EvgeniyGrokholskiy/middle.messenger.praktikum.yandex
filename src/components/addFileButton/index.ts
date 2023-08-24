@@ -1,13 +1,13 @@
 import Block from '../../utils/block';
 import template from './addFileButton.hbs';
-import image from '../../img/addIcon.svg'
+import image from '../../img/addIcon.svg';
 
 type TProps = {
   class: string;
   onClick: () => void;
   events: {
     click: () => void;
-  }
+  };
 };
 
 export class AddFileButton extends Block {

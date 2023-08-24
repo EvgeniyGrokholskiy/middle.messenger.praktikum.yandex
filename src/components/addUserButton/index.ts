@@ -6,7 +6,7 @@ type TProps = {
   onClick: () => void;
   events: {
     onclick: () => void;
-  }
+  };
 };
 
 export class AddUserButton extends Block {

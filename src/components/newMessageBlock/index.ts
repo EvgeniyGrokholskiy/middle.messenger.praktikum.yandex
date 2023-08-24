@@ -1,12 +1,8 @@
 import Block from '../../utils/block';
 import template from './newMessageBlock.hbs';
 
-type TProps = {
-
-};
-
 export class NewMessageBlock extends Block {
-  constructor(props: TProps) {
+  constructor(props) {
     super(props);
   }
 

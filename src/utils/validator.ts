@@ -1,8 +1,16 @@
 import { REGEXP } from '../common/regexp';
 
-export type InputType = 'first_name' | 'second_name' | 'login' | 'email' | 'password' | 'phone' | 'message' | '';
+export type InputType =
+  | 'first_name'
+  | 'second_name'
+  | 'login'
+  | 'email'
+  | 'password'
+  | 'phone'
+  | 'message'
+  | '';
 
-type TValidate = (value: string, inputName: InputType) => string | null
+type TValidate = (value: string, inputName: InputType) => string | null;
 
 const nameValidator = (name: string): string | null => {
   if (!name.trim()) {
@@ -43,7 +51,7 @@ const loginValidator = (login: string): string | null => {
     return 'Нельзя использовать спец символы и пробелы, допустимы дефис и нижнее подчёркивание(- _)';
   }
   return null;
-}
+};
 
 const emailValidator = (email: string): string | null => {
   if (!email.trim()) {
@@ -57,7 +65,7 @@ const emailValidator = (email: string): string | null => {
     return 'Допустима только латиница';
   }
   return null;
-}
+};
 
 const passwordValidator = (password: string): string | null => {
   if (password.length < 8 || password.length > 40) {
@@ -67,7 +75,7 @@ const passwordValidator = (password: string): string | null => {
     return 'Требуется хотя бы одна заглавная буква и цифра.';
   }
   return null;
-}
+};
 
 const phoneValidator = (phone: string): string | null => {
   if (phone.length < 10 || phone.length > 15) {
@@ -77,14 +85,14 @@ const phoneValidator = (phone: string): string | null => {
     return 'Можно использовать только цифры и плюс в начале номера';
   }
   return null;
-}
+};
 
 const messageValidator = (message: string): string | null => {
   if (!message.trim()) {
     return 'Сообщение не должно быть пустым.';
   }
   return null;
-}
+};
 
 export const validate: TValidate = (value, inputName) => {
   switch (inputName) {
@@ -105,6 +113,7 @@ export const validate: TValidate = (value, inputName) => {
       return phoneValidator(value);
     case 'message':
       return messageValidator(value);
+    default:
+      return null;
   }
-  return null;
-}
+};

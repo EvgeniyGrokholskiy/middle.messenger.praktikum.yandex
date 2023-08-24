@@ -1,24 +1,8 @@
 import Block from '../../utils/block';
 import template from './inputBlock.hbs';
-
+import { InputElement } from '../inputElement';
 import { validate } from '../../utils/validator';
 import { TInputProps } from '../../common/loginPage';
-import { InputElement } from '../inputElement/index';
-
-type TProps = {
-  for: string;
-  placeholder: string;
-  name: string;
-  type: 'password' | 'text';
-  value: string;
-  error: boolean;
-  errorText: string;
-  onFocus: () => void;
-  onBlur: () => void;
-  onKeyup: (e: Event) => void;
-  errorClass: string;
-  class: string;
-}
 
 export class InputBlock extends Block {
   private state: Record<string, any> = {
@@ -35,10 +19,10 @@ export class InputBlock extends Block {
       },
       onBlur: () => {
         this.validateInput();
-      }
+      },
     });
     this.state.value = this.props.value;
-  };
+  }
 
   getIsValid() {
     return this.state.isValid;
@@ -83,7 +67,7 @@ export class InputBlock extends Block {
       error: '',
       errorText: '',
       errorClass: '',
-    })
+    });
   }
 
   protected render(): DocumentFragment {

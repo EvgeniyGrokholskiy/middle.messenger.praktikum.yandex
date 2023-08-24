@@ -27,9 +27,9 @@ export class UserProfile extends Block {
       },
       disablePasswordEditMode: () => {
         this.disablePasswordEditMode();
-      }
+      },
     });
-  };
+  }
 
   activateUserDataEditMode() {
     this.refs.userProfileSettingBlock.hide();

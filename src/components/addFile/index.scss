@@ -2,8 +2,7 @@
 
 .addFile_wrapper {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  flex-flow: column wrap;
   align-items: center;
   justify-content: center;
   gap: 2.6875rem;
@@ -17,6 +16,7 @@
   text-align: center;
   height: 2rem;
   width: 7.625rem;
+
   &:hover {
     text-decoration: underline;
   }

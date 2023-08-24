@@ -23,7 +23,7 @@ export const userProfilePage = {
       name: 'email',
       type: 'text',
       value: 'pochta@yandex.ru',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.LOGIN,
@@ -35,7 +35,7 @@ export const userProfilePage = {
       name: 'login',
       type: 'text',
       value: 'ivanivanov',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.FIRST_NAME,
@@ -47,7 +47,7 @@ export const userProfilePage = {
       name: 'firstName',
       type: 'text',
       value: 'Иван',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.SECOND_NAME,
@@ -59,7 +59,7 @@ export const userProfilePage = {
       name: 'second_name',
       type: 'text',
       value: 'Иванов',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.DISPLAY_NAME,
@@ -71,7 +71,7 @@ export const userProfilePage = {
       name: 'display_name',
       type: 'text',
       value: 'Иван',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.PHONE,
@@ -96,7 +96,7 @@ export const userProfilePage = {
       name: 'password',
       type: 'password',
       value: '1111111',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.NEW_PASSWORD,
@@ -107,7 +107,7 @@ export const userProfilePage = {
       name: 'newPassword',
       type: 'password',
       value: '123456789',
-      class: 'block_input block_input_no-background font_13'
+      class: 'block_input block_input_no-background font_13',
     },
     {
       ref: USER_PROFILE_REFS.REP_NEW_PASSWORD,

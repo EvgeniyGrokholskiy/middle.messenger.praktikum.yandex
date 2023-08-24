@@ -8,8 +8,8 @@ type TProps = {
   onClick: () => void;
   events: {
     click: () => void;
-  }
-}
+  };
+};
 
 export class Link extends Block {
   constructor(props: TProps) {

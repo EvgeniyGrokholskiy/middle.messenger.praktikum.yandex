@@ -1,9 +1,9 @@
 import Block from '../../utils/block';
 import template from './sendButton.hbs';
-import image from '../../img/rightArrow.svg'
+import image from '../../img/rightArrow.svg';
 
 type TProps = {
-
+  imageSrc: image;
 };
 
 export class SendButton extends Block {

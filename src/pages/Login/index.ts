@@ -1,8 +1,11 @@
 import Block from '../../utils/Block';
 import template from './login.hbs';
-
 import { renderChat, renderRegisterPage } from '../../utils/helpers';
-import { loginPageButtonData, loginPageInputBlockData, loginPageLinkData } from '../../common/loginPage';
+import {
+  loginPageButtonData,
+  loginPageInputBlockData,
+  loginPageLinkData,
+} from '../../common/loginPage';
 
 export class LoginPage extends Block {
   constructor() {
@@ -13,9 +16,9 @@ export class LoginPage extends Block {
       buttonData: loginPageButtonData,
       linkData: loginPageLinkData,
     });
-  };
+  }
 
   render() {
     return this.compile(template, this.props);
-  };
+  }
 }

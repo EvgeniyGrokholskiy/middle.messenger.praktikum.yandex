@@ -1,4 +1,5 @@
 import { nanoid } from 'nanoid';
+
 import { EventBus } from './EventBus';
 import { InputType } from './validator';
 
@@ -11,12 +12,18 @@ class Block {
   };
 
   public id = nanoid(6);
-  protected props: any;
+
+  protected props: Record<string, any>;
+
   protected refs: Record<string, Block> = {};
+
   public children: Record<string, Block>;
+
   private eventBus: () => EventBus;
+
   private _element: HTMLElement | null = null;
-  private _meta: { props: any; };
+
+  private _meta: { props: any };
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
@@ -37,7 +44,7 @@ class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  _getChildrenAndProps(childrenAndProps: any) {
+  private _getChildrenAndProps(childrenAndProps: any) {
     const props: Record<string, any> = {};
     const children: Record<string, Block> = {};
 
@@ -52,7 +59,7 @@ class Block {
     return { props, children };
   }
 
-  _addEvents() {
+  private _addEvents() {
     const { events = {} } = this.props as { events: Record<string, () => void> };
 
     Object.keys(events).forEach(eventName => {
@@ -62,7 +69,7 @@ class Block {
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -75,15 +82,13 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init() {
-  }
+  protected init() {}
 
-  _componentDidMount() {
+  private _componentDidMount() {
     this.componentDidMount();
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -97,11 +102,12 @@ class Block {
     }
   }
 
+  // eslint-disable-next-line
   protected componentDidUpdate(oldProps: any, newProps: any) {
     return true;
   }
 
-  setProps = (nextProps: any) => {
+  public setProps = (nextProps: any) => {
     if (!nextProps) {
       return;
     }
@@ -109,7 +115,7 @@ class Block {
     Object.assign(this.props, nextProps);
   };
 
-  get element() {
+  public get element() {
     return this._element;
   }
 
@@ -128,7 +134,7 @@ class Block {
   }
 
   protected compile(template: (context: any) => string, context: any) {
-    const contextAndStubs = { ... context, __refs: this.refs };
+    const contextAndStubs = { ...context, __refs: this.refs };
 
     const html = template(contextAndStubs);
 
@@ -161,7 +167,7 @@ class Block {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target, prop, value) {
-        const oldTarget = { ... target };
+        const oldTarget = { ...target };
 
         target[prop] = value;
 
@@ -177,18 +183,16 @@ class Block {
     });
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     return document.createElement(tagName);
   }
 
   public getName(): InputType | '' {
     return '';
-  };
+  }
 
-  public validateInput(ref?: string | undefined) {
-    return '';
-  };
+  public validateInput() {}
 
   public enableEditMode() {}
 
