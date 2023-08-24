@@ -1,0 +1,26 @@
+<form name='user-profile' class='user-profile_form {{class}}'>
+    {{#each data}}
+        {{{UserProfileInputBlock
+                ref=this.ref
+                regex=this.regex
+                required=this.required
+                isShowButton=this.isShowButton
+                class=this.class
+                header=this.header
+                id=this.id
+                disabled=this.disabled
+                type=this.type
+                name=this.name
+                value=this.value
+                placeholder=this.placeholder
+                class=class
+        }}}
+    {{/each }}
+    {{{Button
+            ref='saveButtonRef'
+            type='submit'
+            innerText=saveButtonInnerText
+            onClick=disableEditMode
+            class='form_button font_13 user-profile_save-button'
+    }}}
+</form>

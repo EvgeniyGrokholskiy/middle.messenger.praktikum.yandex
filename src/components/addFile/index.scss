@@ -1,0 +1,42 @@
+@import 'src/variables';
+
+.addFile_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.6875rem;
+}
+
+.addFile_label {
+  color: $light-blue;
+  cursor: pointer;
+  display: block;
+  line-height: 1rem;
+  text-align: center;
+  height: 2rem;
+  width: 7.625rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.add-file_input {
+  display: none;
+}
+
+.addFile_button-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.add-file_replace-button {
+  width: 17.5rem;
+}
+
+.addFile_error {
+  color: $red-alert;
+}
+
