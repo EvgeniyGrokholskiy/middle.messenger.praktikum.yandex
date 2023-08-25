@@ -19,32 +19,32 @@ class Block {
 
   public children: Record<string, Block>;
 
-  private eventBus: () => EventBus;
+  private _eventBus: () => EventBus;
 
   private _element: HTMLElement | null = null;
 
-  private _meta: { props: any };
+  private meta: { props: any } = { props: '' };
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
-    const { props, children } = this._getChildrenAndProps(propsWithChildren);
+    const { props, children } = this.getChildrenAndProps(propsWithChildren);
 
-    this._meta = {
+    this.meta = {
       props,
     };
 
     this.children = children;
-    this.props = this._makePropsProxy(props);
+    this.props = this.makePropsProxy(props);
 
-    this.eventBus = () => eventBus;
+    this._eventBus = () => eventBus;
 
-    this._registerEvents(eventBus);
+    this.registerEvents(eventBus);
 
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  private _getChildrenAndProps(childrenAndProps: any) {
+  private getChildrenAndProps(childrenAndProps: any) {
     const props: Record<string, any> = {};
     const children: Record<string, Block> = {};
 
@@ -59,7 +59,7 @@ class Block {
     return { props, children };
   }
 
-  private _addEvents() {
+  private addEvents() {
     const { events = {} } = this.props as { events: Record<string, () => void> };
 
     Object.keys(events).forEach(eventName => {
@@ -69,7 +69,7 @@ class Block {
     });
   }
 
-  private _registerEvents(eventBus: EventBus) {
+  private registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -79,7 +79,7 @@ class Block {
   private _init() {
     this.init();
 
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   protected init() {}
@@ -91,14 +91,14 @@ class Block {
   componentDidMount() {}
 
   public dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this._eventBus().emit(Block.EVENTS.FLOW_CDM);
 
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
   private _componentDidUpdate(oldProps: any, newProps: any) {
     if (this.componentDidUpdate(oldProps, newProps)) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
@@ -130,7 +130,7 @@ class Block {
 
     this._element = newElement;
 
-    this._addEvents();
+    this.addEvents();
   }
 
   protected compile(template: (context: any) => string, context: any) {
@@ -153,11 +153,11 @@ class Block {
     return new DocumentFragment();
   }
 
-  public getContent() {
+  protected getContent() {
     return this.element;
   }
 
-  private _makePropsProxy(props: any) {
+  private makePropsProxy(props: any) {
     // Ещё один способ передачи this, но он больше не применяется с приходом ES6+
     const self = this;
 
@@ -173,7 +173,7 @@ class Block {
 
         // Запускаем обновление компоненты
         // Плохой cloneDeep, в следующей итерации нужно заставлять добавлять cloneDeep им самим
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        self._eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
       deleteProperty() {
@@ -183,10 +183,10 @@ class Block {
     });
   }
 
-  private _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-    return document.createElement(tagName);
-  }
+  // private _createDocumentElement(tagName: string) {
+  //   // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  //   return document.createElement(tagName);
+  // }
 
   public getName(): InputType | '' {
     return '';
@@ -196,7 +196,9 @@ class Block {
 
   public enableEditMode() {}
 
-  public getIsValid() {}
+  public getIsValid(): boolean {
+    return true;
+  }
 
   public show() {
     this.getContent()!.style.display = 'block';

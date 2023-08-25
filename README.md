@@ -25,7 +25,15 @@ The design mockups for this project are available on Figma. You can view them [h
 
 ## Version
 
-0.0.1
+0.0.2
+
+##Implemented in version 0.2:
+ - Added component approach,
+ - Implemented validation of form fields
+ - Added output of form data to the console when submitting
+ - Implemented precompile rendering
+ - Added HTTP Transport
+ - Embedded characters (ESLint, Stylelint)
 
 ## Installation
 
@@ -66,22 +74,38 @@ You can run the following scripts defined in `package.json`:
 - `npm run build`: Builds the application using Vite
 - `npm run start`: Builds the application and then starts the Express server
 - `npm run preview`: Starts the Vite preview server
+- `npm run lint:eslint`: Starts the ESLint, to analyze and report any code style or syntax errors in project
+- `npm run lint:stylelint`: Starts the Stylelint, to analyze and report any CSS code style errors in project
+- `npm run lint:fix`: Starts the linters (ESLint and Stylelint), to automatically fixes any fixable errors or warnings in your code
 
 # Dependencies
 
 ## Development Dependencies
 
 - `@types/node`
+- `@typescript-eslint/eslint-plugin`
+- `@typescript-eslint/parser`
 - `autoprefixer`
+- `eslint`
+- `eslint-config-airbnb`
+- `eslint-config-prettier`
+- `eslint-plugin-import`
+- `eslint-plugin-prettier`
 - `express`
+- `prettier`
 - `sass`
+- `stylelint`
+- `stylelint-config-standard`
+- `stylelint-config-standard-scss`
+- `stylelint-scss`
 - `typescript`
-- `vite`
 - `vite-plugin-handlebars`
 
 # Production Dependencies
 
+- `handlebars`
 - `normalize.css`
+- `vite`
 
 # Author
 

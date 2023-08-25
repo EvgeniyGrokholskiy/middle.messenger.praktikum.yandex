@@ -3,12 +3,18 @@ import template from './userProfileForm.hbs';
 import { formDataLogger } from '../../utils/helpers';
 import { UserProfileInputBlock } from '../userProfileInputBlock';
 
+type TProps = {
+  data: Record<string, string | boolean>;
+  class: string;
+  saveButtonInnerText: string;
+};
+
 export class UserProfileForm extends Block {
   private state = {
     isValid: false,
   };
 
-  constructor(props) {
+  constructor(props: TProps) {
     super({
       ...props,
       data: props.data,
@@ -54,9 +60,22 @@ export class UserProfileForm extends Block {
     const inputValues: Record<string, string> = {};
     const refsArray = this.getInputsBlocks();
 
-    const inputs = refsArray.map(inputBlock => inputBlock.getContent()!.querySelector('input'));
+    const inputs = refsArray
+      .map(inputBlock => {
+        const element = inputBlock.getContent();
 
-    inputs.forEach(input => (inputValues[input.name] = input.value));
+        if (element) {
+          return element.querySelector('input');
+        }
+        return null;
+      })
+      .filter(item => !!item);
+
+    inputs.forEach(input => {
+      if (input?.name) {
+        inputValues[input.name] = input.value;
+      }
+    });
 
     return inputValues;
   }

@@ -24,7 +24,7 @@ export class InputBlock extends Block {
     this.state.value = this.props.value;
   }
 
-  getIsValid() {
+  getIsValid(): boolean {
     return this.state.isValid;
   }
 
@@ -33,7 +33,7 @@ export class InputBlock extends Block {
   }
 
   keyUpHandler(event: Event): void {
-    const { value } = event.target;
+    const { value } = event.target as HTMLInputElement;
     this.state.value = value;
   }
 

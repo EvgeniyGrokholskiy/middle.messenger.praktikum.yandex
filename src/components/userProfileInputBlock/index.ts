@@ -46,7 +46,7 @@ export class UserProfileInputBlock extends Block {
   }
 
   keyUpHandler(event: Event): void {
-    const { value } = event.target;
+    const { value } = event.target as HTMLInputElement;
     this.state.value = value;
   }
 
