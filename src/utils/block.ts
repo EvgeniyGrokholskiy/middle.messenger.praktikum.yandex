@@ -22,14 +22,14 @@ class Block {
   private _eventBus: () => EventBus;
 
   private _element: HTMLElement | null = null;
-
+  // eslint-disable-next-line
   private meta: { props: any } = { props: '' };
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this.getChildrenAndProps(propsWithChildren);
-
+    // eslint-disable-next-line
     this.meta = {
       props,
     };

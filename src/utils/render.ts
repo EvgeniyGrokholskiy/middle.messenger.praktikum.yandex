@@ -1,8 +1,8 @@
-import { Error5XX } from '../pages/5XX';
-import { HomePage } from '../pages/Home';
-import { LoginPage } from '../pages/Login';
 import { Chat } from '../pages/chat';
 import { Error404 } from '../pages/404';
+import { Error5XX } from '../pages/5XX';
+import { HomePage } from '../pages/home';
+import { LoginPage } from '../pages/login';
 import { UserProfile } from '../pages/userProfile';
 import { Registration } from '../pages/registration';
 
