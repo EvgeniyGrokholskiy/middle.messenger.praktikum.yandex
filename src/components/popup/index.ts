@@ -1,8 +1,12 @@
 import Block from '../../utils/block';
 import template from './popup.hbs';
 
+type TProps = {
+  class: string;
+};
+
 export class Popup extends Block {
-  constructor(props) {
+  constructor(props: TProps) {
     super(props);
   }
 

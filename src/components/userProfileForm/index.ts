@@ -3,12 +3,18 @@ import template from './userProfileForm.hbs';
 import { formDataLogger } from '../../utils/helpers';
 import { UserProfileInputBlock } from '../userProfileInputBlock';
 
+type TProps = {
+  data: Record<string, string | boolean>;
+  class: string;
+  saveButtonInnerText: string;
+};
+
 export class UserProfileForm extends Block {
   private state = {
     isValid: false,
   };
 
-  constructor(props) {
+  constructor(props: TProps) {
     super({
       ...props,
       data: props.data,

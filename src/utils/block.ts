@@ -23,7 +23,7 @@ class Block {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: { props: any } = {};
+  private _meta: { props: any } = { props: '' };
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();

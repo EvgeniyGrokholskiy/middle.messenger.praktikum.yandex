@@ -1,9 +1,9 @@
 interface IHTTPTransport {
-  get: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
-  put: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
-  post: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
-  delete: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
-  request: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  get: (url: string, options: Record<string, any>) => Promise<unknown>;
+  put: (url: string, options: Record<string, any>) => Promise<unknown>;
+  post: (url: string, options: Record<string, any>) => Promise<unknown>;
+  delete: (url: string, options: Record<string, any>) => Promise<unknown>;
+  request: (url: string, options: Record<string, any>) => Promise<unknown>;
 }
 
 const METHODS = {
@@ -39,7 +39,7 @@ export class HTTPTransport implements IHTTPTransport {
   delete = (url: string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url: string, options, timeout = 5000) =>
+  request = (url: string, options: Record<string, any> = {}, timeout = 5000) =>
     new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const { method, data, headers, withCredentials } = options;

@@ -10,7 +10,7 @@
     "dev": "vite --open",
     "build": "vite build",
     "start": "vite build && node server.js --open",
-    "preview": "vite preview",
+    "preview": "vite preview --open",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
     "lint:fix": "eslint --fix --ext .ts,.tsx ."
