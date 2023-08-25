@@ -1,6 +1,6 @@
 import { Error5XX } from '../pages/5XX';
-import { HomePage } from '../pages/Home';
-import { LoginPage } from '../pages/Login';
+import { HomePage } from '../pages/home';
+import { LoginPage } from '../pages/login';
 import { Chat } from '../pages/chat';
 import { Error404 } from '../pages/404';
 import { UserProfile } from '../pages/userProfile';
