@@ -22,17 +22,17 @@ class Block {
   private _eventBus: () => EventBus;
 
   private _element: HTMLElement | null = null;
-  // eslint-disable-next-line
-  private meta: { props: any } = { props: '' };
+
+  // private meta: { props: any } = { props: '' };
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this.getChildrenAndProps(propsWithChildren);
-    // eslint-disable-next-line
-    this.meta = {
-      props,
-    };
+
+    // this.meta = {
+    //   props,
+    // };
 
     this.children = children;
     this.props = this.makePropsProxy(props);
@@ -96,14 +96,17 @@ class Block {
     Object.values(this.children).forEach(child => child.dispatchComponentDidMount());
   }
 
-  private _componentDidUpdate(oldProps: any, newProps: any) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+  // private _componentDidUpdate(oldProps: any, newProps: any) {
+  //     if (this.componentDidUpdate(oldProps, newProps)) {
+  private _componentDidUpdate() {
+    if (this.componentDidUpdate()) {
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
   // eslint-disable-next-line
-  protected componentDidUpdate(oldProps: any, newProps: any) {
+  // protected componentDidUpdate(oldProps: any, newProps: any) {
+  protected componentDidUpdate() {
     return true;
   }
 
