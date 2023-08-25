@@ -1,7 +1,7 @@
 import Block from '../../utils/block';
 import template from './form.hbs';
 import { formDataLogger } from '../../utils/helpers';
-import { InputBlock } from '../inputBlock';
+import { InputBlock } from '../inputBlock/index';
 
 type TProps = {
   events: Record<string, any>;

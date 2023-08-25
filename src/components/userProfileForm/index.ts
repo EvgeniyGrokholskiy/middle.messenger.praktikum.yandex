@@ -1,7 +1,7 @@
 import Block from '../../utils/block';
 import template from './userProfileForm.hbs';
 import { formDataLogger } from '../../utils/helpers';
-import { UserProfileInputBlock } from '../userProfileInputBlock';
+import { UserProfileInputBlock } from '../userProfileInputBlock/index';
 
 type TProps = {
   data: Record<string, string | boolean>;
