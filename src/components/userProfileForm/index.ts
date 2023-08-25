@@ -54,17 +54,22 @@ export class UserProfileForm extends Block {
     const inputValues: Record<string, string> = {};
     const refsArray = this.getInputsBlocks();
 
-    const inputs = refsArray.map(inputBlock => {
-      const element = inputBlock.getContent();
+    const inputs = refsArray
+      .map(inputBlock => {
+        const element = inputBlock.getContent();
 
-      if (element) {
-        return element.querySelector('input');
+        if (element) {
+          return element.querySelector('input');
+        }
+        return null;
+      })
+      .filter(item => !!item);
+
+    inputs.forEach(input => {
+      if (input?.name) {
+        inputValues[input.name] = input.value;
       }
-
-      return {};
     });
-    // eslint-disable-next-line
-    inputs.forEach(input => (inputValues[input.name] = input.value));
 
     return inputValues;
   }
