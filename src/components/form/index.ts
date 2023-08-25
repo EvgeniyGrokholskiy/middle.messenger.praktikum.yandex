@@ -49,8 +49,9 @@ export class Form extends Block {
       if (element) {
         return element.querySelector('input');
       }
+      return {};
     });
-
+    // eslint-disable-next-line
     inputs.forEach(input => (inputValues[input.name] = input.value));
 
     return inputValues;
