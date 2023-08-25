@@ -5,7 +5,7 @@ interface IEventBus {
 }
 
 export class EventBus implements IEventBus {
-  private readonly listeners: Record<string, Array<() => void>> = {};
+  private readonly listeners: Record<string, ((props: any[]) => void)[]> = {};
 
   on(event: string, callback: (...args: unknown[]) => void) {
     if (!this.listeners[event]) {
