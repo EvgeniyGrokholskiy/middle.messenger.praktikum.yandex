@@ -156,7 +156,7 @@ class Block {
     return new DocumentFragment();
   }
 
-  protected getContent() {
+  public getContent() {
     return this.element;
   }
 
