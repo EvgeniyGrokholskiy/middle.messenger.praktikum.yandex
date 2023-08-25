@@ -3,10 +3,6 @@ import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
 import { InputType } from './validator';
 
-interface IBlock {
-
-}
-
 class Block {
   static EVENTS = {
     INIT: 'init',
