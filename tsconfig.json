@@ -5,12 +5,10 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "rootDir": "./src",
-    "moduleResolution":"node",
     "target": "ES6",
     "lib": [
       "esnext",
-      "dom",
-    ],
-  },
+      "dom"
+    ]
+  }
 }
