@@ -4,8 +4,8 @@ import { formDataLogger } from '../../utils/helpers';
 import { InputBlock } from '../inputBlock';
 
 type TProps = {
-  events: Record<string, Function>;
-}
+  events: Record<string, any>;
+};
 
 export class Form extends Block {
   constructor(props: TProps) {

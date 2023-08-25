@@ -2,10 +2,10 @@ const METHODS = {
   GET: 'GET',
   PUT: 'PUT',
   POST: 'POST',
-  DELETE: 'DELETE'
+  DELETE: 'DELETE',
 };
 
-const queryStringify = (data: Record<string, string>) =>  {
+const queryStringify = (data: Record<string, string>) => {
   if (typeof data !== 'object') {
     throw new Error('Data must be object');
   }
@@ -15,7 +15,7 @@ const queryStringify = (data: Record<string, string>) =>  {
   return keys.reduce((result, key, index) => {
     return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
   }, '?');
-}
+};
 
 export class HTTPTransport {
   get = (url, options: Record<string, any> = {}) => {
@@ -26,7 +26,7 @@ export class HTTPTransport {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   };
 
-  post =(url, options: Record<string, any> = {}) => {
+  post = (url, options: Record<string, any> = {}) => {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   };
 
@@ -37,7 +37,7 @@ export class HTTPTransport {
   request = (url, options, timeout = 5000) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const { method, data, headers,  withCredentials} = options;
+      const { method, data, headers, withCredentials } = options;
 
       xhr.withCredentials = withCredentials;
 
