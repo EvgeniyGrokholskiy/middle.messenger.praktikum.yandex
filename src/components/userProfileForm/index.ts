@@ -60,7 +60,6 @@ export class UserProfileForm extends Block {
       if (element) {
         return element.querySelector('input');
       }
-
     });
 
     inputs.forEach(input => (inputValues[input.name] = input.value));

@@ -27,7 +27,7 @@ const queryStringify = (data: Record<string, string>) => {
 };
 
 export class HTTPTransport implements IHTTPTransport {
-  get = (url:string, options: Record<string, any> = {}) =>
+  get = (url: string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
   put = (url: string, options: Record<string, any> = {}) =>
