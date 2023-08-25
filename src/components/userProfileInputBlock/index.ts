@@ -1,7 +1,7 @@
 import Block from '../../utils/block';
 import template from './userProfileInputBlock.hbs';
 import { validate } from '../../utils/validator';
-import { InputElement } from '../inputElement/index';
+import { InputElement } from '../inputElement';
 
 type TProps = {
   ref: string;
@@ -65,6 +65,13 @@ export class UserProfileInputBlock extends Block {
     }
   }
 
+  removeDisabledProps() {
+    const { element } = this;
+    if (element) {
+      element.removeAttribute('disabled');
+    }
+  }
+
   setError(errorMessage: string): void {
     this.setProps({
       value: this.state.value,
@@ -72,6 +79,7 @@ export class UserProfileInputBlock extends Block {
       errorText: errorMessage,
       errorClass: 'form_input-error',
     });
+    this.removeDisabledProps();
   }
 
   clearError(): void {
@@ -81,6 +89,7 @@ export class UserProfileInputBlock extends Block {
       errorText: '',
       errorClass: '',
     });
+    this.removeDisabledProps();
   }
 
   protected render(): DocumentFragment {

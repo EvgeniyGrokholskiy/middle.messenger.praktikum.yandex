@@ -13,7 +13,8 @@
     "preview": "vite preview --open",
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ."
+    "lint:fix": "eslint --fix --ext .ts,.tsx .",
+    "lint:tsc": "npx tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^20.4.8",
