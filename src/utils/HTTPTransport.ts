@@ -2,7 +2,7 @@ interface IHTTPTransport {
   get: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
   put: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
   post: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
-  deleted: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  delete: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
   request: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
 }
 
@@ -27,19 +27,19 @@ const queryStringify = (data: Record<string, string>) => {
 };
 
 export class HTTPTransport implements IHTTPTransport {
-  get = (url, options: Record<string, any> = {}) =>
+  get = (url:string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  put = (url, options: Record<string, any> = {}) =>
+  put = (url: string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  post = (url, options: Record<string, any> = {}) =>
+  post = (url: string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  delete = (url, options: Record<string, any> = {}) =>
+  delete = (url: string, options: Record<string, any> = {}) =>
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url, options, timeout = 5000) =>
+  request = (url: string, options, timeout = 5000) =>
     new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const { method, data, headers, withCredentials } = options;

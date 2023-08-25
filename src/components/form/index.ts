@@ -25,7 +25,9 @@ export class Form extends Block {
       item.validateInput();
     });
 
-    inputs.forEach(input => (!input.getIsValid() ? (isValid = false) : ''));
+    inputs.forEach(input => {
+      isValid = input.getIsValid();
+    });
 
     event.preventDefault();
     if (isValid) {
@@ -41,7 +43,14 @@ export class Form extends Block {
     const inputValues: Record<string, string> = {};
     const refsArray = this.getInputsBlocks();
 
-    const inputs = refsArray.map(inputBlock => inputBlock.getContent()!.querySelector('input'));
+    const inputs = refsArray.map(inputBlock => {
+      const element = inputBlock.getContent();
+
+      if (element) {
+        return element.querySelector('input');
+      }
+
+    });
 
     inputs.forEach(input => (inputValues[input.name] = input.value));
 

@@ -24,7 +24,7 @@ export class InputBlock extends Block {
     this.state.value = this.props.value;
   }
 
-  getIsValid() {
+  getIsValid(): boolean {
     return this.state.isValid;
   }
 

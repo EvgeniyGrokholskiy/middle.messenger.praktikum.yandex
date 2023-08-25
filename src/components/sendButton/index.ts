@@ -3,7 +3,7 @@ import template from './sendButton.hbs';
 import image from '../../img/rightArrow.svg';
 
 type TProps = {
-  imageSrc: image;
+  imageSrc: typeof image;
 };
 
 export class SendButton extends Block {

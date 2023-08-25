@@ -196,7 +196,9 @@ class Block {
 
   public enableEditMode() {}
 
-  public getIsValid() {}
+  public getIsValid(): boolean {
+    return true;
+  }
 
   public show() {
     this.getContent()!.style.display = 'block';
