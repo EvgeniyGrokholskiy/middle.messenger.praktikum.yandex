@@ -1,10 +1,10 @@
-import { Error5XX } from '../pages/5XX';
-import { HomePage } from '../pages/home';
-import { LoginPage } from '../pages/login';
-import { Chat } from '../pages/chat';
-import { Error404 } from '../pages/404';
-import { UserProfile } from '../pages/userProfile';
-import { Registration } from '../pages/registration';
+import { Chat } from '../pages/chat/index';
+import { Error404 } from '../pages/404/index';
+import { Error5XX } from '../pages/5XX/index';
+import { HomePage } from '../pages/home/index';
+import { LoginPage } from '../pages/login/index';
+import { UserProfile } from '../pages/userProfile/index';
+import { Registration } from '../pages/registration/index';
 
 const ROUTES = {
   chat: Chat,

@@ -1,7 +1,7 @@
 import Block from '../../utils/block';
 import template from './userProfileInputBlock.hbs';
 import { validate } from '../../utils/validator';
-import { InputElement } from '../inputElement';
+import { InputElement } from '../inputElement/index';
 
 type TProps = {
   ref: string;

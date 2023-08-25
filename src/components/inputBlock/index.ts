@@ -1,6 +1,6 @@
 import Block from '../../utils/block';
 import template from './inputBlock.hbs';
-import { InputElement } from '../inputElement';
+import { InputElement } from '../inputElement/index';
 import { validate } from '../../utils/validator';
 import { TInputProps } from '../../common/loginPage';
 
