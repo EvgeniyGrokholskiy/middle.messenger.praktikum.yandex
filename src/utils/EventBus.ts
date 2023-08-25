@@ -1,4 +1,10 @@
-export class EventBus {
+interface IEventBus {
+  on: (event: string, callback: (...args: unknown[]) => void) => void;
+  off: (event: string, callback: (...args: unknown[]) => void) => void;
+  emit: (event: string, callback: (...args: unknown[]) => void) => void;
+}
+
+export class EventBus implements IEventBus {
   private readonly listeners: Record<string, Array<() => void>> = {};
 
   on(event, callback) {

@@ -3,6 +3,10 @@ import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
 import { InputType } from './validator';
 
+interface IBlock {
+
+}
+
 class Block {
   static EVENTS = {
     INIT: 'init',
@@ -23,12 +27,12 @@ class Block {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: { props: any };
+  private _meta: { props: any } = {};
 
   constructor(propsWithChildren: any = {}) {
     const eventBus = new EventBus();
 
-    const { props, children } = this._getChildrenAndProps(propsWithChildren);
+    const { props, children } = this.getChildrenAndProps(propsWithChildren);
 
     this._meta = {
       props,
@@ -44,7 +48,7 @@ class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  private _getChildrenAndProps(childrenAndProps: any) {
+  private getChildrenAndProps(childrenAndProps: any) {
     const props: Record<string, any> = {};
     const children: Record<string, Block> = {};
 

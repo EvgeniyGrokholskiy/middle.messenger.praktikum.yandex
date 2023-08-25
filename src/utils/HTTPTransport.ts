@@ -1,3 +1,11 @@
+interface IHTTPTransport {
+  get: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  put: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  post: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  deleted: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+  request: (url: string, options: Record<string, any> = {}) => Promise<unknown>;
+}
+
 const METHODS = {
   GET: 'GET',
   PUT: 'PUT',
@@ -12,30 +20,27 @@ const queryStringify = (data: Record<string, string>) => {
 
   // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
-  return keys.reduce((result, key, index) => {
-    return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
-  }, '?');
+  return keys.reduce(
+    (result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`,
+    '?',
+  );
 };
 
-export class HTTPTransport {
-  get = (url, options: Record<string, any> = {}) => {
-    return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
-  };
+export class HTTPTransport implements IHTTPTransport {
+  get = (url, options: Record<string, any> = {}) =>
+    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  put = (url, options: Record<string, any> = {}) => {
-    return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
-  };
+  put = (url, options: Record<string, any> = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  post = (url, options: Record<string, any> = {}) => {
-    return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
-  };
+  post = (url, options: Record<string, any> = {}) =>
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  delete = (url, options: Record<string, any> = {}) => {
-    return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
-  };
+  delete = (url, options: Record<string, any> = {}) =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url, options, timeout = 5000) => {
-    return new Promise((resolve, reject) => {
+  request = (url, options, timeout = 5000) =>
+    new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const { method, data, headers, withCredentials } = options;
 
@@ -68,5 +73,4 @@ export class HTTPTransport {
         xhr.send(JSON.stringify(data || []));
       }
     });
-  };
 }

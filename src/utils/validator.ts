@@ -8,6 +8,10 @@ export type InputType =
   | 'password'
   | 'phone'
   | 'message'
+  | 'rep_password'
+  | 'oldPassword'
+  | 'newPassword'
+  | 'repeatNewPassword'
   | '';
 
 type TValidate = (value: string, inputName: InputType) => string | null;
