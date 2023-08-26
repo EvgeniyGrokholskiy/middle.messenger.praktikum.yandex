@@ -13,12 +13,15 @@ type TProps = {
   disabled: boolean;
   isShowButton: boolean;
   header: string;
-  error: boolean;
+  error: string;
   errorText: string;
+  errorClass: string;
   class: string;
+  onKeyup: (event: Event) => void;
+  onBlur: () => void;
 };
 
-export class UserProfileInputBlock extends Block {
+export class UserProfileInputBlock extends Block<TProps> {
   private state: Record<string, any> = {
     value: '',
     isValid: false,
@@ -37,11 +40,15 @@ export class UserProfileInputBlock extends Block {
     this.state.value = this.props.value;
   }
 
+  public getContent(): HTMLElement | null {
+    return super.getContent();
+  }
+
   getIsValid() {
     return this.state.isValid;
   }
 
-  getInputsBlocks(): Block[] {
+  getInputsBlocks(): (Block | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputElement);
   }
 
@@ -51,7 +58,7 @@ export class UserProfileInputBlock extends Block {
   }
 
   public validateInput(): void {
-    const [element] = this.getInputsBlocks();
+    const [element] = this.getInputsBlocks() as Block[];
 
     const name = element.getName();
     const errorMessage = validate(this.state.value, name);
@@ -74,8 +81,9 @@ export class UserProfileInputBlock extends Block {
 
   setError(errorMessage: string): void {
     this.setProps({
-      value: this.state.value,
-      error: true,
+      ...this.props,
+      value: this.state.value as string,
+      error: 'true',
       errorText: errorMessage,
       errorClass: 'form_input-error',
     });
@@ -84,6 +92,7 @@ export class UserProfileInputBlock extends Block {
 
   clearError(): void {
     this.setProps({
+      ...this.props,
       value: this.state.value,
       error: '',
       errorText: '',

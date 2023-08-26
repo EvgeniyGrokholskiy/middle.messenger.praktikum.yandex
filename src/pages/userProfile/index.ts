@@ -1,7 +1,9 @@
 import Block from '../../utils/block';
 import template from './userProfile.hbs';
+import { Wrapper } from '../../components/wrapper';
 import { exitFromUserProfile } from '../../utils/helpers';
 import { userProfilePage } from '../../common/userProfilePage';
+import { UserProfileForm } from '../../components/userProfileForm';
 
 export class UserProfile extends Block {
   constructor() {
@@ -32,33 +34,33 @@ export class UserProfile extends Block {
   }
 
   activateUserDataEditMode() {
-    this.refs.userProfileSettingBlock.hide();
-    this.refs.userProfileInputBlock.enableEditMode();
+    (this.refs.userProfileSettingBlock as Wrapper).hide();
+    (this.refs.userProfileInputBlock as UserProfileForm).enableEditMode();
   }
 
   activatePasswordEditMode() {
-    this.refs.userProfileSettingBlock.hide();
-    this.refs.userProfileInputBlockForm.hide();
-    this.refs.userProfilePasswordBlockForm.show();
-    this.refs.userProfilePasswordBlock.enableEditMode();
+    (this.refs.userProfileSettingBlock as Wrapper).hide();
+    (this.refs.userProfileInputBlockForm as Wrapper).hide();
+    (this.refs.userProfilePasswordBlockForm as Wrapper).show();
+    (this.refs.userProfilePasswordBlock as UserProfileForm).enableEditMode();
   }
 
   disableUserEditMode() {
-    this.refs.userProfileSettingBlock.show();
+    (this.refs.userProfileSettingBlock as Wrapper).show();
   }
 
   disablePasswordEditMode() {
-    this.refs.userProfileSettingBlock.show();
-    this.refs.userProfileInputBlockForm.show();
-    this.refs.userProfilePasswordBlockForm.hide();
+    (this.refs.userProfileSettingBlock as Wrapper).show();
+    (this.refs.userProfileInputBlockForm as Wrapper).show();
+    (this.refs.userProfilePasswordBlockForm as Wrapper).hide();
   }
 
   showAddFilePopup(): void {
-    this.refs.addAwatarWrapper.show();
+    (this.refs.addAwatarWrapper as Wrapper).show();
   }
 
   hideAddFilePopup(): void {
-    this.refs.addAwatarWrapper.hide();
+    (this.refs.addAwatarWrapper as Wrapper).hide();
   }
 
   protected render(): DocumentFragment {

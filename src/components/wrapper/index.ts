@@ -16,8 +16,12 @@ export class Wrapper extends Block {
     });
   }
 
-  show() {
+  public show() {
     this.getContent()!.style.display = 'flex';
+  }
+
+  public hide() {
+    super.hide();
   }
 
   protected render(): DocumentFragment {

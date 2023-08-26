@@ -20,6 +20,14 @@ export class Button extends Block {
     });
   }
 
+  show() {
+    super.show();
+  }
+
+  hide() {
+    super.hide();
+  }
+
   render() {
     return this.compile(template, this.props);
   }

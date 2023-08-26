@@ -1,9 +1,16 @@
+type HTTPMethod = (url: string, options: Record<string, any>) => Promise<unknown>;
+type TRequestMethod = (
+  url: string,
+  options: Record<string, any>,
+  timeout: number,
+) => Promise<unknown>;
+
 interface IHTTPTransport {
-  get: (url: string, options: Record<string, any>) => Promise<unknown>;
-  put: (url: string, options: Record<string, any>) => Promise<unknown>;
-  post: (url: string, options: Record<string, any>) => Promise<unknown>;
-  delete: (url: string, options: Record<string, any>) => Promise<unknown>;
-  request: (url: string, options: Record<string, any>) => Promise<unknown>;
+  get: HTTPMethod;
+  put: HTTPMethod;
+  post: HTTPMethod;
+  delete: HTTPMethod;
+  request: TRequestMethod;
 }
 
 const METHODS = {
@@ -27,26 +34,29 @@ const queryStringify = (data: Record<string, string>) => {
 };
 
 export class HTTPTransport implements IHTTPTransport {
-  get = (url: string, options: Record<string, any> = {}) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+  get: HTTPMethod = (url, options) => {
+    const newUrl = options.data ? `${url}${queryStringify(options.data)}` : url;
 
-  put = (url: string, options: Record<string, any> = {}) =>
+    return this.request(newUrl, { ...options, method: METHODS.GET }, options.timeout);
+  };
+
+  put: HTTPMethod = (url, options) =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  post = (url: string, options: Record<string, any> = {}) =>
+  post: HTTPMethod = (url, options) =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  delete = (url: string, options: Record<string, any> = {}) =>
+  delete: HTTPMethod = (url, options) =>
     this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
-  request = (url: string, options: Record<string, any> = {}, timeout = 5000) =>
+  request: TRequestMethod = (url, options, timeout = 5000) =>
     new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const { method, data, headers, withCredentials } = options;
 
       xhr.withCredentials = withCredentials;
 
-      xhr.open(method, method === METHODS.GET && data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, url);
 
       if (headers) {
         Object.keys(headers).forEach(key => {

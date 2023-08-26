@@ -14,7 +14,8 @@
     "lint:eslint": "eslint src",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
     "lint:fix": "eslint --fix --ext .ts,.tsx .",
-    "lint:tsc": "npx tsc --noEmit"
+    "lint:tsc": "npx tsc --noEmit",
+    "watch-tsc": "tsc --watch --noEmit"
   },
   "devDependencies": {
     "@types/node": "^20.4.8",

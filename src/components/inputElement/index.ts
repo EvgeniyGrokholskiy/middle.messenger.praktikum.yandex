@@ -3,6 +3,7 @@ import template from './inputElement.hbs';
 import { InputType } from '../../utils/validator';
 
 type TProps = {
+  ref: string;
   for: string;
   name: string;
   value: string;

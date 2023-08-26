@@ -1,15 +1,21 @@
-import Block from '../../utils/block';
+import Block, { TEvent } from '../../utils/block';
 import template from './userProfileForm.hbs';
+import { Button } from '../button';
+import { InputBlock } from '../inputBlock';
 import { formDataLogger } from '../../utils/helpers';
+import { HTML_TAGS_ATTRIBUTES } from '../../common/const';
 import { UserProfileInputBlock } from '../userProfileInputBlock';
 
 type TProps = {
   data: Record<string, string | boolean>;
   class: string;
   saveButtonInnerText: string;
+  onClick: () => void;
+  events: Record<string, TEvent>;
+  disableEditMode: () => void;
 };
 
-export class UserProfileForm extends Block {
+export class UserProfileForm extends Block<TProps> {
   private state = {
     isValid: false,
   };
@@ -30,7 +36,7 @@ export class UserProfileForm extends Block {
   }
 
   validateForm(): boolean {
-    const inputs = this.getInputsBlocks();
+    const inputs = this.getInputsBlocks() as UserProfileInputBlock[];
     let isValid = true;
 
     inputs.forEach(item => {
@@ -52,13 +58,13 @@ export class UserProfileForm extends Block {
     }
   }
 
-  getInputsBlocks(): Block[] {
+  getInputsBlocks(): (Block<any> | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof UserProfileInputBlock);
   }
 
   getFormInputValues(): Record<string, string> {
     const inputValues: Record<string, string> = {};
-    const refsArray = this.getInputsBlocks();
+    const refsArray = this.getInputsBlocks() as UserProfileInputBlock[];
 
     const inputs = refsArray
       .map(inputBlock => {
@@ -87,28 +93,31 @@ export class UserProfileForm extends Block {
   }
 
   enableEditMode(): void {
-    const inputBlock = this.getInputsBlocks();
-    const saveButton = this.refs.saveButtonRef;
+    const inputBlockWrapper = this.getInputsBlocks() as UserProfileInputBlock[];
+    const saveButton = this.refs.saveButtonRef as Button;
 
-    if (!inputBlock && !saveButton) return;
+    if (!inputBlockWrapper && !saveButton) return;
 
     saveButton.show();
 
-    inputBlock.forEach(input => {
-      input.element!.querySelector('input')?.removeAttribute('disabled');
+    inputBlockWrapper.forEach(inputBlock => {
+      const div = inputBlock.getContent();
+      if (div) {
+        div.querySelector('input')?.removeAttribute(HTML_TAGS_ATTRIBUTES.DISABLED);
+      }
     });
   }
 
   disableEditMode(): void {
-    const inputBlock = this.getInputsBlocks();
-    const saveButton = this.refs.saveButtonRef;
+    const inputBlock = this.getInputsBlocks() as InputBlock[];
+    const saveButton = this.refs.saveButtonRef as Button;
 
     if (!inputBlock && !saveButton) return;
 
     saveButton.hide();
 
     inputBlock.forEach(input => {
-      input.element!.querySelector('input')?.setAttribute('disabled', 'true');
+      input.element!.querySelector('input')?.setAttribute(HTML_TAGS_ATTRIBUTES.DISABLED, 'true');
     });
 
     if (this.props.onClick) {

@@ -2,16 +2,30 @@ import Block from '../../utils/block';
 import template from './inputBlock.hbs';
 import { InputElement } from '../inputElement';
 import { validate } from '../../utils/validator';
-import { TInputProps } from '../../common/loginPage';
 
-export class InputBlock extends Block {
+export type TInputBlockProps = {
+  ref: string;
+  type: string;
+  name: string;
+  value: string;
+  placeholder: string;
+  disabled: boolean;
+  errorText: string;
+  error: string;
+  errorClass: string;
+  class: string;
+  onKeyup: (event: Event) => void;
+  onBlur: () => void;
+};
+
+export class InputBlock extends Block<TInputBlockProps> {
   private state: Record<string, any> = {
     value: '',
     isValue: '',
     isValid: false,
   };
 
-  constructor(props: TInputProps) {
+  constructor(props: TInputBlockProps) {
     super({
       ...props,
       onKeyup: (event: Event) => {
@@ -24,11 +38,15 @@ export class InputBlock extends Block {
     this.state.value = this.props.value;
   }
 
+  public getContent(): HTMLElement | null {
+    return super.getContent();
+  }
+
   getIsValid(): boolean {
     return this.state.isValid;
   }
 
-  getInputsBlocks(): Block[] {
+  getInputsBlocks(): (Block<any> | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputElement);
   }
 
@@ -38,7 +56,7 @@ export class InputBlock extends Block {
   }
 
   public validateInput(): void {
-    const [element] = this.getInputsBlocks();
+    const [element] = this.getInputsBlocks() as InputElement[];
 
     const name = element.getName();
     const errorMessage = validate(this.state.value, name);
@@ -54,8 +72,9 @@ export class InputBlock extends Block {
 
   setError(errorMessage: string): void {
     this.setProps({
+      ...this.props,
       value: this.state.value,
-      error: true,
+      error: 'true',
       errorText: errorMessage,
       errorClass: 'form_input-error',
     });
@@ -63,6 +82,7 @@ export class InputBlock extends Block {
 
   clearError(): void {
     this.setProps({
+      ...this.props,
       value: this.state.value,
       error: '',
       errorText: '',

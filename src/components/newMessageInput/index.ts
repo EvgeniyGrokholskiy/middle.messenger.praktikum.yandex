@@ -39,7 +39,7 @@ export class NewMessageInput extends Block {
     this.state.value = props.value || '';
   }
 
-  getInputsBlocks(): Block[] {
+  getInputsBlocks(): (Block<any> | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputElement);
   }
 
@@ -49,7 +49,7 @@ export class NewMessageInput extends Block {
   }
 
   public validateInput(): void {
-    const [element] = this.getInputsBlocks();
+    const [element] = this.getInputsBlocks() as InputElement[];
     const name = element.getName();
     const errorMessage = validate(this.state.value, name);
 
