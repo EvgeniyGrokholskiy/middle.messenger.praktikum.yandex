@@ -1,0 +1,20 @@
+<div class='new-message-block_wrapper'>
+    {{{InputElement
+            ref=ref
+            regex=regex
+            required=required
+            for=id
+            name=name
+            type=type
+            value=value
+            onBlur=onBlur
+            onKeyup=onKeyup
+            onFocus=onFocus
+            errorClass=errorClass
+            placeholder=placeholder
+            class=class
+    }}}
+    {{#if error}}
+        <p class='new-message_error-message font_12 {{errorClass}}'>{{errorText}}</p>
+    {{/if}}
+</div>

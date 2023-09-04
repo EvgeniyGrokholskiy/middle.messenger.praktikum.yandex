@@ -1,0 +1,16 @@
+export const REGEXP = {
+  startWithCapitalizeLetter: /^[A-ZА-Я]/,
+  latinOrCyrillic: /^[a-zA-Zа-яА-Я]+$/,
+  noSpaceSymbols: /^[^\s]+$/,
+  noDigitSymbols: /^[^\d]*$/,
+  namesValidation: /^([A-ZА-Я][a-zа-я]*)(-[A-ZА-Я][a-zа-я]*)?$/,
+  loginValidation: /^[A-Za-z][A-Za-z0-9_-]{2,19}$/,
+  latinLetters: /^[a-zA-Z_-]+$/,
+  digitsAndLetters: /^(?=.*[^\d]).+$/,
+  noSpecialSymbols: /^[a-zA-Z0-9\-_]*$/,
+  noSpecialSymbolsEmail: /^[a-zA-Z0-9\-_]*$/,
+  emailValidation: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  passwordValidation: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,40}$/,
+  phoneValidation: /^\+?\d{10,15}$/,
+  messageValidation: /^.+$/,
+};

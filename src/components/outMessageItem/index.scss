@@ -1,0 +1,50 @@
+@import 'src/variables';
+
+.out-message-wrapper {
+  position: relative;
+  background-color: $outgoing-messages-background;
+  border: 1px solid $outgoing-messages-background;
+  border-radius: 0.75rem 0.75rem 0;
+  padding: 0.625rem 3.25rem 0.625rem 0.625rem;
+  min-width: 7.125rem;
+  max-width: 25.125rem;
+  width: fit-content;
+}
+
+
+.out-message-text {
+  line-height: 0.9375rem;
+  white-space: pre-line;
+}
+
+.out-message_image-message {
+  background-color: white;
+  border: 1px solid $outgoing-messages-background;
+  padding: 0;
+  margin-top: 0.75rem;
+  margin-bottom: 1.875rem;
+}
+
+.out-message_img {
+  height: auto;
+  width: 100%;
+}
+
+.out-message_send-time {
+  position: absolute;
+  right: 0.6875rem;
+  bottom: 0.6875rem;
+  color: $light-blue;
+}
+
+.out-send-time_image {
+  color: white;
+
+  // придумать цвет
+  background-color: $light-gray-message-time;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.8125rem;
+  width: 2.3125rem;
+}

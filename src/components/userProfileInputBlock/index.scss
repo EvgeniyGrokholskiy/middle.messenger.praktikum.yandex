@@ -1,0 +1,42 @@
+@import 'src/variables';
+
+.user-input-block_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.block-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid $divider;
+  width: 100%;
+}
+
+.block-wrapper_link {
+  justify-content: flex-start;
+}
+
+.block_link {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.block_input,.block_input:focus-visible {
+  border: none;
+  outline: none;
+  text-align: right;
+}
+
+.block_input_no-background {
+  background: none;
+}
+
+.block_input::placeholder {
+  color: $light-gray;
+}

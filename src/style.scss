@@ -1,26 +1,32 @@
-@import 'variables.scss';
+@import 'variables';
 @import 'fonts';
 
-//partials
-@import '/partials/link';
-@import '/partials/popup';
-@import '/partials/avatar';
-@import '/partials/button';
+// components
+@import '/components/link';
+@import '/components/form';
+@import '/components/popup';
+@import '/components/avatar';
+@import '/components/button';
+@import '/components/addFile';
+@import '/components/chatItem';
+@import '/components/sendButton';
+@import '/components/inputBlock';
+@import '/components/searchInput';
+@import '/components/inputElement';
+@import '/components/addFileButton';
+@import '/components/addUserButton';
+@import '/components/inMessageItem';
+@import '/components/outMessageItem';
+@import '/components/newMessageBlock';
+@import '/components/newMessageInput';
+@import '/components/userProfileForm';
+@import '/components/userProfileAvatar';
+@import '/components/userProfileInputBlock';
+@import '/components/unreadMessageIndicator';
+
+// partials
 @import '/partials/divider';
-@import '/partials/addFile';
-@import '/partials/chatItem';
-@import '/partials/inputBlock';
-@import '/partials/sendButton';
 @import '/partials/messageTime';
-@import '/partials/searchInput';
-@import '/partials/addUserButton';
-@import '/partials/inMessageItem';
-@import '/partials/addFileButton';
-@import '/partials/outMessageItem';
-@import '/partials/newMessageInput';
-@import '/partials/userProfileAvatar';
-@import '/partials/userProfileInputBlock';
-@import '/partials/unreadMessageIndicator';
 
 // pages
 @import '/pages/chat';
@@ -96,4 +102,8 @@ button {
 .error-page_message {
   margin-top: 0;
   margin-bottom: 4.3125rem;
+}
+
+.form_input-error {
+  color: #ff2f2f;
 }

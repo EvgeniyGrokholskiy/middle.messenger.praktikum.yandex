@@ -8,10 +8,7 @@
 
 .user-profile_avatar-load-popup-wrapper {
   position: absolute;
-  top:0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset:0;
   display: none;
   align-items: center;
   justify-content: center;
@@ -44,6 +41,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  max-width: 31.875rem;
   width: 100%;
 }
 
@@ -54,7 +53,7 @@
 }
 
 .avatar-big {
-  background-color: rgba(128, 128, 128, 0.17);
+  background-color: rgb(128 128 128 / 17%);
   height: 8.125rem;
   width: 8.125rem;
 }

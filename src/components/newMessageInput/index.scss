@@ -1,0 +1,22 @@
+@import 'src/variables';
+
+.new-message-block_wrapper {
+  width: 100%;
+}
+
+.new-message {
+  background-color: $light-gray-chat;
+  border: none;
+  border-radius: 30px;
+  padding: 0.625rem 1.25rem;
+  height: 2rem;
+  width: 100%;
+}
+
+.new-message::placeholder {
+  color: $light-gray;
+}
+
+.new-message:focus-visible {
+  outline: none;
+}

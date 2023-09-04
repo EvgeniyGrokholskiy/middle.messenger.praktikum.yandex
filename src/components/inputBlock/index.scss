@@ -1,0 +1,11 @@
+@import 'src/variables';
+
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-block_label {
+  color: $light-gray;
+}

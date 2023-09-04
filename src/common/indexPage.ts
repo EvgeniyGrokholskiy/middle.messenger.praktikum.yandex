@@ -1,37 +1,52 @@
+import {
+  renderChatPage,
+  renderLoginPage,
+  renderUserProfile,
+  renderRegisterPage,
+  renderError404Page,
+  renderError5XXPage,
+} from '../utils/helpers';
+
 export const links = [
   {
     href: 'pages/login/login.html',
     class: 'font_20',
-    linkText: 'Login page'
+    linkText: 'Login page',
+    onClick: renderLoginPage,
   },
   {
-    href: 'pages/registration/registration.html',
+    href: '',
     class: 'font_20',
-    linkText: 'Registration page'
+    linkText: 'Registration page',
+    onClick: renderRegisterPage,
   },
   {
-    href: 'pages/chat/chat.html',
+    href: '',
     class: 'font_20',
-    linkText: 'Chat page'
+    linkText: 'Chat page',
+    onClick: renderChatPage,
   },
   {
-    href: 'pages/userProfile/userProfile.html',
+    href: '',
     class: 'font_20',
-    linkText: 'User profile page'
+    linkText: 'User profile page',
+    onClick: renderUserProfile,
   },
   {
-    href: 'pages/5XX/5XX.html',
+    href: '',
     class: 'font_20',
-    linkText: '5XX page'
+    linkText: '5XX page',
+    onClick: renderError5XXPage,
   },
   {
-    href: 'pages/404/404.html',
+    href: '',
     class: 'font_20',
-    linkText: '404 page'
+    linkText: '404 page',
+    onClick: renderError404Page,
   },
-  {
-    href: 'pages/uiLib/uiLib.html',
-    class: 'font_20',
-    linkText: 'UI Lib page'
-  }
+  // {
+  //   href: 'pages/uiLib/uiLib.html',
+  //   class: 'font_20',
+  //   linkText: 'UI Lib page',
+  // },
 ];

@@ -1,0 +1,57 @@
+<div class='user-profile_wrapper'>
+    <div class='side-nav'>
+        {{{Button class='button back-button' onClick=exitFromUserProfile}}}
+    </div>
+    <div class='user-profile_content'>
+        {{{UserProfileAvatar imageSrc='' onClick=showAddFilePopup }}}
+        {{{H1 text='Иван' class='user-profile_name font_16' }}}
+        {{#Wrapper ref='userProfileInputBlockForm' class='user-profile_content'}}
+            {{{UserProfileForm
+                    ref='userProfileInputBlock'
+                    saveButtonRef='saveButtonRef'
+                    data=data.userProfileInputBlockData
+                    saveButtonInnerText=data.saveButtonInnerText
+                    onClick=disableUserEditMode
+            }}}
+        {{/Wrapper}}
+        {{#Wrapper ref='userProfilePasswordBlockForm' class='user-profile_setting-block user-profile_change-password-block'}}
+            {{{UserProfileForm
+                    ref='userProfilePasswordBlock'
+                    data=data.userProfilePasswordBlock
+                    saveButtonInnerText=data.saveButtonInnerText
+                    onClick=disablePasswordEditMode
+            }}}
+        {{/Wrapper}}
+        {{#Wrapper ref='userProfileSettingBlock' class='user-profile_setting-block user-profile_change-links' }}
+            <div class='block-wrapper block-wrapper_link {{class}}'>
+                {{{Button
+                        onClick=activateUserDataEditMode
+                        innerText=changeUserData.header
+                        class='block_link link font_13'
+                }}}
+            </div>
+            <div class='block-wrapper block-wrapper_link {{class}}'>
+                {{{Button
+                        onClick=activatePasswordEditMode
+                        innerText=changeUserPassword.header
+                        class='block_link link font_13'
+                }}}
+            </div>
+            {{{Button
+                    innerText='Выйти'
+                    onClick=exitFromUserProfile
+                    class='user-profile_exit-button font_13 user-profile_save-password-button'
+            }}}
+        {{/Wrapper}}
+        {{#Wrapper ref='addAvatarWrapper' class='user-profile_avatar-load-popup-wrapper' onClick=hideAddFilePopup}}
+            {{#Popup ref='addFilePopup' class='user-profile_avatar-load-popup'}}
+                {{{AddFile
+                        isShowText='true'
+                        text='Выбрать файл на компьютере'
+                        accept='{{inputAccept.image}}'
+                        isError=''
+                }}}
+            {{/Popup}}
+        {{/Wrapper}}
+    </div>
+</div>
