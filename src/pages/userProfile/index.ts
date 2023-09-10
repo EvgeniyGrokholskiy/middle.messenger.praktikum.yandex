@@ -1,17 +1,32 @@
 import Block from '../../utils/block';
 import template from './userProfile.hbs';
+import store from '../../utils/store';
+import { withStore } from '../../utils/withStore';
 import { Wrapper } from '../../components/wrapper';
-import { exitFromUserProfile } from '../../utils/helpers';
-import { userProfilePage } from '../../common/userProfilePage';
+import ErrorMessage from '../../components/errorMessage';
 import { UserProfileForm } from '../../components/userProfileForm';
+import authController, { TAuthController } from '../../controllers/auth';
+import { TSignupRequestData, TUserData, TUserPassword } from '../../api/types';
+import { backToChat, getUserProfilePageDataWithValues } from '../../utils/helpers';
+import userProfileController, { TUserProfileController } from '../../controllers/userProfile';
 
-export class UserProfile extends Block {
-  constructor() {
+class UserProfileBlock extends Block {
+  private readonly authController: TAuthController = authController;
+
+  private readonly userController: TUserProfileController = userProfileController;
+
+  constructor(props: any) {
     super({
-      data: userProfilePage,
-      changeUserData: userProfilePage?.userProfileChangeLinks?.changeUserData,
-      changeUserPassword: userProfilePage?.userProfileChangeLinks?.changeUserPassword,
-      exitFromUserProfile,
+      ...props,
+      fileExtension: props.data?.fileExtension,
+      changeUserData: props.data?.userProfileChangeLinks?.changeUserData,
+      changeUserPassword: props.data?.userProfileChangeLinks?.changeUserPassword,
+      exitFromUserProfile: () => {
+        backToChat();
+      },
+      logout: () => {
+        this.logout();
+      },
       showAddFilePopup: () => {
         this.showAddFilePopup();
       },
@@ -30,7 +45,67 @@ export class UserProfile extends Block {
       disablePasswordEditMode: () => {
         this.disablePasswordEditMode();
       },
+      setNewUserData: (values: Record<string, string>) => {
+        this.setNewUserData(values);
+      },
+      setNewPassword: (values: Record<string, string>) => {
+        this.setNewPassword(values);
+      },
+      setNewAvatar: (data: FormData) => {
+        this.setNewAvatar(data);
+      },
     });
+  }
+
+  getNewValues(keys: string[], values: Record<string, string>): Record<string, string> {
+    const valuesArray = Object.entries(values)
+      .map(item => {
+        if (keys.includes(item[0])) {
+          return item;
+        }
+        return null;
+      })
+      .filter(item => !!item) as [string, string][];
+    return Object.fromEntries(valuesArray);
+  }
+
+  async setNewUserData(values: Record<string, string>) {
+    const keys = this.props.data.userProfileInputsNames as string[];
+    const newValues = this.getNewValues(keys, values) as TSignupRequestData;
+
+    const result = await this.userController.changeUserProfileData(newValues);
+    if (!result.isError) {
+      this.disablePasswordEditMode();
+      store.set('user', newValues);
+    } else {
+      (this.refs.userBlockErrorMessage as ErrorMessage).show();
+      (this.refs.userBlockErrorMessage as ErrorMessage).setProps({
+        errorMessage: result.errorMessage,
+      });
+      setTimeout(() => {
+        (this.refs.userBlockErrorMessage as ErrorMessage).setProps({ errorMessage: '' });
+        (this.refs.userBlockErrorMessage as ErrorMessage).hide();
+      }, 2000);
+    }
+  }
+
+  async setNewPassword(values: Record<string, string>) {
+    const keys = this.props.data.userProfilePasswordBlockInputNames as string[];
+    const newValues = this.getNewValues(keys, values) as TUserPassword;
+
+    const result = await this.userController.changeUserPassword(newValues);
+    if (!result.isError) {
+      this.disablePasswordEditMode();
+    } else {
+      (this.refs.passwordBlockErrorMessage as ErrorMessage).show();
+      (this.refs.passwordBlockErrorMessage as ErrorMessage).setProps({
+        errorMessage: result.errorMessage,
+      });
+      setTimeout(() => {
+        (this.refs.passwordBlockErrorMessage as ErrorMessage).setProps({ errorMessage: '' });
+        (this.refs.passwordBlockErrorMessage as ErrorMessage).hide();
+      }, 2000);
+    }
   }
 
   activateUserDataEditMode() {
@@ -56,14 +131,32 @@ export class UserProfile extends Block {
   }
 
   showAddFilePopup(): void {
-    (this.refs.addAwatarWrapper as Wrapper).show();
+    (this.refs.addAvatarWrapper as Wrapper).show();
   }
 
   hideAddFilePopup(): void {
-    (this.refs.addAwatarWrapper as Wrapper).hide();
+    (this.refs.addAvatarWrapper as Wrapper).hide();
+  }
+
+  async setNewAvatar(data: FormData) {
+    const result = await this.userController.setNewAvatar(data);
+    if (!result.isError) {
+      this.hideAddFilePopup();
+    }
+  }
+
+  logout(): void {
+    this.authController.logout();
   }
 
   protected render(): DocumentFragment {
     return this.compile(template, this.props);
   }
 }
+
+const withPageData = withStore(state => ({
+  user: state.user,
+  data: getUserProfilePageDataWithValues(state.userProfileData, state.user as TUserData),
+}));
+
+export const UserProfilePage = withPageData(UserProfileBlock);

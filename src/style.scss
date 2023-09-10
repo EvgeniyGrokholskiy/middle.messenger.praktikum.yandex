@@ -9,9 +9,11 @@
 @import '/components/button';
 @import '/components/addFile';
 @import '/components/chatItem';
+@import './components/menuItem';
 @import '/components/sendButton';
 @import '/components/inputBlock';
 @import '/components/searchInput';
+@import '/components/errorMessage';
 @import '/components/inputElement';
 @import '/components/addFileButton';
 @import '/components/addUserButton';
@@ -21,6 +23,7 @@
 @import '/components/newMessageInput';
 @import '/components/userProfileForm';
 @import '/components/userProfileAvatar';
+@import '/components/userOperationPopup';
 @import '/components/userProfileInputBlock';
 @import '/components/unreadMessageIndicator';
 

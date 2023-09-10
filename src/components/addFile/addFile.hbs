@@ -1,4 +1,4 @@
-<div class='addFile_wrapper'>
+<form class='addFile_wrapper'>
     {{#if isError}}
         <p class='addFile_error font_15'>Ошибка, попробуйте ещё раз</p>
     {{/if}}
@@ -8,14 +8,22 @@
     {{#if isShowText}}
         <p class='addFile_header font_15'>Загрузите файл</p>
     {{/if}}
-    <label class='font_12 addFile_label'>
-        {{text}}
-        <input type='file' accept='{{accept}}' class='add-file_input'>
-    </label>
+    {{#unless file}}
+        <label class='font_12 addFile_label'>
+            {{text}}
+            <input type='file' onchange={{onChange}} name='avatar' accept='{{accept}}' class='add-file_input'>
+        </label>
+    {{/unless}}
+    {{#if file}}
+        <p class='add-file_file-name'>{{fileName}}</p>
+    {{/if}}
     <div class='addFile_button-block'>
-        <button onclick='{{onClick}}' type='button' class='button form_button add-file_replace-button'>Поменять</button>
+        <button onclick='{{onClick}}' type='submit' class='button form_button add-file_replace-button'>Поменять</button>
         {{#if addFileError}}
             <p class='addFile_error font_11'>Нужно выбрать файл</p>
         {{/if}}
+        {{#if addFileTypeError}}
+            <p class='addFile_error font_11'>Поддерживаются файлы jpg, jpeg или png</p>
+        {{/if}}
     </div>
-</div>
+</form>

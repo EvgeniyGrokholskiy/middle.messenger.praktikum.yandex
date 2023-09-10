@@ -95,3 +95,37 @@
   justify-content: space-between;
   padding-top: 0.625rem;
 }
+
+.chat-page_add-chat-popup {
+  position: absolute;
+  top: 4.8775rem;
+  right: 0.625rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  width: fit-content;
+}
+
+.chat_add-chat-popup-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+}
+
+.chat_add-user-popup-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(30, 30, 30, 0.91);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}

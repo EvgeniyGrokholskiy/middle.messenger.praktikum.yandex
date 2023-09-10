@@ -1,0 +1,24 @@
+{{#Popup class='user-operation_wrapper'}}
+    <form class='user-operation_form'>
+        {{{Paragraph text=headerText class='font_20 user-operation_header'}}}
+        {{{InputBlock
+                ref=ref
+                for='login'
+                name='login'
+                type=type
+                class='form_input font_13'
+                value=value
+                error=error
+                regex=regex
+                focus=onFocus
+                onBlur=onBlur
+                isValue='true'
+                onKeyup=onKeyup
+                errorClass=errorClass
+                required='true'
+                errorText=errorText
+                placeholder='Логин'
+        }}}
+        {{{Button innerText=buttonText class='form_button user-operation_button' type=buttonData.type}}}
+    </form>
+{{/Popup}}

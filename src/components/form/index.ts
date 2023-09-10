@@ -1,9 +1,11 @@
 import Block, { TEvent } from '../../utils/block';
 import template from './form.hbs';
 import { InputBlock } from '../inputBlock';
-import { formDataLogger } from '../../utils/helpers';
+import { TSignInRequestData } from '../../api/types';
 
 type TProps = {
+  callbackToLink: () => void;
+  callbackToButton: (data: TSignInRequestData) => void;
   events: Record<string, TEvent>;
 };
 
@@ -18,6 +20,8 @@ export class Form extends Block<TProps> {
   }
 
   submit(event: Event): void {
+    event.preventDefault();
+
     const inputs = this.getInputsBlocks() as InputBlock[];
     let isValid = true;
 
@@ -29,9 +33,9 @@ export class Form extends Block<TProps> {
       isValid = input.getIsValid();
     });
 
-    event.preventDefault();
     if (isValid) {
-      this.logFormValue();
+      const formData = this.getFormInputValues() as TSignInRequestData;
+      this.props.callbackToButton(formData);
     }
   }
 
@@ -61,12 +65,6 @@ export class Form extends Block<TProps> {
     });
 
     return inputValues;
-  }
-
-  logFormValue(): void {
-    const inputValues = this.getFormInputValues();
-
-    formDataLogger(inputValues);
   }
 
   protected render(): DocumentFragment {

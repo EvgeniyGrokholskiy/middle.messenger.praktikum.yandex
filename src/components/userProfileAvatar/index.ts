@@ -1,5 +1,6 @@
 import Block from '../../utils/block';
 import template from './userProfileAvatar.hbs';
+import { BASE_RESOURCES_URL } from '../../common/apiConst';
 import avatarBackground from '../../img/avatarBackground.jpg';
 
 type TProps = {
@@ -15,6 +16,7 @@ export class UserProfileAvatar extends Block {
   constructor(props: TProps) {
     super({
       ...props,
+      imageSrc: props.imageSrc ? `${BASE_RESOURCES_URL}${props.imageSrc}` : '',
       avatarBackground,
       events: {
         click: props.onClick,

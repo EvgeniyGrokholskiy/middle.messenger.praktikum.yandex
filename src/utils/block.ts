@@ -8,7 +8,9 @@ export type TEvent = (event: Event) => void;
 export type TEvents = { [key: string]: ((event: Event) => void) | undefined };
 // type TEventsType<Refs> = { [key in keyof Refs]?: TEvent } | TEvent; тип из видео про компонентный подход
 
-abstract class Block<TProps extends Record<string, unknown> = any> {
+export type TBlock = typeof Block;
+
+class Block<TProps extends Record<string, unknown> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -62,7 +64,7 @@ abstract class Block<TProps extends Record<string, unknown> = any> {
         : false;
 
       if (isArrayWithLength && isEveryValueInstanceOfBlock) {
-        children[key] = value;
+        children[key] = value as unknown as Block;
       } else if (value instanceof Block) {
         children[key] = value as Block;
       } else {
@@ -149,8 +151,8 @@ abstract class Block<TProps extends Record<string, unknown> = any> {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
+    this._componentDidUpdate();
   };
 
   public get element() {
@@ -218,6 +220,10 @@ abstract class Block<TProps extends Record<string, unknown> = any> {
       },
     });
   }
+
+  componentWillUnmount() {}
+
+  disableEditMode() {}
 
   // private _createDocumentElement(tagName: string) {
   //   return document.createElement(tagName);

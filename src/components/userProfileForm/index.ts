@@ -2,17 +2,21 @@ import Block, { TEvent } from '../../utils/block';
 import template from './userProfileForm.hbs';
 import { Button } from '../button';
 import { InputBlock } from '../inputBlock';
-import { formDataLogger } from '../../utils/helpers';
+import { TUserData } from '../../api/types';
 import { HTML_TAGS_ATTRIBUTES } from '../../common/const';
 import { UserProfileInputBlock } from '../userProfileInputBlock';
 
 type TProps = {
-  data: Record<string, string | boolean>;
   class: string;
-  saveButtonInnerText: string;
+  userData: TUserData;
   onClick: () => void;
-  events: Record<string, TEvent>;
+  isDisabledInputs: boolean;
   disableEditMode: () => void;
+  saveButtonInnerText: string;
+  events: Record<string, TEvent>;
+  onSubmit: (event: Event) => void;
+  data: Record<string, string | boolean>;
+  onSubmitCallback: (data: Record<string, string>) => void;
 };
 
 export class UserProfileForm extends Block<TProps> {
@@ -23,14 +27,8 @@ export class UserProfileForm extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
-      data: props.data,
-      class: props.class,
-      saveButtonInnerText: props.saveButtonInnerText,
       events: {
         submit: (event: Event) => this.submit(event),
-      },
-      disableEditMode: () => {
-        // this.disableEditMode();
       },
     });
   }
@@ -53,8 +51,8 @@ export class UserProfileForm extends Block<TProps> {
   public submit(event: Event) {
     event?.preventDefault();
     if (this.validateForm()) {
-      this.logFormValue();
-      this.disableEditMode();
+      const inputValues = this.getFormInputValues();
+      this.props.onSubmitCallback(inputValues);
     }
   }
 
@@ -84,12 +82,6 @@ export class UserProfileForm extends Block<TProps> {
     });
 
     return inputValues;
-  }
-
-  logFormValue(): void {
-    const inputValues = this.getFormInputValues();
-
-    formDataLogger(inputValues);
   }
 
   enableEditMode(): void {

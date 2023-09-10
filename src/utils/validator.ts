@@ -17,7 +17,7 @@ export type InputType =
 type TValidate = (value: string, inputName: InputType) => string | null;
 
 const nameValidator = (name: string): string | null => {
-  if (!name.trim()) {
+  if (!name?.trim()) {
     return 'Поле не должно быть пустым.';
   }
   if (!REGEXP.latinOrCyrillic.test(name)) {
@@ -39,7 +39,7 @@ const nameValidator = (name: string): string | null => {
 };
 
 const loginValidator = (login: string): string | null => {
-  if (!login.trim()) {
+  if (!login?.trim()) {
     return 'Поле не должно быть пустым.';
   }
   if (login.length < 3 || login.length > 20) {
@@ -58,7 +58,7 @@ const loginValidator = (login: string): string | null => {
 };
 
 const emailValidator = (email: string): string | null => {
-  if (!email.trim()) {
+  if (!email?.trim()) {
     return 'Поле не должно быть пустым.';
   }
   if (!REGEXP.emailValidation.test(email)) {

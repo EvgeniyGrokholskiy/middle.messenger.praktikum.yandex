@@ -1,16 +1,17 @@
 import Block from '../../utils/block';
-import template from './addUserButton.hbs';
+import template from './menuItem.hbs';
 
-type TProps = {
-  type: string;
+type TMenuItemProps = {
+  buttonText: string;
+  altText: string;
   onClick: () => void;
   events: {
     click: () => void;
   };
 };
 
-export class AddUserButton extends Block {
-  constructor(props: TProps) {
+export class MenuItem extends Block<TMenuItemProps> {
+  constructor(props: TMenuItemProps) {
     super({
       ...props,
       events: {
@@ -19,7 +20,7 @@ export class AddUserButton extends Block {
     });
   }
 
-  protected render(): DocumentFragment {
+  render(): DocumentFragment {
     return this.compile(template, this.props);
   }
 }

@@ -1,0 +1,17 @@
+@import 'src/variables';
+
+.menu-item_button {
+  background: none;
+  border: none;
+  color: $common-black-text;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.menu-item_image {
+  height: 1.375rem;
+  width: 1.375rem;
+}

@@ -32,8 +32,30 @@
                 {{{Avatar }}}
                 {{{Paragraph text='Вадим' class='chat-name' }}}
             </div>
-            {{{AddUserButton }}}
+            {{{AddUserButton onClick=showAddPopup }}}
         </div>
+        {{#Wrapper ref='addPopupWrapper' class='chat_add-chat-popup-wrapper' onClick=hideAddPopup}}
+            {{#Popup class='chat-page_add-chat-popup'}}
+                {{{MenuItem
+                        buttonText=addChatPopupData.addUser.buttonText
+                        altText=addChatPopupData.addUser.altText
+                        onClick=addUserPopup
+                        imageSrc=addChatPopupData.addUser.imageSrc
+                }}}
+                {{{MenuItem
+                        buttonText=addChatPopupData.deleteUser.buttonText
+                        altText=addChatPopupData.deleteUser.altText
+                        onClick=deleteUserPopup
+                        imageSrc=addChatPopupData.deleteUser.imageSrc
+                }}}
+            {{/Popup}}
+        {{/Wrapper}}
+        {{#Wrapper ref='addUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideAddUserPopup}}
+            {{{UserOperationPopup data=addUserPopupData.addUser onSubmit=addNewUser}}}
+        {{/Wrapper}}
+        {{#Wrapper ref='deleteUserUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideDeleteUserPopup}}
+            {{{UserOperationPopup data=addUserPopupData.deleteUser onSubmit=deleteUser}}}
+        {{/Wrapper}}
         <div class='chat-page_message-list'>
             <div class='message-list_date font_12'>19 июня</div>
             {{{InMessageItem messageText=data.longMessage sendTime='11:56' }}}

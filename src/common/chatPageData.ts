@@ -1,4 +1,33 @@
-export const chatPage = {
+import addIcon from '../img/addUserIcon.svg';
+import deleteIcon from '../img/deleteUserIcon.svg';
+
+export type TChatPage = typeof chatPageData;
+
+export const chatPageData = {
+  popupData: {
+    addChat: {
+      addUser: {
+        imageSrc: addIcon,
+        buttonText: 'Добавить пользователя',
+        altText: 'plus in a circle',
+      },
+      deleteUser: {
+        imageSrc: deleteIcon,
+        buttonText: 'Удалить пользователя',
+        altText: 'cross in a circle',
+      },
+    },
+    addUser: {
+      addUser: {
+        headerText: 'Добавить пользователя',
+        buttonText: 'Удалить',
+      },
+      deleteUser: {
+        headerText: 'Удалить пользователя',
+        buttonText: 'Добавить',
+      },
+    },
+  },
   longMessage:
     'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.\n' +
     '\n' +
