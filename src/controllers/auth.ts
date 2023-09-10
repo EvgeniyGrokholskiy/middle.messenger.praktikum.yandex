@@ -3,7 +3,8 @@ import store, { TStore } from '../utils/store';
 import { TMethodsResponse } from './userProfile';
 import router, { TRouter } from '../utils/router';
 import { authApi, TAuthApi } from '../api/authApi';
-import { TSignInRequestData, TSignupRequestData } from '../api/types';
+import { API_ERROR_MESSAGES } from '../common/const';
+import { TSearchUserByLoginData, TSignInRequestData, TSignupRequestData } from '../api/types';
 
 export type TAuthController = typeof authController;
 
@@ -23,12 +24,18 @@ class AuthController {
   login(data: TSignInRequestData): Promise<TMethodsResponse> {
     return this.api
       .login(data)
-      .then(() => {
-        this.getUserData();
-        this.router.go(APP_PATH.CHAT);
+      .then(async () => {
+        const result = await this.getUserData();
+        if (result) {
+          this.router.go(APP_PATH.CHAT);
+          return {
+            isError: false,
+            errorMessage: '',
+          };
+        }
         return {
-          isError: false,
-          errorMessage: '',
+          isError: true,
+          errorMessage: 'get userDate error',
         };
       })
       .catch(error => {
@@ -40,7 +47,7 @@ class AuthController {
     return this.api
       .signup(data)
       .then(() => {
-        setTimeout(() => this.router.go(APP_PATH.CHAT), 200);
+        this.router.go(APP_PATH.CHAT);
         return {
           isError: false,
           errorMessage: '',
@@ -58,7 +65,13 @@ class AuthController {
         this.store.set('user', userData);
         return true;
       })
-      .catch(() => {
+      .catch(error => {
+        const { status } = error;
+        const errorText = error.response.reason;
+        if (status === 401 && errorText === API_ERROR_MESSAGES.COOKIE_NOT_VALID) {
+          this.router.go(APP_PATH.SIGN_IN);
+        }
+        this.router.go(APP_PATH.SIGN_IN);
         return false;
       });
   }
@@ -77,6 +90,16 @@ class AuthController {
       .catch(error => {
         return this.errorHandler(error);
       });
+  }
+
+  searchUser(data: TSearchUserByLoginData) {
+    return this.api
+      .searchUserByLogin(data)
+      .then(response => {
+        const result = response.response;
+        return result[0].id;
+      })
+      .catch(error => this.errorHandler(error));
   }
 
   errorHandler(error: XMLHttpRequest) {

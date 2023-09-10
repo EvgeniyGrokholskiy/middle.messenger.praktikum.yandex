@@ -10,21 +10,30 @@
                 }}}
                 <img src='{{linkChevron}}' alt='chevron' height='10' width='6' />
             </div>
-            {{{SearchInput value='' placeholder='Поиск' }}}
+            {{{SearchInput value='' placeholder='Поиск' onKeyup=searchInputHandler }}}
         </div>
         <div class='chat-list_wrapper'>
             {{#each data.chatList }}
                 {{{ChatItem
-                     chatName=this.chatName
-                     selected=this.selected
-                     avatarUrl=this.avatarUrl
-                     lastMessage=this.lastMessage
-                     unreadMessages=this.unreadMessages
-                     lastMessageTime=this.lastMessageTime
-                     isLastMessageOutgoing=this.isLastMessageOutgoing
+                        id=this.id
+                        ref=this.title
+                        chatName=this.title
+                        avatarUrl=this.avatar
+                        selected=../selectedChat
+                        onClick=../selectChatByClick
+                        unreadMessages=this.unread_count
+                        lastMessage=this.last_message.content
+                        lastMessageTime=this.last_message.time
+                        isLastMessageOutgoing=this.isLastMessageOutgoing
                 }}}
             {{/each}}
         </div>
+        {{{Button
+                type='button'
+                onClick=addChat
+                innerText='Добавить чат'
+                class='form_button chat-page_add-chat-button'
+        }}}
     </div>
     <div class='chat-page_chat'>
         <div class='chat-page_header'>
@@ -32,7 +41,10 @@
                 {{{Avatar }}}
                 {{{Paragraph text='Вадим' class='chat-name' }}}
             </div>
-            {{{AddUserButton onClick=showAddPopup }}}
+            <div class='chat-button_wrapper'>
+                {{{AddUserButton onClick=showAddPopup }}}
+                {{{DeleteChatButton onClick=deleteChat }}}
+            </div>
         </div>
         {{#Wrapper ref='addPopupWrapper' class='chat_add-chat-popup-wrapper' onClick=hideAddPopup}}
             {{#Popup class='chat-page_add-chat-popup'}}

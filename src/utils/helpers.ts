@@ -1,7 +1,8 @@
 import router from './router';
-import { TUserData } from '../api/types';
+import { TChat, TUserData } from '../api/types';
 import { APP_PATH } from '../common/appPath';
 import { TUserProfilePage } from '../common/userProfilePageData';
+import { TChatPage } from '../common/chatPageData';
 
 export const backToChat = () => {
   router.go(APP_PATH.CHAT);
@@ -59,85 +60,21 @@ export const getUserProfilePageDataWithValues = (
   return pageData;
 };
 
-// export const formDataLogger = (data: Record<string, string>) => {
-//   // Object.entries(data).forEach(dataItem => console.log(dataItem.join(': ')));
-//   // eslint-disable-next-line
-//   console.log(data);
-// };
+export const addChatDataInChatPageData = (
+  data: TChatPage,
+  chatList: TChat[],
+  userLogin: string,
+): TChatPage => {
+  const newChatList = chatList.map(chat => ({
+    ...chat,
+    isLastMessageOutgoing: chat?.last_message?.user?.login === userLogin ? 'true' : '',
+  }));
+  return { ...data, chatList: newChatList };
+};
 
-// function isEqual(lhs, rhs) {
-//   return lhs === rhs;
-// }
-
-// const render = (query: string, block: typeof Block) => {
-//   const root = document.querySelector(query);
-//   root.textContent = block.getContent();
-//   return root;
-// }
-
-// function trim(string: string, chars?: string) {
-//   let str = ' ' + string + ' ';
-//
-//   if (str && chars === undefined) {
-//     return string.trim();
-//   }
-//
-//   if (!str || !chars) {
-//     return (string || '');
-//   }
-//
-//   const regFirst = new RegExp(` ${chars}`, 'gi');
-//   const regSecond = new RegExp(`${chars} `, 'gi');
-//
-//   return str
-//     .replace(regFirst, '')
-//     .replace(regSecond, '')
-//     .trim();
-// }
-
-// function trimMy(str: string, chars: string = ' '): string {
-//   const regex = new RegExp(`^[${chars}]+|[${chars}]+$`, 'g');
-//   return str.replace(regex, '');
-// }
-//
 type Indexed<T = unknown> = {
   [key in string]: T;
 };
-
-// function merge(lhs: Indexed, rhs: Indexed): Indexed {
-//   const result: Indexed = { ...lhs };
-//
-//   for (const [key, value] of Object.entries(rhs)) {
-//     if (result[key] && typeof result[key] === 'object' && typeof value === 'object') {
-//       result[key] = merge(result[key] as Indexed, value as Indexed);
-//     } else {
-//       result[key] = value;
-//     }
-//   }
-//
-//   return result;
-// }
-
-// function merge(lhs: Indexed, rhs: Indexed): Indexed {
-//   for (let p in rhs) {
-//     if (!rhs.hasOwnProperty(p)) {
-//       continue;
-//     }
-//
-//     try {
-//       if (rhs[p].constructor === Object) {
-//         rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
-//       } else {
-//         lhs[p] = rhs[p];
-//       }
-//     } catch(e) {
-//       lhs[p] = rhs[p];
-//     }
-//   }
-//
-//   return lhs;
-// }
-//
 
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
   Object.keys(rhs).forEach(p => {

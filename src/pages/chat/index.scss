@@ -11,6 +11,7 @@
   border-right: 1px solid $divider;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -38,6 +39,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 10.5rem);
 }
 
 .chat-page_chat {
@@ -65,6 +69,11 @@
   display: flex;
   align-items: center;
   gap: 0.625rem;
+}
+
+.chat-button_wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .chat-page_message-list {
@@ -128,4 +137,8 @@
   align-items: center;
   justify-content: center;
   z-index: 100;
+}
+
+.chat-page_add-chat-button {
+  margin: 1rem auto;
 }

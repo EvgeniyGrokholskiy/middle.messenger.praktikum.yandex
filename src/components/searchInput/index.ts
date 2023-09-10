@@ -6,6 +6,10 @@ type TProps = {
   value: string;
   placeholder: string;
   class: string;
+  onKeyup: (value: string) => void;
+  events: {
+    keyup: (event: Event) => void;
+  };
 };
 
 export class SearchInput extends Block {
@@ -13,7 +17,15 @@ export class SearchInput extends Block {
     super({
       ...props,
       imageSrc: image,
+      events: {
+        keyup: (event: Event) => this.keyupHandler(event),
+      },
     });
+  }
+
+  keyupHandler(event: Event) {
+    const { value } = event.target as HTMLInputElement;
+    this.props.onKeyup(value);
   }
 
   protected render(): DocumentFragment {

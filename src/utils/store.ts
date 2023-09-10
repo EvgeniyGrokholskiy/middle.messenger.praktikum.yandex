@@ -1,6 +1,6 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
-import { TUserData } from '../api/types';
+import { TChat, TUserData } from '../api/types';
 import { chatPageData, TChatPage } from '../common/chatPageData';
 import { loginPageData, TLoginPageData } from '../common/loginPage';
 import { TUserProfilePage, userProfilePageData } from '../common/userProfilePageData';
@@ -12,11 +12,11 @@ export interface IStore {
   userProfileData: TUserProfilePage;
   chatPageData: TChatPage;
   user: TUserData;
-  chats: any[];
+  chats: TChat[];
   messages: Record<number, any[]>;
   selectedChat: number;
 }
-const nullUser: TUserData = {
+export const nullUser: TUserData = {
   id: 0,
   avatar: '',
   display_name: '',

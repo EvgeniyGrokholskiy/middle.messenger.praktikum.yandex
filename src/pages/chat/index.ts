@@ -1,18 +1,24 @@
 import Block, { TBlock } from '../../utils/block';
 import template from './chat.hbs';
+import store from '../../utils/store';
 import router from '../../utils/router';
 import { TUserData } from '../../api/types';
 import image from '../../img/messageImage.jpg';
 import { APP_PATH } from '../../common/appPath';
 import { withStore } from '../../utils/withStore';
-import { TChatPage } from '../../common/chatPageData';
-import linkChevron from '../../img/chevronRight.svg';
 import { Wrapper } from '../../components/wrapper';
+import authController from '../../controllers/auth';
+import chatController from '../../controllers/chat';
+import { ChatItem } from '../../components/chatItem';
+import linkChevron from '../../img/chevronRight.svg';
+import { TChatPage } from '../../common/chatPageData';
+import { addChatDataInChatPageData } from '../../utils/helpers';
 
 type TChatProps = {
   user: TUserData;
   data: TChatPage;
-  charts: Record<string, string>;
+  chats: Record<string, string>[];
+  selectedChat: number;
   addChatPopupData: any;
   addUserPopupData: any;
   renderUserProfile: (event: Event) => void;
@@ -27,14 +33,27 @@ type TChatProps = {
   hideDeleteUserPopup: () => void;
   addNewUser: (userLogin: string) => void;
   deleteUser: (userLogin: string) => void;
+  addChat: () => void;
+  selectChatByClick: (chatId: number) => void;
+  searchInputHandler: (value: string) => void;
+  deleteChat: () => void;
 };
 
 export class Chat extends Block<TChatProps> {
   constructor(props: TChatProps) {
+    if (!props.user.id) {
+      authController.getUserData();
+    }
+
+    if (!props.chats.length) {
+      chatController.getAllChats();
+    }
+
     super({
       ...props,
       addChatPopupData: props.data.popupData.addChat,
       addUserPopupData: props.data.popupData.addUser,
+      selectedChat: props.selectedChat,
       renderUserProfile: (event: Event) => {
         event.preventDefault();
         this.renderUserProfile();
@@ -68,17 +87,88 @@ export class Chat extends Block<TChatProps> {
       deleteUser: (userLogin: string) => {
         this.deleteUser(userLogin);
       },
+      addChat: () => {
+        this.addChat();
+      },
+      deleteChat: () => {
+        this.deleteChat();
+      },
+      selectChatByClick: (chatId: number) => {
+        this.selectChatByClick(chatId);
+      },
+      searchInputHandler: (value: string) => {
+        this.searchInputHandler(value);
+      },
       messageImage: image,
       linkChevron,
     });
   }
 
-  addNewUser(userLogin: string) {
-    console.log(userLogin);
+  selectChatByClick(chatId: number) {
+    store.set('selectedChat', chatId);
   }
 
-  deleteUser(userLogin: string) {
-    console.log(userLogin);
+  deleteChat() {
+    const chatId = this.props.selectedChat;
+    chatController.deleteChatById({ chatId });
+  }
+
+  searchInputHandler(value: string) {
+    const chatItem = Object.values(this.refs).filter(
+      item => item instanceof ChatItem,
+    ) as ChatItem[];
+    if (value.length) {
+      chatItem.forEach(item => {
+        item.show();
+        // eslint-disable-next-line
+        // @ts-ignore
+        if (!item.props.chatName.includes(value)) {
+          item.hide();
+        }
+      });
+    } else {
+      chatItem.forEach(item => item.show());
+    }
+  }
+
+  addChat() {
+    // eslint-disable-next-line
+    const newChatName = window.prompt('Введите название нового чата', '');
+    if (newChatName) {
+      chatController.createNewChat(newChatName);
+    }
+  }
+
+  async addNewUser(userLogin: string) {
+    const selectedChatId = this.props.selectedChat;
+    const result = await authController.searchUser({ login: userLogin });
+    if (result) {
+      chatController.addUsersToChat({ chatId: selectedChatId, users: [result as number] });
+    }
+  }
+
+  async deleteUser(userLogin: string) {
+    const selectedChatId = this.props.selectedChat;
+    const result = await chatController.getChatUsers({
+      id: selectedChatId,
+      name: '',
+      offset: 0,
+      limit: 100,
+      email: '',
+    });
+    if (Array.isArray(result)) {
+      const userId = result.map(item => {
+        if (item.login === userLogin) {
+          return item.id;
+        }
+        return 0;
+      }).filter(id => !!id);
+      if (userId.length) {
+        chatController.deleteChatUsers({ chatId: selectedChatId, users: userId });
+      }
+    }
+
+    console.log(result);
   }
 
   renderUserProfile() {
@@ -117,9 +207,10 @@ export class Chat extends Block<TChatProps> {
 }
 
 const withChatStore = withStore(state => ({
-  data: state.chatPageData,
+  data: addChatDataInChatPageData(state.chatPageData, state.chats, state?.user?.login || ''),
   user: state.user,
   chats: state.chats,
+  selectedChat: state.selectedChat,
 }));
 
 const ChatPage = withChatStore(Chat as TBlock);

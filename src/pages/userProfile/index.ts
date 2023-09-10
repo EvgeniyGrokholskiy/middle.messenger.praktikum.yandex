@@ -5,10 +5,10 @@ import { withStore } from '../../utils/withStore';
 import { Wrapper } from '../../components/wrapper';
 import ErrorMessage from '../../components/errorMessage';
 import { UserProfileForm } from '../../components/userProfileForm';
-import authController, { TAuthController } from '../../controllers/auth';
 import { TSignupRequestData, TUserData, TUserPassword } from '../../api/types';
 import { backToChat, getUserProfilePageDataWithValues } from '../../utils/helpers';
 import userProfileController, { TUserProfileController } from '../../controllers/userProfile';
+import authController, { TAuthController } from '../../controllers/auth';
 
 class UserProfileBlock extends Block {
   private readonly authController: TAuthController = authController;
@@ -16,6 +16,10 @@ class UserProfileBlock extends Block {
   private readonly userController: TUserProfileController = userProfileController;
 
   constructor(props: any) {
+    if (!props.user.id) {
+      authController.getUserData();
+    }
+
     super({
       ...props,
       fileExtension: props.data?.fileExtension,

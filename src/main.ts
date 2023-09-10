@@ -37,6 +37,7 @@ import { UserProfileInputBlock } from './components/userProfileInputBlock';
 import { UnreadMessageIndicator } from './components/unreadMessageIndicator';
 import { MenuItem } from './components/menuItem';
 import { UserOperationPopup } from './components/userOperationPopup';
+import { DeleteChatButton } from './components/deleteChatButton';
 
 registerComponent('H1', H1);
 registerComponent('Form', Form);
@@ -61,6 +62,7 @@ registerComponent('OutMessageItem', OutMessageItem);
 registerComponent('NewMessageBlock', NewMessageBlock);
 registerComponent('NewMessageInput', NewMessageInput);
 registerComponent('UserProfileForm', UserProfileForm);
+registerComponent('DeleteChatButton', DeleteChatButton);
 registerComponent('UserProfileAvatar', UserProfileAvatar);
 registerComponent('UserOperationPopup', UserOperationPopup);
 registerComponent('UserProfileInputBlock', UserProfileInputBlock);

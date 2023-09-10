@@ -1,6 +1,6 @@
 import { END_POINTS_URL } from '../common/apiConst';
 import { httpTransport } from '../utils/HTTPTransport';
-import { TSignInRequestData, TSignupRequestData } from './types';
+import { TSearchUserByLoginData, TSignInRequestData, TSignupRequestData } from './types';
 
 export type TAuthApi = typeof authApi;
 
@@ -31,11 +31,20 @@ export const authApi = {
       },
     });
   },
-  async getUserData() {
+  getUserData() {
     return httpTransport.get(END_POINTS_URL.AUTH_USER, {
       headers: {
         withCredentials: true,
       },
+    });
+  },
+  searchUserByLogin(data: TSearchUserByLoginData) {
+    return httpTransport.post(END_POINTS_URL.SEARCH_USER, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        withCredentials: true,
+      },
+      data,
     });
   },
 };

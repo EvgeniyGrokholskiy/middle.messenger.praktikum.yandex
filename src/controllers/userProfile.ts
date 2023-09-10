@@ -84,6 +84,9 @@ class UserProfileController {
 
   errorHandler(error: XMLHttpRequest) {
     const { status } = error;
+    if (status === 401) {
+      this.router.go(APP_PATH.SIGN_IN);
+    }
     if (status === 404) {
       this.router.go(APP_PATH.ERROR_404);
     }
