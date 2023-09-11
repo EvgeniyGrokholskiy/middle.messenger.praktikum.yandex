@@ -39,7 +39,7 @@
         <div class='chat-page_header'>
             <div class='chat-name_wrapper'>
                 {{{Avatar }}}
-                {{{Paragraph text='Вадим' class='chat-name' }}}
+                {{{Paragraph text=selectedChatTitle class='chat-name' }}}
             </div>
             <div class='chat-button_wrapper'>
                 {{{AddUserButton onClick=showAddPopup }}}
@@ -63,10 +63,20 @@
             {{/Popup}}
         {{/Wrapper}}
         {{#Wrapper ref='addUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideAddUserPopup}}
-            {{{UserOperationPopup data=addUserPopupData.addUser onSubmit=addNewUser}}}
+            {{{UserOperationPopup
+                    data=addUserPopupData.addUser
+                    userList=userList
+                    onSubmit=addNewUser
+                    searchUser=searchUser
+            }}}
         {{/Wrapper}}
         {{#Wrapper ref='deleteUserUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideDeleteUserPopup}}
-            {{{UserOperationPopup data=addUserPopupData.deleteUser onSubmit=deleteUser}}}
+            {{{UserOperationPopup
+                    data=addUserPopupData.deleteUser
+                    userList=userList
+                    onSubmit=deleteUser
+                    searchUser=searchUser
+            }}}
         {{/Wrapper}}
         <div class='chat-page_message-list'>
             <div class='message-list_date font_12'>19 июня</div>

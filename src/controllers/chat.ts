@@ -2,12 +2,14 @@ import { APP_PATH } from '../common/appPath';
 import store, { TStore } from '../utils/store';
 import router, { TRouter } from '../utils/router';
 import { chatApi, TChatApi } from '../api/chatApi';
+import { BASE_RESOURCES_URL } from '../common/apiConst';
 import {
+  TChat,
   TChatUserData,
   TGetChatUsers,
+  TDeleteChatUsers,
   TDeleteChatByIdData,
   TAddUsersToChatByIdsData,
-  TDeleteChatUsers,
 } from '../api/types';
 
 type TErrorResponse = {
@@ -32,11 +34,11 @@ export class ChatController {
     this.api
       .getChats()
       .then(response => {
-        const chats = response.response;
-        const { selectedChat } = this.store.getState();
+        const chats = response.response as TChat[];
+        const { selectedChatId } = this.store.getState();
 
-        if (!selectedChat && chats.length) {
-          this.store.set('selectedChat', chats[0].id);
+        if (!selectedChatId && chats.length) {
+          this.setSelectedChatData(chats[0]);
         }
 
         this.store.set('chats', chats);
@@ -63,7 +65,8 @@ export class ChatController {
       .deleteChatById(data)
       .then(() => {
         this.getAllChats();
-        this.store.set('selectedChat', 0);
+
+        this.setSelectedChatData(this.store.getState().chats[0]);
       })
       .catch(error => this.errorHandler(error));
   }
@@ -89,6 +92,31 @@ export class ChatController {
       .deleteChatUsersByIds(data)
       .then(response => response)
       .catch(error => this.errorHandler(error));
+  }
+
+  async getSelectedChatUsers() {
+    const { selectedChat } = this.store.getState();
+
+    if (!selectedChat) {
+      // this.router.go(APP_PATH.CHAT);
+      return;
+    }
+    const { id } = selectedChat;
+
+    const usersList = await this.getChatUsers({ id, email: '', limit: 100, offset: 0, name: '' });
+    this.store.set('usersInChat', usersList);
+  }
+
+  setSelectedChatData(chat: TChat) {
+    const { id, title, avatar } = chat;
+
+    this.store.set('selectedChatId', id);
+    this.store.set('selectedChat', chat);
+    this.store.set('selectedChatTitle', title);
+    if (avatar) {
+      const newAvatar = `${BASE_RESOURCES_URL}/${avatar}`;
+      this.store.set('selectedChatAvatar', newAvatar);
+    }
   }
 
   errorHandler(error: XMLHttpRequest) {

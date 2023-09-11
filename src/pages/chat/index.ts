@@ -2,10 +2,10 @@ import Block, { TBlock } from '../../utils/block';
 import template from './chat.hbs';
 import store from '../../utils/store';
 import router from '../../utils/router';
-import { TUserData } from '../../api/types';
 import image from '../../img/messageImage.jpg';
 import { APP_PATH } from '../../common/appPath';
 import { withStore } from '../../utils/withStore';
+import { TChat, TUserData } from '../../api/types';
 import { Wrapper } from '../../components/wrapper';
 import authController from '../../controllers/auth';
 import chatController from '../../controllers/chat';
@@ -17,10 +17,12 @@ import { addChatDataInChatPageData } from '../../utils/helpers';
 type TChatProps = {
   user: TUserData;
   data: TChatPage;
-  chats: Record<string, string>[];
+  chats: TChat[];
+  userList: any[];
   selectedChat: number;
   addChatPopupData: any;
   addUserPopupData: any;
+  selectedChatTitle: string;
   renderUserProfile: (event: Event) => void;
   messageImage: typeof image;
   linkChevron: typeof linkChevron;
@@ -37,6 +39,7 @@ type TChatProps = {
   selectChatByClick: (chatId: number) => void;
   searchInputHandler: (value: string) => void;
   deleteChat: () => void;
+  searchUser: (login: string) => void;
 };
 
 export class Chat extends Block<TChatProps> {
@@ -51,9 +54,11 @@ export class Chat extends Block<TChatProps> {
 
     super({
       ...props,
+      selectedChatTitle: props.selectedChatTitle,
       addChatPopupData: props.data.popupData.addChat,
       addUserPopupData: props.data.popupData.addUser,
       selectedChat: props.selectedChat,
+      userList: props.userList,
       renderUserProfile: (event: Event) => {
         event.preventDefault();
         this.renderUserProfile();
@@ -105,7 +110,9 @@ export class Chat extends Block<TChatProps> {
   }
 
   selectChatByClick(chatId: number) {
-    store.set('selectedChat', chatId);
+    const [selectedChat] = this.props.chats.filter(item => item.id === chatId);
+    store.set('selectedChatId', chatId);
+    store.set('selectedChatTitle', selectedChat.title);
   }
 
   deleteChat() {
@@ -153,22 +160,22 @@ export class Chat extends Block<TChatProps> {
       id: selectedChatId,
       name: '',
       offset: 0,
-      limit: 100,
+      limit: 20,
       email: '',
     });
     if (Array.isArray(result)) {
-      const userId = result.map(item => {
-        if (item.login === userLogin) {
-          return item.id;
-        }
-        return 0;
-      }).filter(id => !!id);
+      const userId = result
+        .map(item => {
+          if (item.login === userLogin) {
+            return item.id;
+          }
+          return 0;
+        })
+        .filter(id => !!id);
       if (userId.length) {
         chatController.deleteChatUsers({ chatId: selectedChatId, users: userId });
       }
     }
-
-    console.log(result);
   }
 
   renderUserProfile() {
@@ -185,7 +192,9 @@ export class Chat extends Block<TChatProps> {
 
   showAddUserPopup() {
     this.hideAddPopup();
-    (this.refs.addUserPopupWrapper as Wrapper).show();
+    store.set('isAddUsers', true);
+    router.go(APP_PATH.CHAT_USERS);
+    // (this.refs.addUserPopupWrapper as Wrapper).show();
   }
 
   hideAddUserPopup() {
@@ -194,7 +203,9 @@ export class Chat extends Block<TChatProps> {
 
   showDeleteUserPopup() {
     this.hideAddPopup();
-    (this.refs.deleteUserUserPopupWrapper as Wrapper).show();
+    store.set('isAddUsers', false);
+    router.go(APP_PATH.CHAT_USERS);
+    // (this.refs.deleteUserUserPopupWrapper as Wrapper).show();
   }
 
   hideDeleteUserPopup() {
@@ -210,7 +221,9 @@ const withChatStore = withStore(state => ({
   data: addChatDataInChatPageData(state.chatPageData, state.chats, state?.user?.login || ''),
   user: state.user,
   chats: state.chats,
-  selectedChat: state.selectedChat,
+  userList: state.usersInChat,
+  selectedChat: state.selectedChatId,
+  selectedChatTitle: state.selectedChatTitle,
 }));
 
 const ChatPage = withChatStore(Chat as TBlock);

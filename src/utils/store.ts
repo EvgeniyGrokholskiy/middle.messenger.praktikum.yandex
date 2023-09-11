@@ -1,6 +1,6 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
-import { TChat, TUserData } from '../api/types';
+import { TChat, TChatUserData, TUserData } from '../api/types';
 import { chatPageData, TChatPage } from '../common/chatPageData';
 import { loginPageData, TLoginPageData } from '../common/loginPage';
 import { TUserProfilePage, userProfilePageData } from '../common/userProfilePageData';
@@ -13,8 +13,15 @@ export interface IStore {
   chatPageData: TChatPage;
   user: TUserData;
   chats: TChat[];
-  messages: Record<number, any[]>;
-  selectedChat: number;
+  selectedChat: TChat | null;
+  usersInChat: TChatUserData[];
+  findUsers: any[];
+  messages: Record<number, any[]>[];
+  errorMessage: string;
+  selectedChatId: number;
+  selectedChatTitle: string;
+  selectedChatAvatar: string;
+  isAddUsers: boolean;
 }
 export const nullUser: TUserData = {
   id: 0,
@@ -34,8 +41,15 @@ const initialState: IStore = {
   chatPageData,
   user: nullUser,
   chats: [],
-  messages: {},
-  selectedChat: 0,
+  selectedChat: null,
+  findUsers: [],
+  usersInChat: [],
+  messages: [],
+  selectedChatId: 0,
+  selectedChatTitle: '',
+  selectedChatAvatar: '',
+  errorMessage: '',
+  isAddUsers: true,
 };
 
 export enum STORE_EVENTS {

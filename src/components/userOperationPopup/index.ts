@@ -5,6 +5,7 @@ type UserOperationPopupProps = {
   headerText: string;
   buttonText: string;
   data: any;
+  searchUser: (login: string) => void;
   onSubmit: (userLogin: string) => void;
 };
 
@@ -15,9 +16,17 @@ export class UserOperationPopup extends Block<UserOperationPopupProps> {
       ...props.data,
       events: {
         click: (event: Event) => event.stopPropagation(),
+        keyup: (event: Event) => this.searchUser(event),
         submit: (event: Event) => this.onSubmit(event),
       },
     });
+  }
+
+  searchUser(event: Event) {
+    if (event.target) {
+      const { value } = event.target as HTMLInputElement;
+      this.props.searchUser(value);
+    }
   }
 
   onSubmit(event: Event) {

@@ -3,8 +3,8 @@
         {{{Paragraph text=headerText class='font_20 user-operation_header'}}}
         {{{InputBlock
                 ref=ref
-                for='login'
-                name='login'
+                for='loginInput'
+                name='loginInput'
                 type=type
                 class='form_input font_13'
                 value=value
@@ -19,6 +19,7 @@
                 errorText=errorText
                 placeholder='Логин'
         }}}
+        {{{DataSelectBlock id='login' data=userList }}}
         {{{Button innerText=buttonText class='form_button user-operation_button' type=buttonData.type}}}
     </form>
 {{/Popup}}

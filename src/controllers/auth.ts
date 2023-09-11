@@ -97,7 +97,7 @@ class AuthController {
       .searchUserByLogin(data)
       .then(response => {
         const result = response.response;
-        return result[0].id;
+        return result;
       })
       .catch(error => this.errorHandler(error));
   }
