@@ -5,7 +5,7 @@ type TProps = {
   class: string;
 };
 
-export class Popup extends Block {
+export class Popup extends Block<TProps> {
   constructor(props: TProps) {
     super(props);
   }

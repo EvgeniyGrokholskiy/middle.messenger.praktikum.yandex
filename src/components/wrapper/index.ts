@@ -2,22 +2,29 @@ import Block from '../../utils/block';
 import template from './wrapper.hbs';
 
 type TProps = {
-  onClick: () => void;
+  onClick: (event: Event) => void;
   class: string;
+  events: {
+    click: (event: Event) => void;
+  };
 };
 
-export class Wrapper extends Block {
+export class Wrapper extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
       events: {
-        click: props.onClick,
+        click: (event: Event) => props.onClick(event),
       },
     });
   }
 
-  show() {
+  public show() {
     this.getContent()!.style.display = 'flex';
+  }
+
+  public hide() {
+    super.hide();
   }
 
   protected render(): DocumentFragment {

@@ -3,16 +3,19 @@
         {{{Button class='button back-button' onClick=exitFromUserProfile}}}
     </div>
     <div class='user-profile_content'>
-        {{{UserProfileAvatar imageSrc='' onClick=showAddFilePopup }}}
-        {{{H1 text='Иван' class='user-profile_name font_16' }}}
+        {{{UserProfileAvatar imageSrc=user.avatar onClick=showAddFilePopup }}}
+        {{{H1 text=user.first_name class='user-profile_name font_16' }}}
         {{#Wrapper ref='userProfileInputBlockForm' class='user-profile_content'}}
             {{{UserProfileForm
                     ref='userProfileInputBlock'
                     saveButtonRef='saveButtonRef'
+                    userData=user
                     data=data.userProfileInputBlockData
                     saveButtonInnerText=data.saveButtonInnerText
                     onClick=disableUserEditMode
+                    onSubmitCallback=setNewUserData
             }}}
+            {{{ErrorMessage ref='userBlockErrorMessage' errorMessage=errorMessage }}}
         {{/Wrapper}}
         {{#Wrapper ref='userProfilePasswordBlockForm' class='user-profile_setting-block user-profile_change-password-block'}}
             {{{UserProfileForm
@@ -20,7 +23,9 @@
                     data=data.userProfilePasswordBlock
                     saveButtonInnerText=data.saveButtonInnerText
                     onClick=disablePasswordEditMode
+                    onSubmitCallback=setNewPassword
             }}}
+            {{{ErrorMessage ref='passwordBlockErrorMessage' errorMessage=errorMessage }}}
         {{/Wrapper}}
         {{#Wrapper ref='userProfileSettingBlock' class='user-profile_setting-block user-profile_change-links' }}
             <div class='block-wrapper block-wrapper_link {{class}}'>
@@ -39,17 +44,19 @@
             </div>
             {{{Button
                     innerText='Выйти'
-                    onClick=exitFromUserProfile
+                    onClick=logout
                     class='user-profile_exit-button font_13 user-profile_save-password-button'
             }}}
         {{/Wrapper}}
-        {{#Wrapper ref='addAwatarWrapper' class='user-profile_avatar-load-popup-wrapper' onClick=hideAddFilePopup}}
+        {{#Wrapper ref='addAvatarWrapper' class='user-profile_avatar-load-popup-wrapper' onClick=hideAddFilePopup}}
             {{#Popup ref='addFilePopup' class='user-profile_avatar-load-popup'}}
                 {{{AddFile
                         isShowText='true'
                         text='Выбрать файл на компьютере'
-                        accept='{{inputAccept.image}}'
+                        accept='image/png, image/jpeg'
                         isError=''
+                        setNewAvatar=setNewAvatar
+                        fileExtension=fileExtension
                 }}}
             {{/Popup}}
         {{/Wrapper}}

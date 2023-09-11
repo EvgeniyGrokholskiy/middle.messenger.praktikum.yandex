@@ -10,43 +10,83 @@
                 }}}
                 <img src='{{linkChevron}}' alt='chevron' height='10' width='6' />
             </div>
-            {{{SearchInput value='' placeholder='Поиск' }}}
+            {{{SearchInput value='' placeholder='Поиск' onKeyup=searchInputHandler }}}
         </div>
         <div class='chat-list_wrapper'>
             {{#each data.chatList }}
                 {{{ChatItem
-                     chatName=this.chatName
-                     selected=this.selected
-                     avatarUrl=this.avatarUrl
-                     lastMessage=this.lastMessage
-                     unreadMessages=this.unreadMessages
-                     lastMessageTime=this.lastMessageTime
-                     isLastMessageOutgoing=this.isLastMessageOutgoing
+                        id=this.id
+                        ref=this.title
+                        chatName=this.title
+                        avatarUrl=this.avatar
+                        selected=../selectedChat
+                        onClick=../selectChatByClick
+                        unreadMessages=this.unread_count
+                        lastMessage=this.last_message.content
+                        lastMessageTime=this.last_message.time
+                        isLastMessageOutgoing=this.isLastMessageOutgoing
                 }}}
             {{/each}}
         </div>
+        {{{Button
+                type='button'
+                onClick=addChat
+                innerText='Добавить чат'
+                class='form_button chat-page_add-chat-button'
+        }}}
     </div>
     <div class='chat-page_chat'>
         <div class='chat-page_header'>
             <div class='chat-name_wrapper'>
                 {{{Avatar }}}
-                {{{Paragraph text='Вадим' class='chat-name' }}}
+                {{{Paragraph text=selectedChatTitle class='chat-name' }}}
             </div>
-            {{{AddUserButton }}}
+            <div class='chat-button_wrapper'>
+                {{{AddUserButton onClick=showAddPopup }}}
+                {{{DeleteChatButton onClick=deleteChat }}}
+            </div>
         </div>
-        <div class='chat-page_message-list'>
-            <div class='message-list_date font_12'>19 июня</div>
-            {{{InMessageItem messageText=data.longMessage sendTime='11:56' }}}
-            {{{InMessageItem
-                imageUrl=messageImage
-                sendTime='11:56'
-                class='message_image-message'
+        {{#Wrapper ref='addPopupWrapper' class='chat_add-chat-popup-wrapper' onClick=hideAddPopup}}
+            {{#Popup class='chat-page_add-chat-popup'}}
+                {{{MenuItem
+                        buttonText=addChatPopupData.addUser.buttonText
+                        altText=addChatPopupData.addUser.altText
+                        onClick=addUserPopup
+                        imageSrc=addChatPopupData.addUser.imageSrc
+                }}}
+                {{{MenuItem
+                        buttonText=addChatPopupData.deleteUser.buttonText
+                        altText=addChatPopupData.deleteUser.altText
+                        onClick=deleteUserPopup
+                        imageSrc=addChatPopupData.deleteUser.imageSrc
+                }}}
+            {{/Popup}}
+        {{/Wrapper}}
+        {{#Wrapper ref='addUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideAddUserPopup}}
+            {{{UserOperationPopup
+                    data=addUserPopupData.addUser
+                    userList=userList
+                    onSubmit=addNewUser
+                    searchUser=searchUser
             }}}
-            {{{OutMessageItem messageText='Круто!' sendTime='12:00' class='' }}}
+        {{/Wrapper}}
+        {{#Wrapper ref='deleteUserUserPopupWrapper' class='chat_add-user-popup-wrapper' onClick=hideDeleteUserPopup}}
+            {{{UserOperationPopup
+                    data=addUserPopupData.deleteUser
+                    userList=userList
+                    onSubmit=deleteUser
+                    searchUser=searchUser
+            }}}
+        {{/Wrapper}}
+        <div class='chat-page_message-list'>
+            {{#if messages}}
+                {{#each messages}}
+                    {{{Message class='' id=this.user_id content=this.content time=time userId=../user.id}}}
+                {{/each}}
+            {{/if}}
         </div>
         <div class='chat-page_new-message'>
-            {{#NewMessageBlock }}
-                {{{AddFileButton }}}
+            {{#NewMessageBlock onSubmit=sendNewMessage }}
                 {{{NewMessageInput value='' placeholder='Сообщение' }}}
                 {{{SendButton }}}
             {{/NewMessageBlock }}

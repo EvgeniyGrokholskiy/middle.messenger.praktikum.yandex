@@ -2,7 +2,14 @@ import Handlebars, { HelperOptions } from 'handlebars';
 
 import Block from './block';
 
-export function registerComponent(name: string, Component: typeof Block) {
+interface IComponent<TProps = any> {
+  new (props: TProps): Block;
+}
+
+export function registerComponent<TProps extends object>(
+  name: string,
+  Component: IComponent<TProps>,
+) {
   if (name in Handlebars.helpers) {
     throw new Error(`The ${name} component is already registered!`);
   }

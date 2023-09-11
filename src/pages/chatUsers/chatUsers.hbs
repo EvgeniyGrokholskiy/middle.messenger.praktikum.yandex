@@ -1,0 +1,52 @@
+<div class='chat-page_wrapper'>
+    <div class='chat-page_chat-list'>
+        <div class='chat-list_search-block'>
+            <div class='search-block_profile-link-wrapper'>
+                {{{Link
+                        href=''
+                        linkText='Назад к чатам'
+                        onClick=renderChatPage
+                        class='profile-link_link font_12'
+                }}}
+                <img src='{{linkChevron}}' alt='chevron' height='10' width='6' />
+            </div>
+        </div>
+        <div class='chat-list_wrapper chat-list_wrapper-one-in-list'>
+            {{#each selectedChatToRender }}
+                {{{ChatItem
+                        id=this.id
+                        ref=this.title
+                        chatName=this.title
+                        avatarUrl=this.avatar
+                        selected=../selectedChat
+                        onClick=../selectChatByClick
+                        unreadMessages=this.unread_count
+                        lastMessage=this.last_message.content
+                        lastMessageTime=this.last_message.time
+                        isLastMessageOutgoing=this.isLastMessageOutgoing
+                }}}
+            {{/each}}
+        </div>
+    </div>
+    <div class='chat-page_chat'>
+        <div class='chat-page_header'>
+            <div class='chat-name_wrapper'>
+                {{{Avatar }}}
+                {{{Paragraph text=selectedChatTitle class='chat-name' }}}
+            </div>
+        </div>
+        <div class='chat-page_message-list chat-page_message-list-usersPage'>
+            <p class='chat-page_title'>{{titleText}}</p>
+            {{{SearchUsers onSubmit=searchUsers}}}
+            <div class='chat-page_user-list'>
+                {{{UsersInChatForm
+                        ref='usersInChatForm'
+                        usersInChat=usersInChat
+                        buttonText=buttonText
+                        onSubmit=setUsersInChat
+                }}}
+            </div>
+            {{{Button class='form_button' onClick=renderChatPage innerText='Назад к чатам'}}}
+        </div>
+    </div>
+</div>

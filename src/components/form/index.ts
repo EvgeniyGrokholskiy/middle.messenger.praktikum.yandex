@@ -1,13 +1,15 @@
-import Block from '../../utils/block';
+import Block, { TEvent } from '../../utils/block';
 import template from './form.hbs';
-import { formDataLogger } from '../../utils/helpers';
-import { InputBlock } from '../inputBlock/index';
+import { InputBlock } from '../inputBlock';
+import { TSignInRequestData } from '../../api/types';
 
 type TProps = {
-  events: Record<string, any>;
+  callbackToLink: () => void;
+  callbackToButton: (data: TSignInRequestData) => void;
+  events: Record<string, TEvent>;
 };
 
-export class Form extends Block {
+export class Form extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
@@ -18,7 +20,9 @@ export class Form extends Block {
   }
 
   submit(event: Event): void {
-    const inputs = this.getInputsBlocks();
+    event.preventDefault();
+
+    const inputs = this.getInputsBlocks() as InputBlock[];
     let isValid = true;
 
     inputs.forEach(item => {
@@ -29,19 +33,19 @@ export class Form extends Block {
       isValid = input.getIsValid();
     });
 
-    event.preventDefault();
     if (isValid) {
-      this.logFormValue();
+      const formData = this.getFormInputValues() as TSignInRequestData;
+      this.props.callbackToButton(formData);
     }
   }
 
-  getInputsBlocks(): Block[] {
+  getInputsBlocks(): (Block<any> | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputBlock);
   }
 
   getFormInputValues(): Record<string, string> {
     const inputValues: Record<string, string> = {};
-    const refsArray = this.getInputsBlocks();
+    const refsArray = this.getInputsBlocks() as InputBlock[];
 
     const inputs = refsArray
       .map(inputBlock => {
@@ -61,12 +65,6 @@ export class Form extends Block {
     });
 
     return inputValues;
-  }
-
-  logFormValue(): void {
-    const inputValues = this.getFormInputValues();
-
-    formDataLogger(inputValues);
   }
 
   protected render(): DocumentFragment {

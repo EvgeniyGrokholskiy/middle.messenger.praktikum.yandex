@@ -1,0 +1,15 @@
+<form class='user-form'>
+    <ul class='user-form_ul'>
+        {{#each usersInChat}}
+            <li class='user-form_li'>
+                <label class='li_label'>
+                    <input name='users' value='{{this.id}}' type="checkbox">
+                    Ник:<span class='label_span'> {{this.display_name}}</span>,
+                    Имя:<span class='label_span'> {{this.first_name}}</span>,
+                    Фамилия:<span class='label_span'> {{this.second_name}}</span>
+                </label>
+            </li>
+        {{/each}}
+    </ul>
+    <button class="button form_button user-form_button" type="submit">{{buttonText}}</button>
+</form>

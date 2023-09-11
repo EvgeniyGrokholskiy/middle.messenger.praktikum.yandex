@@ -1,9 +1,17 @@
+import { BASE_URL } from '../common/apiConst';
+
+type HTTPMethod = (url: string, options: Record<string, any>) => Promise<XMLHttpRequest>;
+type TRequestMethod = (
+  url: string,
+  options: Record<string, any>,
+  timeout: number,
+) => Promise<XMLHttpRequest>;
+
 interface IHTTPTransport {
-  get: (url: string, options: Record<string, any>) => Promise<unknown>;
-  put: (url: string, options: Record<string, any>) => Promise<unknown>;
-  post: (url: string, options: Record<string, any>) => Promise<unknown>;
-  delete: (url: string, options: Record<string, any>) => Promise<unknown>;
-  request: (url: string, options: Record<string, any>) => Promise<unknown>;
+  get: HTTPMethod;
+  put: HTTPMethod;
+  post: HTTPMethod;
+  delete: HTTPMethod;
 }
 
 const METHODS = {
@@ -18,7 +26,6 @@ const queryStringify = (data: Record<string, string>) => {
     throw new Error('Data must be object');
   }
 
-  // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
   return keys.reduce(
     (result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`,
@@ -26,51 +33,78 @@ const queryStringify = (data: Record<string, string>) => {
   );
 };
 
-export class HTTPTransport implements IHTTPTransport {
-  get = (url: string, options: Record<string, any> = {}) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+class HTTPTransport implements IHTTPTransport {
+  private static _instance: HTTPTransport;
 
-  put = (url: string, options: Record<string, any> = {}) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  private readonly baseUrl: string;
 
-  post = (url: string, options: Record<string, any> = {}) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  constructor(baseUrl: string) {
+    if (HTTPTransport._instance) {
+      throw new Error("Singleton classes can't be instantiated more than once.");
+    }
+    this.baseUrl = baseUrl;
+  }
 
-  delete = (url: string, options: Record<string, any> = {}) =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+  public static getInstance(baseUrl: string) {
+    if (!HTTPTransport._instance) {
+      this._instance = new HTTPTransport(baseUrl);
+    }
+    return this._instance;
+  }
 
-  request = (url: string, options: Record<string, any> = {}, timeout = 5000) =>
+  public get: HTTPMethod = (url, options) => {
+    const newUrl = options.data
+      ? `${this.baseUrl}${url}${queryStringify(options.data)}`
+      : `${this.baseUrl}${url}`;
+
+    return this.request(newUrl, { ...options, method: METHODS.GET }, options.timeout);
+  };
+
+  public put: HTTPMethod = (url, options) =>
+    this.request(`${this.baseUrl}${url}`, { ...options, method: METHODS.PUT }, options.timeout);
+
+  public post: HTTPMethod = (url, options) =>
+    this.request(`${this.baseUrl}${url}`, { ...options, method: METHODS.POST }, options.timeout);
+
+  public delete: HTTPMethod = (url, options) =>
+    this.request(`${this.baseUrl}${url}`, { ...options, method: METHODS.DELETE }, options.timeout);
+
+  private request: TRequestMethod = (url, options, timeout = 5000) =>
     new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      const { method, data, headers, withCredentials } = options;
+      const { method, data } = options;
 
-      xhr.withCredentials = withCredentials;
+      xhr.withCredentials = true;
 
-      xhr.open(method, method === METHODS.GET && data ? `${url}${queryStringify(data)}` : url);
+      xhr.open(method, url);
 
-      if (headers) {
-        Object.keys(headers).forEach(key => {
-          xhr.setRequestHeader(key, headers[key]);
-        });
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
       }
+
+      xhr.responseType = 'json';
 
       xhr.timeout = timeout;
       xhr.onload = () => {
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(xhr);
         } else {
-          reject(new Error(`Error: ${xhr.status}, ${xhr.statusText}`));
+          reject(xhr);
         }
       };
 
       xhr.onabort = () => reject(new Error('Abort request'));
-      xhr.onerror = () => reject(new Error('Network error'));
+      xhr.onerror = () => reject(xhr);
       xhr.ontimeout = () => reject(new Error('Timeout error'));
 
-      if (method === METHODS.GET) {
+      if (data instanceof FormData) {
+        xhr.send(data);
+      } else if (method === METHODS.GET) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(data || []));
       }
     });
 }
+
+export const httpTransport = HTTPTransport.getInstance(BASE_URL);

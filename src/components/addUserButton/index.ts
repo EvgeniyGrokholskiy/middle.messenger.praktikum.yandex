@@ -5,16 +5,16 @@ type TProps = {
   type: string;
   onClick: () => void;
   events: {
-    onclick: () => void;
+    click: () => void;
   };
 };
 
-export class AddUserButton extends Block {
+export class AddUserButton extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
       events: {
-        onclick: props.onClick,
+        click: props.onClick,
       },
     });
   }

@@ -2,21 +2,20 @@ export enum LOGIN_PAGE_INPUT_REFS {
   LOGIN_INPUT = 'loginInput',
   PASSWORD_INPUT = 'passwordInput',
 }
+export type TLoginPageData = typeof loginPageData;
 
-export type TInputProps = (typeof loginPageInputBlockData)[0];
-
-export const loginPageButtonData = {
+const loginPageButtonData = {
   innerText: 'Вход',
   type: 'submit',
   class: 'button-block_login-page',
 };
 
-export const loginPageLinkData = {
+const loginPageLinkData = {
   href: '',
   linkText: 'Ещё не зарегистрированы?',
 };
 
-export const loginPageInputBlockData = [
+const loginPageInputBlockData = [
   {
     ref: LOGIN_PAGE_INPUT_REFS.LOGIN_INPUT,
     regex: '',
@@ -46,3 +45,9 @@ export const loginPageInputBlockData = [
     class: 'form_input font_13',
   },
 ];
+
+export const loginPageData = {
+  buttonData: loginPageButtonData,
+  linkData: loginPageLinkData,
+  inputData: loginPageInputBlockData,
+};

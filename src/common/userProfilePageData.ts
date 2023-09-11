@@ -1,16 +1,23 @@
 export enum USER_PROFILE_REFS {
-  EMAIL = 'emailInput',
-  LOGIN = 'loginInput',
-  FIRST_NAME = 'firstNameInput',
-  SECOND_NAME = 'secondNameInput',
-  DISPLAY_NAME = 'displayNameInput',
-  PHONE = 'phoneInput',
-  PASSWORD = 'passwordInput',
-  NEW_PASSWORD = 'newPasswordInput',
+  EMAIL = 'email',
+  LOGIN = 'login',
+  FIRST_NAME = 'first_name',
+  SECOND_NAME = 'second_name',
+  DISPLAY_NAME = 'display_name',
+  PHONE = 'phone',
+  PASSWORD = 'password',
+  OLD_PASSWORD = 'oldPassword',
+  NEW_PASSWORD = 'newPassword',
   REP_NEW_PASSWORD = 'repNewPasswordInput',
 }
 
-export const userProfilePage = {
+export type TUserProfilePage = typeof userProfilePageData;
+export type TChangeUserData = typeof userProfilePageData.userProfileChangeLinks.changeUserData;
+export type TChangeUserPassword =
+  typeof userProfilePageData.userProfileChangeLinks.changeUserPassword;
+
+export const userProfilePageData = {
+  fileExtension: ['jpg', 'jpeg', 'png'],
   saveButtonInnerText: 'Сохранить',
   userProfileInputBlockData: [
     {
@@ -18,11 +25,10 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Почта',
-      disabled: 'true',
       id: 'email',
       name: 'email',
       type: 'text',
-      value: 'pochta@yandex.ru',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -30,11 +36,10 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Логин',
-      disabled: 'true',
       id: 'login',
       name: 'login',
       type: 'text',
-      value: 'ivanivanov',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -42,11 +47,10 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Имя',
-      disabled: 'true',
       id: 'first_name',
       name: 'firstName',
       type: 'text',
-      value: 'Иван',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -54,11 +58,10 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Фамилия',
-      disabled: 'true',
       id: 'second_name',
       name: 'second_name',
       type: 'text',
-      value: 'Иванов',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -66,11 +69,10 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Имя в чате',
-      disabled: 'true',
       id: 'display_name',
       name: 'display_name',
       type: 'text',
-      value: 'Иван',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -78,24 +80,31 @@ export const userProfilePage = {
       regex: '',
       required: true,
       header: 'Телефон',
-      disabled: 'true',
       id: 'phone',
       name: 'phone',
       type: 'text',
-      value: '+7 (909) 967 30 30',
+      value: '',
       class: 'last block_input block_input_no-background font_13',
     },
   ],
+  userProfileInputsNames: [
+    USER_PROFILE_REFS.EMAIL,
+    USER_PROFILE_REFS.LOGIN,
+    USER_PROFILE_REFS.FIRST_NAME,
+    USER_PROFILE_REFS.SECOND_NAME,
+    USER_PROFILE_REFS.DISPLAY_NAME,
+    USER_PROFILE_REFS.PHONE,
+  ],
   userProfilePasswordBlock: [
     {
-      ref: USER_PROFILE_REFS.PASSWORD,
+      ref: USER_PROFILE_REFS.OLD_PASSWORD,
       regex: '',
       required: true,
       header: 'Старый пароль',
       id: 'oldPassword',
-      name: 'password',
+      name: 'oldPassword',
       type: 'password',
-      value: '1111111',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -106,7 +115,7 @@ export const userProfilePage = {
       id: 'newPassword',
       name: 'newPassword',
       type: 'password',
-      value: '123456789',
+      value: '',
       class: 'block_input block_input_no-background font_13',
     },
     {
@@ -117,9 +126,13 @@ export const userProfilePage = {
       id: 'repeatNewPassword',
       name: 'repeatNewPassword',
       type: 'password',
-      value: '123456789',
+      value: '',
       class: 'last block_input block_input_no-background font_13',
     },
+  ],
+  userProfilePasswordBlockInputNames: [
+    USER_PROFILE_REFS.OLD_PASSWORD,
+    USER_PROFILE_REFS.NEW_PASSWORD,
   ],
   userProfileChangeLinks: {
     changeUserData: {

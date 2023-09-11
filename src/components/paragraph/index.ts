@@ -6,7 +6,7 @@ type TProps = {
   text: string;
 };
 
-export class Paragraph extends Block {
+export class Paragraph extends Block<TProps> {
   constructor(props: TProps) {
     super(props);
   }

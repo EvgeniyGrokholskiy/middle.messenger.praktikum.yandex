@@ -5,7 +5,7 @@ type TProps = {
   number: number;
 };
 
-export class UnreadMessageIndicator extends Block {
+export class UnreadMessageIndicator extends Block<TProps> {
   constructor(props: TProps) {
     super(props);
   }

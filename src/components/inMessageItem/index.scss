@@ -12,8 +12,10 @@
   border: 1px solid $incoming-messages-background;
   border-radius: 0.75rem;
   padding: 0.625rem;
+  margin: 0.5rem 0;
   max-width: 25.125rem;
   width: fit-content;
+  min-width: 9.375rem;
 }
 
 .message-text {

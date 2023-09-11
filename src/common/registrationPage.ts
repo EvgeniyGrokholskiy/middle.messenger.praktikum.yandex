@@ -8,18 +8,18 @@ export enum REGISTRATION_PAGE_INPUT_REFS {
   REP_PASSWORD_INPUT = 'repPasswordInput',
 }
 
-export const registrationPageButtonData = {
+const registrationPageButtonData = {
   innerText: 'Зарегистрироваться',
   type: 'submit',
   class: 'button-block_login-reg-page',
 };
 
-export const registrationPageLinkData = {
+const registrationPageLinkData = {
   href: '',
   linkText: 'Войти',
 };
 
-export const registrationInputsBlockData = [
+const registrationInputsBlockData = [
   {
     ref: REGISTRATION_PAGE_INPUT_REFS.EMAIL_INPUT,
     regex: '',
@@ -126,3 +126,11 @@ export const registrationInputsBlockData = [
     class: 'form_input font_13',
   },
 ];
+
+export const registrationPageData = {
+  linkData: registrationPageLinkData,
+  inputData: registrationInputsBlockData,
+  buttonData: registrationPageButtonData,
+};
+
+export type TRegistrationPageData = typeof registrationPageData;

@@ -1,33 +1,47 @@
 import './style.scss';
 import 'normalize.css';
 
-import { H1 } from './components/h1/index';
-import { render } from './utils/render';
-import { Form } from './components/form/index';
-import { Link } from './components/link/index';
-import { Popup } from './components/popup/index';
-import { Avatar } from './components/avatar/index';
-import { Button } from './components/button/index';
-import { AddFile } from './components/addFile/index';
-import { Wrapper } from './components/wrapper/index';
-import { ChatItem } from './components/chatItem/index';
-import { UserProfile } from './pages/userProfile/index';
-import { Paragraph } from './components/paragraph/index';
-import { InputBlock } from './components/inputBlock/index';
-import { SendButton } from './components/sendButton/index';
-import { SearchInput } from './components/searchInput/index';
-import { InputElement } from './components/inputElement/index';
-import { AddFileButton } from './components/addFileButton/index';
-import { AddUserButton } from './components/addUserButton/index';
-import { InMessageItem } from './components/inMessageItem/index';
-import { OutMessageItem } from './components/outMessageItem/index';
+import Router from './utils/router';
+import ChatPage from './pages/chat';
+import { H1 } from './components/h1';
+import { Error404 } from './pages/404';
+import { Error5XX } from './pages/5XX';
+import { Form } from './components/form';
+import { Link } from './components/link';
+import { LoginPage } from './pages/login';
+import { Popup } from './components/popup';
+import { APP_PATH } from './common/appPath';
+import { Avatar } from './components/avatar';
+import { Button } from './components/button';
+import { AddFile } from './components/addFile';
+import { Wrapper } from './components/wrapper';
+import { Message } from './components/message';
+import { ChatItem } from './components/chatItem';
+import { ChatUserPage } from './pages/chatUsers';
+import { MenuItem } from './components/menuItem';
+import { Paragraph } from './components/paragraph';
+import ErrorMessage from './components/errorMessage';
+import { InputBlock } from './components/inputBlock';
+import { SendButton } from './components/sendButton';
+import { UserProfilePage } from './pages/userProfile';
+import { SearchInput } from './components/searchInput';
+import { SearchUsers } from './components/searchUsers';
+import { registrationPage } from './pages/registration';
+import { InputElement } from './components/inputElement';
+import { AddFileButton } from './components/addFileButton';
+import { AddUserButton } from './components/addUserButton';
+import { InMessageItem } from './components/inMessageItem';
+import { OutMessageItem } from './components/outMessageItem';
 import { registerComponent } from './utils/resgiterComponent';
-import { NewMessageInput } from './components/newMessageInput/index';
-import { NewMessageBlock } from './components/newMessageBlock/index';
-import { UserProfileForm } from './components/userProfileForm/index';
-import { UserProfileAvatar } from './components/userProfileAvatar/index';
-import { UserProfileInputBlock } from './components/userProfileInputBlock/index';
-import { UnreadMessageIndicator } from './components/unreadMessageIndicator/index';
+import { NewMessageInput } from './components/newMessageInput';
+import { NewMessageBlock } from './components/newMessageBlock';
+import { UserProfileForm } from './components/userProfileForm';
+import { UsersInChatForm } from './components/usersInChatForm';
+import { DeleteChatButton } from './components/deleteChatButton';
+import { UserProfileAvatar } from './components/userProfileAvatar';
+import { UserOperationPopup } from './components/userOperationPopup';
+import { UserProfileInputBlock } from './components/userProfileInputBlock';
+import { UnreadMessageIndicator } from './components/unreadMessageIndicator';
 
 registerComponent('H1', H1);
 registerComponent('Form', Form);
@@ -37,13 +51,16 @@ registerComponent('Button', Button);
 registerComponent('Avatar', Avatar);
 registerComponent('AddFile', AddFile);
 registerComponent('Wrapper', Wrapper);
+registerComponent('Message', Message);
+registerComponent('MenuItem', MenuItem);
 registerComponent('ChatItem', ChatItem);
 registerComponent('Paragraph', Paragraph);
 registerComponent('InputBlock', InputBlock);
 registerComponent('SendButton', SendButton);
-registerComponent('UserProfile', UserProfile);
 registerComponent('SearchInput', SearchInput);
+registerComponent('SearchUsers', SearchUsers);
 registerComponent('InputElement', InputElement);
+registerComponent('ErrorMessage', ErrorMessage);
 registerComponent('AddFileButton', AddFileButton);
 registerComponent('AddUserButton', AddUserButton);
 registerComponent('InMessageItem', InMessageItem);
@@ -51,10 +68,20 @@ registerComponent('OutMessageItem', OutMessageItem);
 registerComponent('NewMessageBlock', NewMessageBlock);
 registerComponent('NewMessageInput', NewMessageInput);
 registerComponent('UserProfileForm', UserProfileForm);
+registerComponent('UsersInChatForm', UsersInChatForm);
+registerComponent('DeleteChatButton', DeleteChatButton);
 registerComponent('UserProfileAvatar', UserProfileAvatar);
+registerComponent('UserOperationPopup', UserOperationPopup);
 registerComponent('UserProfileInputBlock', UserProfileInputBlock);
 registerComponent('UnreadMessageIndicator', UnreadMessageIndicator);
 
 window.addEventListener('DOMContentLoaded', () => {
-  render('home');
+  Router.use(APP_PATH.SIGN_IN, LoginPage)
+    .use(APP_PATH.SIGNUP, registrationPage)
+    .use(APP_PATH.CHAT, ChatPage)
+    .use(APP_PATH.CHAT_USERS, ChatUserPage)
+    .use(APP_PATH.USER_PROFILE, UserProfilePage)
+    .use(APP_PATH.ERROR_404, Error404)
+    .use(APP_PATH.ERROR_5XX, Error5XX)
+    .start();
 });

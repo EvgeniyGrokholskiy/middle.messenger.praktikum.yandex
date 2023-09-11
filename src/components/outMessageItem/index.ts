@@ -8,7 +8,7 @@ type TProps = {
   sendTime: string;
 };
 
-export class OutMessageItem extends Block {
+export class OutMessageItem extends Block<TProps> {
   constructor(props: TProps) {
     super(props);
   }

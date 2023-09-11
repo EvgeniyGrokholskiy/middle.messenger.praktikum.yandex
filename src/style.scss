@@ -7,11 +7,15 @@
 @import '/components/popup';
 @import '/components/avatar';
 @import '/components/button';
+@import '/components/message';
 @import '/components/addFile';
 @import '/components/chatItem';
+@import './components/menuItem';
 @import '/components/sendButton';
 @import '/components/inputBlock';
 @import '/components/searchInput';
+@import '/components/searchUsers';
+@import '/components/errorMessage';
 @import '/components/inputElement';
 @import '/components/addFileButton';
 @import '/components/addUserButton';
@@ -20,7 +24,10 @@
 @import '/components/newMessageBlock';
 @import '/components/newMessageInput';
 @import '/components/userProfileForm';
+@import '/components/usersInChatForm';
+@import '/components/deleteChatButton';
 @import '/components/userProfileAvatar';
+@import '/components/userOperationPopup';
 @import '/components/userProfileInputBlock';
 @import '/components/unreadMessageIndicator';
 
@@ -31,7 +38,7 @@
 // pages
 @import '/pages/chat';
 @import '/pages/login';
-@import '/pages/uiLib';
+@import '/pages/chatUsers';
 @import '/pages/userProfile';
 @import '/pages/registration';
 

@@ -1,31 +1,14 @@
-import { Chat } from '../pages/chat/index';
-import { Error404 } from '../pages/404/index';
-import { Error5XX } from '../pages/5XX/index';
-import { HomePage } from '../pages/home/index';
-import { LoginPage } from '../pages/login/index';
-import { UserProfile } from '../pages/userProfile/index';
-import { Registration } from '../pages/registration/index';
+import Block from './block';
 
-const ROUTES = {
-  chat: Chat,
-  '5xx': Error5XX,
-  '4xx': Error404,
-  home: HomePage,
-  login: LoginPage,
-  userProfile: UserProfile,
-  registration: Registration,
-};
-
-export function render(name: keyof typeof ROUTES) {
-  const root = document.querySelector('#app')!;
+export const render = (query: string, block: Block) => {
+  const root = document.querySelector(query);
+  if (root === null) {
+    throw new Error(`root по селектору ${query} не найден`);
+  }
 
   root.innerHTML = '';
 
-  const Page = ROUTES[name];
+  root.append(block.getContent()!);
 
-  const page = new Page();
-
-  root.append(page.getContent()!);
-
-  page.dispatchComponentDidMount();
-}
+  return root;
+};
