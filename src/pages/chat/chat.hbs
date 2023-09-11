@@ -79,18 +79,14 @@
             }}}
         {{/Wrapper}}
         <div class='chat-page_message-list'>
-            <div class='message-list_date font_12'>19 июня</div>
-            {{{InMessageItem messageText=data.longMessage sendTime='11:56' }}}
-            {{{InMessageItem
-                imageUrl=messageImage
-                sendTime='11:56'
-                class='message_image-message'
-            }}}
-            {{{OutMessageItem messageText='Круто!' sendTime='12:00' class='' }}}
+            {{#if messages}}
+                {{#each messages}}
+                    {{{Message class='' id=this.user_id content=this.content time=time userId=../user.id}}}
+                {{/each}}
+            {{/if}}
         </div>
         <div class='chat-page_new-message'>
-            {{#NewMessageBlock }}
-                {{{AddFileButton }}}
+            {{#NewMessageBlock onSubmit=sendNewMessage }}
                 {{{NewMessageInput value='' placeholder='Сообщение' }}}
                 {{{SendButton }}}
             {{/NewMessageBlock }}

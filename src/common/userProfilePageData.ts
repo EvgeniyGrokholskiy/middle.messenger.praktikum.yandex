@@ -12,6 +12,9 @@ export enum USER_PROFILE_REFS {
 }
 
 export type TUserProfilePage = typeof userProfilePageData;
+export type TChangeUserData = typeof userProfilePageData.userProfileChangeLinks.changeUserData;
+export type TChangeUserPassword =
+  typeof userProfilePageData.userProfileChangeLinks.changeUserPassword;
 
 export const userProfilePageData = {
   fileExtension: ['jpg', 'jpeg', 'png'],

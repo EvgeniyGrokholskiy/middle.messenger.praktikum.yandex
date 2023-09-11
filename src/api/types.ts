@@ -80,3 +80,16 @@ export type TGetChatUsers = {
   name?: string;
   email?: string;
 };
+
+export type TToken = { token: string };
+
+export type TMessage = {
+  id: number;
+  user_id: number;
+  chat_id: number;
+  type: string;
+  time: string;
+  content: string;
+  is_read: boolean;
+  file: null;
+};

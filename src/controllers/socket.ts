@@ -39,23 +39,27 @@ export class WebSocketController {
   }
 
   private addListener() {
-    this.websocket.addEventListener(this.STATUSES.OPEN, this.onOpen);
-    this.websocket.addEventListener(this.STATUSES.CLOSE, this.onClose);
-    this.websocket.addEventListener(this.STATUSES.ERROR, this.onError);
-    this.websocket.addEventListener(this.STATUSES.MESSAGE, this.onMessage);
+    this.websocket.addEventListener(this.STATUSES.OPEN, this.onOpen.bind(this));
+    this.websocket.addEventListener(this.STATUSES.CLOSE, this.onClose.bind(this));
+    this.websocket.addEventListener(this.STATUSES.ERROR, this.onError.bind(this));
+    this.websocket.addEventListener(this.STATUSES.MESSAGE, this.onMessage.bind(this));
   }
 
   private removeListener() {
-    this.websocket.removeEventListener(this.STATUSES.OPEN, this.onOpen);
-    this.websocket.removeEventListener(this.STATUSES.CLOSE, this.onClose);
-    this.websocket.removeEventListener(this.STATUSES.ERROR, this.onError);
-    this.websocket.removeEventListener(this.STATUSES.MESSAGE, this.onMessage);
+    this.websocket.removeEventListener(this.STATUSES.OPEN, this.onOpen.bind(this));
+    this.websocket.removeEventListener(this.STATUSES.CLOSE, this.onClose.bind(this));
+    this.websocket.removeEventListener(this.STATUSES.ERROR, this.onError.bind(this));
+    this.websocket.removeEventListener(this.STATUSES.MESSAGE, this.onMessage.bind(this));
   }
 
   public connect(options: TWebsocketData) {
     this.chatId = options.chatId;
     this.userId = options.userId;
     this.token = options.token;
+
+    if (this.websocket) {
+      this.closeWebsocket();
+    }
 
     this.websocket = new WebSocket(
       `${WEBSOCKET_URL}${options.userId}/${options.chatId}/${options.token}`,

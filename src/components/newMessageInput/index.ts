@@ -4,10 +4,15 @@ import { InputElement } from '../inputElement';
 import { validate } from '../../utils/validator';
 
 type TProps = {
+  error: string;
+  errorText: string;
+  errorClass: string;
   class: string;
   name: string;
   placeholder: string;
   value: string;
+  onBlur: () => void;
+  onKeyup: (event: Event) => void;
 };
 
 const inputProps = {
@@ -64,8 +69,9 @@ export class NewMessageInput extends Block {
 
   setError(errorMessage: string): void {
     this.setProps({
+      ...this.props,
       value: this.state.value,
-      error: true,
+      error: 'true',
       errorText: errorMessage,
       errorClass: 'form_input-error',
     });
@@ -73,6 +79,7 @@ export class NewMessageInput extends Block {
 
   clearError(): void {
     this.setProps({
+      ...this.props,
       value: this.state.value,
       error: '',
       errorText: '',

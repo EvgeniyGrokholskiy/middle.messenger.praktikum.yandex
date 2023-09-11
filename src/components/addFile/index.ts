@@ -6,17 +6,21 @@ type TProps = {
   file: boolean;
   error: boolean;
   accept: string;
-  isShowText: boolean;
+  fileName: string;
+  isShowText: string;
   onClick: () => void;
-  addFileError: boolean;
+  addFileError: string;
+  addFileTypeError: string;
   fileExtension: string[];
   setNewAvatar: (data: FormData) => void;
   events: {
-    click: () => void;
+    click: (event: Event) => void;
+    change: (event: Event) => void;
+    submit: (event: Event) => void;
   };
 };
 
-export class AddFile extends Block {
+export class AddFile extends Block<TProps> {
   private file: File | null = null;
 
   private formData: FormData;
@@ -49,6 +53,7 @@ export class AddFile extends Block {
         this.file = file;
         this.formData = formData;
         this.setProps({
+          ...this.props,
           file: true,
           fileName: file.name,
           addFileError: '',
@@ -58,7 +63,8 @@ export class AddFile extends Block {
       } else {
         this.file = null;
         this.setProps({
-          addFileTypeError: true,
+          ...this.props,
+          addFileTypeError: 'true',
         });
       }
     }
@@ -70,7 +76,8 @@ export class AddFile extends Block {
       this.props.setNewAvatar(this.formData);
     } else {
       this.setProps({
-        addFileError: true,
+        ...this.props,
+        addFileError: 'true',
       });
     }
   }

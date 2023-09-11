@@ -1,0 +1,15 @@
+<div>
+    {{#if outgoingMessage}}
+        <div class='full-width'>
+            <div class='out-message-wrapper {{class}}'>
+                <p class='font_12 out-message-text'>{{content}}</p>
+                <p class='out-message_send-time font_9'>{{time}}</p>
+            </div>
+        </div>
+    {{else}}
+        <div class='message-wrapper {{class}}'>
+            <p class='font_12 message-text'>{{content}}</p>
+            <p class='message_send-time send-time_image font_9'>{{time}}</p>
+        </div>
+    {{/if}}
+</div>

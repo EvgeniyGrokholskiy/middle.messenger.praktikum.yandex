@@ -9,7 +9,7 @@ type TProps = {
   };
 };
 
-export class AddUserButton extends Block {
+export class AddUserButton extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

@@ -2,30 +2,33 @@ import Block, { TBlock } from '../../utils/block';
 import template from './chat.hbs';
 import store from '../../utils/store';
 import router from '../../utils/router';
+import socket from '../../controllers/socket';
 import image from '../../img/messageImage.jpg';
 import { APP_PATH } from '../../common/appPath';
 import { withStore } from '../../utils/withStore';
-import { TChat, TUserData } from '../../api/types';
 import { Wrapper } from '../../components/wrapper';
 import authController from '../../controllers/auth';
 import chatController from '../../controllers/chat';
 import { ChatItem } from '../../components/chatItem';
 import linkChevron from '../../img/chevronRight.svg';
-import { TChatPage } from '../../common/chatPageData';
 import { addChatDataInChatPageData } from '../../utils/helpers';
+import { TChat, TChatUserData, TMessage, TToken, TUserData } from '../../api/types';
+import { TaddChatPopupData, TaddUserPopupData, TChatPage } from '../../common/chatPageData';
 
 type TChatProps = {
+  messageImage: typeof image;
+  linkChevron: typeof linkChevron;
   user: TUserData;
   data: TChatPage;
   chats: TChat[];
-  userList: any[];
+  userList: TChatUserData[];
+  addChatPopupData: TaddChatPopupData;
+  addUserPopupData: TaddUserPopupData;
   selectedChat: number;
-  addChatPopupData: any;
-  addUserPopupData: any;
+  messages: TMessage[];
+  selectedChatId: number;
   selectedChatTitle: string;
   renderUserProfile: (event: Event) => void;
-  messageImage: typeof image;
-  linkChevron: typeof linkChevron;
   addUserPopup: (event: Event) => void;
   deleteUserPopup: (event: Event) => void;
   showAddPopup: () => void;
@@ -40,6 +43,7 @@ type TChatProps = {
   searchInputHandler: (value: string) => void;
   deleteChat: () => void;
   searchUser: (login: string) => void;
+  sendNewMessage: (message: string) => void;
 };
 
 export class Chat extends Block<TChatProps> {
@@ -59,6 +63,7 @@ export class Chat extends Block<TChatProps> {
       addUserPopupData: props.data.popupData.addUser,
       selectedChat: props.selectedChat,
       userList: props.userList,
+      messages: props.messages,
       renderUserProfile: (event: Event) => {
         event.preventDefault();
         this.renderUserProfile();
@@ -104,15 +109,33 @@ export class Chat extends Block<TChatProps> {
       searchInputHandler: (value: string) => {
         this.searchInputHandler(value);
       },
+      sendNewMessage: (message: string) => {
+        this.sendNewMessage(message);
+      },
       messageImage: image,
       linkChevron,
     });
   }
 
-  selectChatByClick(chatId: number) {
+  async selectChatByClick(chatId: number) {
     const [selectedChat] = this.props.chats.filter(item => item.id === chatId);
+    const { id } = selectedChat;
+    if (id === this.props.selectedChat) {
+      return;
+    }
+    store.set('messages', []);
     store.set('selectedChatId', chatId);
     store.set('selectedChatTitle', selectedChat.title);
+    const newToken = (await chatController.getChatToken(id)) as TToken;
+
+    if (newToken) {
+      const userId = this.props.user.id;
+      socket.connect({ chatId: id, token: newToken.token, userId });
+    }
+  }
+
+  sendNewMessage(message: string) {
+    socket.sendMessage(message);
   }
 
   deleteChat() {
@@ -221,6 +244,7 @@ const withChatStore = withStore(state => ({
   data: addChatDataInChatPageData(state.chatPageData, state.chats, state?.user?.login || ''),
   user: state.user,
   chats: state.chats,
+  messages: state.messages,
   userList: state.usersInChat,
   selectedChat: state.selectedChatId,
   selectedChatTitle: state.selectedChatTitle,

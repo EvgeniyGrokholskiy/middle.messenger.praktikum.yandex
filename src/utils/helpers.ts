@@ -29,6 +29,7 @@ export const navigateToLoginPage = () => {
 
 export const renderChatPage = (event: Event) => {
   event.preventDefault();
+  router.go(APP_PATH.CHAT);
 };
 export const renderChat = (event: Event) => {
   event.preventDefault();

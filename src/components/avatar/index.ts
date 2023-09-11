@@ -11,7 +11,7 @@ type TProps = {
   };
 };
 
-export class Avatar extends Block {
+export class Avatar extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

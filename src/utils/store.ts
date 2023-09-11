@@ -1,8 +1,8 @@
 import { set } from './helpers';
 import { EventBus } from './EventBus';
-import { TChat, TChatUserData, TUserData } from '../api/types';
 import { chatPageData, TChatPage } from '../common/chatPageData';
 import { loginPageData, TLoginPageData } from '../common/loginPage';
+import { TChat, TChatUserData, TMessage, TUserData } from '../api/types';
 import { TUserProfilePage, userProfilePageData } from '../common/userProfilePageData';
 import { registrationPageData, TRegistrationPageData } from '../common/registrationPage';
 
@@ -16,7 +16,7 @@ export interface IStore {
   selectedChat: TChat | null;
   usersInChat: TChatUserData[];
   findUsers: any[];
-  messages: Record<number, any[]>[];
+  messages: TMessage[];
   errorMessage: string;
   selectedChatId: number;
   selectedChatTitle: string;

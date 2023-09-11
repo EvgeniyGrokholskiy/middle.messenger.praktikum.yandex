@@ -11,20 +11,21 @@ type TProps = {
   isLastMessageOutgoing: boolean;
   lastMessage: string;
   unreadMessages: number;
+  selectedChatClass: string;
   onClick: (chatId: number) => void;
   events: {
     click: () => void;
   };
 };
 
-export class ChatItem extends Block {
+export class ChatItem extends Block<TProps> {
   private readonly chatId: number;
 
   constructor(props: TProps) {
     super({
       ...props,
       lastMessageTime: getTime(props.lastMessageTime),
-      selected: props.id === props.selected ? 'chat-item_selected' : '',
+      selectedChatClass: props.id === props.selected ? 'chat-item_selected' : '',
       events: {
         click: () => this.props.onClick(this.chatId),
       },

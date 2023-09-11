@@ -4,9 +4,14 @@ import template from './userOperationPupup.hbs';
 type UserOperationPopupProps = {
   headerText: string;
   buttonText: string;
-  data: any;
+  data: Record<string, string>;
   searchUser: (login: string) => void;
   onSubmit: (userLogin: string) => void;
+  events: {
+    click: (event: Event) => void;
+    keyup: (event: Event) => void;
+    submit: (event: Event) => void;
+  };
 };
 
 export class UserOperationPopup extends Block<UserOperationPopupProps> {

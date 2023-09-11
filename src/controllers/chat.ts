@@ -64,9 +64,10 @@ export class ChatController {
     this.api
       .deleteChatById(data)
       .then(() => {
+        this.store.set('messages', []);
+        this.store.set('selectedChatId', 0);
+        this.store.set('selectedChat', null);
         this.getAllChats();
-
-        this.setSelectedChatData(this.store.getState().chats[0]);
       })
       .catch(error => this.errorHandler(error));
   }
@@ -98,13 +99,21 @@ export class ChatController {
     const { selectedChat } = this.store.getState();
 
     if (!selectedChat) {
-      // this.router.go(APP_PATH.CHAT);
       return;
     }
     const { id } = selectedChat;
 
     const usersList = await this.getChatUsers({ id, email: '', limit: 100, offset: 0, name: '' });
     this.store.set('usersInChat', usersList);
+  }
+
+  async getChatToken(chatId: number) {
+    return this.api
+      .getChatToken(chatId)
+      .then(response => {
+        return response.response;
+      })
+      .catch(error => this.errorHandler(error));
   }
 
   setSelectedChatData(chat: TChat) {

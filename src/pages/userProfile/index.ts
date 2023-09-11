@@ -5,17 +5,41 @@ import { withStore } from '../../utils/withStore';
 import { Wrapper } from '../../components/wrapper';
 import ErrorMessage from '../../components/errorMessage';
 import { UserProfileForm } from '../../components/userProfileForm';
+import authController, { TAuthController } from '../../controllers/auth';
 import { TSignupRequestData, TUserData, TUserPassword } from '../../api/types';
 import { backToChat, getUserProfilePageDataWithValues } from '../../utils/helpers';
 import userProfileController, { TUserProfileController } from '../../controllers/userProfile';
-import authController, { TAuthController } from '../../controllers/auth';
+import {
+  TChangeUserData,
+  TUserProfilePage,
+  TChangeUserPassword,
+} from '../../common/userProfilePageData';
 
-class UserProfileBlock extends Block {
+type TUserProfileBlockProps = {
+  data: TUserProfilePage;
+  user: TUserData;
+  fileExtension: string[] | undefined;
+  changeUserData: TChangeUserData | undefined;
+  changeUserPassword: TChangeUserPassword | undefined;
+  exitFromUserProfile: () => void;
+  logout: () => void;
+  showAddFilePopup: () => void;
+  hideAddFilePopup: () => void;
+  activateUserDataEditMode: () => void;
+  activatePasswordEditMode: () => void;
+  disableUserEditMode: () => void;
+  disablePasswordEditMode: () => void;
+  setNewUserData: (values: Record<string, string>) => void;
+  setNewPassword: (values: Record<string, string>) => void;
+  setNewAvatar: (data: FormData) => void;
+};
+
+class UserProfileBlock extends Block<TUserProfileBlockProps> {
   private readonly authController: TAuthController = authController;
 
   private readonly userController: TUserProfileController = userProfileController;
 
-  constructor(props: any) {
+  constructor(props: TUserProfileBlockProps) {
     if (!props.user.id) {
       authController.getUserData();
     }
@@ -163,4 +187,6 @@ const withPageData = withStore(state => ({
   data: getUserProfilePageDataWithValues(state.userProfileData, state.user as TUserData),
 }));
 
+// eslint-disable-next-line
+// @ts-ignore
 export const UserProfilePage = withPageData(UserProfileBlock);

@@ -3,12 +3,17 @@ import template from './registration.hbs';
 import { IStore } from '../../utils/store';
 import { withStore } from '../../utils/withStore';
 import authController from '../../controllers/auth';
-import { TSignupRequestData } from '../../api/types';
+import { TSignInRequestData, TSignupRequestData } from '../../api/types';
 import { renderLoginPage } from '../../utils/helpers';
 import ErrorMessage from '../../components/errorMessage';
 
-export class Registration extends Block {
-  constructor(props: any) {
+type TRegistrationProps = {
+  callbackToLink: (event: Event) => void;
+  callbackToButton: (data: TSignInRequestData) => Promise<void>;
+};
+
+export class Registration extends Block<TRegistrationProps> {
+  constructor(props: TRegistrationProps) {
     super({
       ...props,
       callbackToButton: (data: TSignupRequestData) => this.signup(data),
@@ -32,4 +37,6 @@ export class Registration extends Block {
 
 const withData = withStore((state: IStore) => ({ ...state.registrationPageData }));
 
+// eslint-disable-next-line
+// @ts-ignore
 export const registrationPage = withData(Registration);

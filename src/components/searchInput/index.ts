@@ -3,6 +3,7 @@ import template from './searchInput.hbs';
 import image from '../../img/searchIcon.svg';
 
 type TProps = {
+  imageSrc: typeof image;
   value: string;
   placeholder: string;
   class: string;
@@ -12,7 +13,7 @@ type TProps = {
   };
 };
 
-export class SearchInput extends Block {
+export class SearchInput extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

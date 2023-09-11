@@ -66,7 +66,7 @@ export const chatApi = {
     });
   },
   getChatToken(chatId: number): Promise<XMLHttpRequest> {
-    return httpTransport.post(`${END_POINTS_URL.CHATS}${chatId}`, {
+    return httpTransport.post(`${END_POINTS_URL.GET_CHAT_TOKEN}/${chatId}`, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         withCredentials: true,

@@ -39,7 +39,12 @@
             <p class='chat-page_title'>{{titleText}}</p>
             {{{SearchUsers onSubmit=searchUsers}}}
             <div class='chat-page_user-list'>
-                {{{UsersInChatForm ref='usersInChatForm' usersInChat=usersInChat buttonText=buttonText onSubmit=setUsersInChat}}}
+                {{{UsersInChatForm
+                        ref='usersInChatForm'
+                        usersInChat=usersInChat
+                        buttonText=buttonText
+                        onSubmit=setUsersInChat
+                }}}
             </div>
             {{{Button class='form_button' onClick=renderChatPage innerText='Назад к чатам'}}}
         </div>

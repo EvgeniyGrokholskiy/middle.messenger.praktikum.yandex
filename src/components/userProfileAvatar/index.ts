@@ -4,6 +4,7 @@ import { BASE_RESOURCES_URL } from '../../common/apiConst';
 import avatarBackground from '../../img/avatarBackground.jpg';
 
 type TProps = {
+  avatarBackground: typeof avatarBackground;
   imageSrc: string;
   class: string;
   onClick: () => void;
@@ -12,7 +13,7 @@ type TProps = {
   };
 };
 
-export class UserProfileAvatar extends Block {
+export class UserProfileAvatar extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

@@ -2,6 +2,8 @@ import addIcon from '../img/addUserIcon.svg';
 import deleteIcon from '../img/deleteUserIcon.svg';
 
 export type TChatPage = typeof chatPageData;
+export type TaddChatPopupData = typeof chatPageData.popupData.addChat;
+export type TaddUserPopupData = typeof chatPageData.popupData.addUser;
 
 export const chatPageData = {
   popupData: {

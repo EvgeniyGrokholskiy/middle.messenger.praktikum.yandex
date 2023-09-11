@@ -7,8 +7,13 @@ import { TSignInRequestData } from '../../api/types';
 import ErrorMessage from '../../components/errorMessage';
 import { renderRegisterPage } from '../../utils/helpers';
 
-class Login extends Block {
-  constructor(props: any) {
+type TLoginProps = {
+  callbackToLink: (event: Event) => void;
+  callbackToButton: (data: TSignInRequestData) => Promise<void>;
+};
+
+class Login extends Block<TLoginProps> {
+  constructor(props: TLoginProps) {
     super({
       ...props,
       callbackToLink: renderRegisterPage,
@@ -32,4 +37,6 @@ class Login extends Block {
 
 const withPageData = withStore((state: IStore) => ({ ...state.loginPageData }));
 
+// eslint-disable-next-line
+// @ts-ignore
 export const LoginPage = withPageData(Login);

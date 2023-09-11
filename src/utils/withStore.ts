@@ -15,9 +15,6 @@ export function withStore<TSP>(mapStateToProps: (state: IStore) => TSP) {
         this.onStoreUpdate = () => {
           const stateProps: TSP = mapStateToProps(store.getState());
 
-          // console.log(isEqualObj(previousState, stateProps));
-          // console.log(previousState, stateProps);
-
           if (isEqualObj(previousState, stateProps)) {
             return;
           }

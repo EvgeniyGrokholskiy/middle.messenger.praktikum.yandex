@@ -3,6 +3,7 @@ import template from './addFileButton.hbs';
 import image from '../../img/addIcon.svg';
 
 type TProps = {
+  imageSrc: typeof image;
   class: string;
   onClick: () => void;
   events: {
@@ -10,7 +11,7 @@ type TProps = {
   };
 };
 
-export class AddFileButton extends Block {
+export class AddFileButton extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
