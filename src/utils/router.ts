@@ -1,5 +1,6 @@
 import Block from './block';
 import { Route } from './route';
+import { APP_PATH } from '../common/appPath';
 
 class Router {
   private static _instance: Router;
@@ -48,6 +49,8 @@ class Router {
     const route = this.getRoute(pathname);
 
     if (!route) {
+      this.history.pushState({}, '', APP_PATH.ERROR_404);
+      this._onRoute(APP_PATH.ERROR_404);
       return;
     }
 
