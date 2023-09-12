@@ -26,7 +26,7 @@ The design mockups for this project are available on Figma. You can view them [h
 
 0.0.3
 
-##Implemented in version 0.2:
+##Implemented in version 0.0.2:
  - Added component approach
  - Implemented validation of form fields
  - Added output of form data to the console when submitting
@@ -34,7 +34,7 @@ The design mockups for this project are available on Figma. You can view them [h
  - Added HTTP Transport
  - Embedded characters (ESLint, Stylelint)
 
-##Implemented in version 0.3:
+##Implemented in version 0.0.3:
 - Added routing to the project
 - Implemented HTTP chat API
 - WebSocket is connected to work with real-time messages
