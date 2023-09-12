@@ -10,7 +10,6 @@ My Chat is a chat application with various features and pages. You can explore t
 - [Chat Page](https://unique-sprite-357797.netlify.app/pages/chat/chat) - Engage in chat
 - [5XX Error Page](https://unique-sprite-357797.netlify.app/pages/5xx/5xx) - View the page for 5xx errors
 - [404 Error Page](https://unique-sprite-357797.netlify.app/pages/404/404) - View the page for 404 errors
-- [UI Library](https://unique-sprite-357797.netlify.app/pages/uilib/uilib) - Explore all UI components
 
 The `deploy` branch of this project is configured for continuous deployment on [Netlify](https://www.netlify.com), enabling seamless updates and delivery of the latest version of the application.
 
@@ -25,15 +24,20 @@ The design mockups for this project are available on Figma. You can view them [h
 
 ## Version
 
-0.0.2
+0.0.3
 
 ##Implemented in version 0.2:
- - Added component approach,
+ - Added component approach
  - Implemented validation of form fields
  - Added output of form data to the console when submitting
  - Implemented precompile rendering
  - Added HTTP Transport
  - Embedded characters (ESLint, Stylelint)
+
+##Implemented in version 0.3:
+- Added routing to the project
+- Implemented HTTP chat API
+- WebSocket is connected to work with real-time messages
 
 ## Installation
 
