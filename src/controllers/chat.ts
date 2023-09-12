@@ -96,14 +96,19 @@ export class ChatController {
   }
 
   async getSelectedChatUsers() {
-    const { selectedChat } = this.store.getState();
+    const { selectedChatId } = this.store.getState();
 
-    if (!selectedChat) {
+    if (!selectedChatId) {
       return;
     }
-    const { id } = selectedChat;
 
-    const usersList = await this.getChatUsers({ id, email: '', limit: 100, offset: 0, name: '' });
+    const usersList = await this.getChatUsers({
+      id: selectedChatId,
+      email: '',
+      limit: 100,
+      offset: 0,
+      name: '',
+    });
     this.store.set('usersInChat', usersList);
   }
 

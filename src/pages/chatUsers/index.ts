@@ -28,6 +28,7 @@ export class ChatUsers extends Block<TChatUsersProps> {
   constructor(props: TChatUsersProps) {
     if (!props.user.id) {
       authController.getUserData();
+      chatController.getAllChats();
     }
 
     if (props.user.id && !props.chats.length) {
@@ -40,9 +41,6 @@ export class ChatUsers extends Block<TChatUsersProps> {
 
     super({
       ...props,
-      titleText: props.isAddUsers
-        ? `Добавить пользователей в чат ${props.selectedChatTitle}`
-        : `Удалить пользователей из чата ${props.selectedChatTitle}`,
       buttonText: props.isAddUsers ? 'Добавить' : 'Удалить',
       usersInChat: props.usersInChat,
       linkChevron,
@@ -85,23 +83,24 @@ export class ChatUsers extends Block<TChatUsersProps> {
   }
 
   protected render(): DocumentFragment {
-    const { selectedChat } = store.getState();
+    const [newSelectedChat] = store
+      .getState()
+      .chats.filter(c => c.id === store.getState().selectedChatId);
+    const titleText = store.getState().isAddUsers
+      ? `Добавить пользователей в чат ${store.getState().selectedChatTitle}`
+      : `Удалить пользователей из чата ${store.getState().selectedChatTitle}`;
     return this.compile(template, {
       ...this.props,
-      selectedChatToRender: [selectedChat],
+      titleText,
+      selectedChatToRender: [newSelectedChat],
     });
   }
 }
 
 const ChatUsersWithStore = withStore((state: IStore) => ({
   ...state,
-  selectedChatToRender: getSelectedChatArray(state.selectedChat),
 }));
 
 // eslint-disable-next-line
 // @ts-ignore
 export const ChatUserPage = ChatUsersWithStore(ChatUsers);
-
-const getSelectedChatArray = (selectedChat: TChat | null) => {
-  return selectedChat ? [selectedChat] : [];
-};

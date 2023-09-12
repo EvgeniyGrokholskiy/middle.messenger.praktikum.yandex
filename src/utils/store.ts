@@ -70,6 +70,12 @@ export class Store extends EventBus {
     this.emit(STORE_EVENTS.UPDATED, this.getState());
   }
 
+  public setSelectedChat(chatId: number) {
+    const { chats } = this.getState();
+    const [newSelectedChat] = chats.filter(chat => chat.id === chatId);
+    this.set('selectedChat', newSelectedChat);
+  }
+
   public getState() {
     return this.state;
   }
