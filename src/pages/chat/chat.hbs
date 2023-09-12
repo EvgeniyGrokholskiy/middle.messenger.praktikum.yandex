@@ -13,7 +13,7 @@
             {{{SearchInput value='' placeholder='Поиск' onKeyup=searchInputHandler }}}
         </div>
         <div class='chat-list_wrapper'>
-            {{#each data.chatList }}
+            {{#each chats }}
                 {{{ChatItem
                         id=this.id
                         ref=this.title

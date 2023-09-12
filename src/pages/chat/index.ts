@@ -124,7 +124,7 @@ export class Chat extends Block<TChatProps> {
       return;
     }
     store.set('messages', []);
-    store.set('selectedChatId', chatId);
+    store.set('selectedChatId', id);
     store.set('selectedChatTitle', selectedChat.title);
     const newToken = (await chatController.getChatToken(id)) as TToken;
 
@@ -216,6 +216,7 @@ export class Chat extends Block<TChatProps> {
   showAddUserPopup() {
     this.hideAddPopup();
     store.set('isAddUsers', true);
+    store.set('usersInChat', []);
     router.go(APP_PATH.CHAT_USERS);
     // (this.refs.addUserPopupWrapper as Wrapper).show();
   }
@@ -227,6 +228,7 @@ export class Chat extends Block<TChatProps> {
   showDeleteUserPopup() {
     this.hideAddPopup();
     store.set('isAddUsers', false);
+    store.set('usersInChat', []);
     router.go(APP_PATH.CHAT_USERS);
     // (this.refs.deleteUserUserPopupWrapper as Wrapper).show();
   }
