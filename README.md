@@ -5,9 +5,9 @@
 My Chat is a chat application with various features and pages. You can explore the live version of the application through the following links:
 
 - [Login Page](https://unique-sprite-357797.netlify.app/) - Access the login form
-- [Registration Page](https://unique-sprite-357797.netlify.app/registration) - Sign up for a new account
-- [Chat Page](https://unique-sprite-357797.netlify.app/chat) - Engage in chat
-- [User profile Page](https://unique-sprite-357797.netlify.app/user_profile) - User profile
+- [Registration Page](https://unique-sprite-357797.netlify.app/sign-up) - Sign up for a new account
+- [Chat Page](https://unique-sprite-357797.netlify.app/messenger) - Engage in chat
+- [User profile Page](https://unique-sprite-357797.netlify.app/settings) - User profile
 - [5XX Error Page](https://unique-sprite-357797.netlify.app/error_5xx) - View the page for 5xx errors
 - [404 Error Page](https://unique-sprite-357797.netlify.app/error_404) - View the page for 404 errors
 
