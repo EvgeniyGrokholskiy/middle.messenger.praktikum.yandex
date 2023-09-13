@@ -44,7 +44,7 @@ export class NewMessageInput extends Block {
     this.state.value = props.value || '';
   }
 
-  getInputsBlocks(): (Block<any> | Block[])[] {
+  getInputsBlocks(): (Block | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputElement);
   }
 

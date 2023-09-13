@@ -15,7 +15,6 @@ export interface IStore {
   chats: TChat[];
   selectedChat: TChat | null;
   usersInChat: TChatUserData[];
-  findUsers: any[];
   messages: TMessage[];
   errorMessage: string;
   selectedChatId: number;
@@ -42,7 +41,6 @@ const initialState: IStore = {
   user: nullUser,
   chats: [],
   selectedChat: null,
-  findUsers: [],
   usersInChat: [],
   messages: [],
   selectedChatId: 0,

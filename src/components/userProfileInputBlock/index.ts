@@ -21,8 +21,13 @@ type TProps = {
   onBlur: () => void;
 };
 
+type TUserProfileInputBlockState = {
+  value: string;
+  isValid: boolean;
+};
+
 export class UserProfileInputBlock extends Block<TProps> {
-  private state: Record<string, any> = {
+  private state: TUserProfileInputBlockState = {
     value: '',
     isValid: false,
   };

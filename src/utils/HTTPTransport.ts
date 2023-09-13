@@ -19,7 +19,7 @@ const METHODS = {
   PUT: 'PUT',
   POST: 'POST',
   DELETE: 'DELETE',
-};
+} as const;
 
 const queryStringify = (data: Record<string, string>) => {
   if (typeof data !== 'object') {

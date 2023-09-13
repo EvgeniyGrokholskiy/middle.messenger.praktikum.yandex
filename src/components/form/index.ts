@@ -39,7 +39,7 @@ export class Form extends Block<TProps> {
     }
   }
 
-  getInputsBlocks(): (Block<any> | Block[])[] {
+  getInputsBlocks(): (Block | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputBlock);
   }
 
