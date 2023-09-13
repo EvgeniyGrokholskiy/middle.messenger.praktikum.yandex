@@ -40,20 +40,24 @@ export class WebSocketController {
     this.COMMANDS = commands;
     this.STATUSES = statuses;
     this.socketURL = socketURL;
+    this.onOpen = this.onOpen.bind(this);
+    this.onClose = this.onClose.bind(this);
+    this.onError = this.onError.bind(this);
+    this.onMessage = this.onMessage.bind(this);
   }
 
   private addListener() {
-    this.websocket.addEventListener(this.STATUSES.OPEN, this.onOpen.bind(this));
-    this.websocket.addEventListener(this.STATUSES.CLOSE, this.onClose.bind(this));
-    this.websocket.addEventListener(this.STATUSES.ERROR, this.onError.bind(this));
-    this.websocket.addEventListener(this.STATUSES.MESSAGE, this.onMessage.bind(this));
+    this.websocket.addEventListener(this.STATUSES.OPEN, this.onOpen);
+    this.websocket.addEventListener(this.STATUSES.CLOSE, this.onClose);
+    this.websocket.addEventListener(this.STATUSES.ERROR, this.onError);
+    this.websocket.addEventListener(this.STATUSES.MESSAGE, this.onMessage);
   }
 
   private removeListener() {
-    this.websocket.removeEventListener(this.STATUSES.OPEN, this.onOpen.bind(this));
-    this.websocket.removeEventListener(this.STATUSES.CLOSE, this.onClose.bind(this));
-    this.websocket.removeEventListener(this.STATUSES.ERROR, this.onError.bind(this));
-    this.websocket.removeEventListener(this.STATUSES.MESSAGE, this.onMessage.bind(this));
+    this.websocket.removeEventListener(this.STATUSES.OPEN, this.onOpen);
+    this.websocket.removeEventListener(this.STATUSES.CLOSE, this.onClose);
+    this.websocket.removeEventListener(this.STATUSES.ERROR, this.onError);
+    this.websocket.removeEventListener(this.STATUSES.MESSAGE, this.onMessage);
   }
 
   public connect(options: TWebsocketData) {
@@ -154,7 +158,7 @@ export class WebSocketController {
     );
   }
 
-  private stringifyIt(data: any): string {
+  private stringifyIt(data: unknown): string {
     return JSON.stringify(data);
   }
 

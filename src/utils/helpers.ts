@@ -108,12 +108,12 @@ export const set = (object: Indexed | unknown, path: string, value: unknown): In
     (acc, key) => ({
       [key]: acc,
     }),
-    value as any,
+    value as Indexed,
   );
   return merge(object as Indexed, { ...result });
 };
 
-type PlainObject<T = any> = {
+type PlainObject<T = unknown> = {
   [k in string]: T;
 };
 
@@ -134,7 +134,7 @@ function isArrayOrObject(value: unknown): value is [] | PlainObject {
   return isPlainObject(value) || isArray(value);
 }
 
-function isObject(value: any): value is Indexed {
+function isObject(value: unknown): value is Indexed {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
