@@ -166,7 +166,10 @@ export class Chat extends Block<TChatProps> {
   }
 
   sendNewMessage(message: string) {
-    socket.sendMessage(message);
+    const chatId = this.props.selectedChat;
+    if (chatId) {
+      socket.sendMessage(message);
+    }
   }
 
   deleteChat() {
