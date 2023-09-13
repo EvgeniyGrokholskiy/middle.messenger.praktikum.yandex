@@ -14,6 +14,8 @@ type TMessageOffset = {
 export class WebSocketController {
   private websocket: WebSocket;
 
+  private readonly socketURL: string = '';
+
   private chatId: number;
 
   private userId: number;
@@ -29,6 +31,7 @@ export class WebSocketController {
   private STATUSES: typeof WEBSOCKET_STATUSES;
 
   constructor(
+    socketURL: string,
     statuses: typeof WEBSOCKET_STATUSES,
     state: TStore,
     commands: typeof WEBSOCKET_COMMANDS,
@@ -36,6 +39,7 @@ export class WebSocketController {
     this.store = state;
     this.COMMANDS = commands;
     this.STATUSES = statuses;
+    this.socketURL = socketURL;
   }
 
   private addListener() {
@@ -62,7 +66,7 @@ export class WebSocketController {
     }
 
     this.websocket = new WebSocket(
-      `${WEBSOCKET_URL}${options.userId}/${options.chatId}/${options.token}`,
+      `${this.socketURL}${options.userId}/${options.chatId}/${options.token}`,
     );
 
     this.addListener();
@@ -95,34 +99,40 @@ export class WebSocketController {
   }
 
   private readonly onMessage = (event: MessageEvent) => {
-    const data = JSON.parse(event.data);
+    let data;
 
-    if (Array.isArray(data)) {
-      if (!data.length) {
-        this.store.set('messages', []);
-      } else if (data[0].id === 0) {
-        this.store.set('messages', data);
-      } else {
-        const messages = [...data];
+    try {
+      data = JSON.parse(event.data);
+    } catch (e) {
+      data = [];
+    } finally {
+      if (Array.isArray(data)) {
+        if (!data.length) {
+          this.store.set('messages', []);
+        } else if (data[0].id === 0) {
+          this.store.set('messages', data);
+        } else {
+          const messages = [...data];
 
+          this.store.set('messages', messages);
+        }
+      } else if (typeof data === 'object' && data.type === 'message') {
+        const messages = [data, ...this.store.getState().messages];
         this.store.set('messages', messages);
       }
-    } else if (typeof data === 'object' && data.type === 'message') {
-      const messages = [data, ...this.store.getState().messages];
-      this.store.set('messages', messages);
-    }
 
-    console.log(event.data);
+      console.log(event.data);
+    }
   };
 
   private onClose(event: CloseEvent) {
-    const { code, wasClean, reason } = event;
+    const { code, reason, wasClean } = event;
     this.removeListener();
     if (code === 1006) {
       this.reconnect();
     }
     if (wasClean) {
-      console.log('Соединение успешно закрыто');
+      console.log('Соединение закрыто');
     } else {
       console.error('Что-то пошло не так ((((');
     }
@@ -158,6 +168,6 @@ export class WebSocketController {
   }
 }
 
-const webSocketController = new WebSocketController(WEBSOCKET_STATUSES, store, WEBSOCKET_COMMANDS);
+const webSocketController = new WebSocketController(WEBSOCKET_URL, WEBSOCKET_STATUSES, store, WEBSOCKET_COMMANDS);
 
 export default webSocketController;

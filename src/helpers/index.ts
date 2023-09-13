@@ -32,11 +32,3 @@ export const getTime = (dateInString: string): string => {
 
   return `${day}.${month}.${year}`;
 };
-
-export const debounce = <T extends (...args: any[]) => any>(fn: T, ms = 300) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
-};

@@ -4,31 +4,27 @@ import { TSignupRequestData, TUserPassword } from './types';
 
 export type TUserApi = typeof userApi;
 
+const headers = {
+  'Content-type': 'application/json; charset=UTF-8',
+  withCredentials: true,
+}
+
 export const userApi = {
   getUserProfileById(userId: number): Promise<XMLHttpRequest> {
     return httpTransport.get(`${END_POINTS_URL.GET_USER_BY_ID}/${userId}`, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       userId,
     });
   },
   changeUserProfileData(data: TSignupRequestData): Promise<XMLHttpRequest> {
     return httpTransport.put(END_POINTS_URL.CHANGE_USER_PROFILE, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       data,
     });
   },
   changeUserPasswordData(data: TUserPassword): Promise<XMLHttpRequest> {
     return httpTransport.put(END_POINTS_URL.CHANGE_USER_PASSWORD, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       data,
     });
   },
