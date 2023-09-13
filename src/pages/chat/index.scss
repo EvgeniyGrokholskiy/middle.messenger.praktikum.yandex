@@ -94,6 +94,8 @@
   flex-grow: 1;
   justify-content: flex-start;
   padding-bottom: 1.875rem;
+  overflow-y: auto;
+  max-height: 86vh;
   width: 100%;
 }
 
