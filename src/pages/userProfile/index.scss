@@ -9,10 +9,11 @@
 .user-profile_avatar-load-popup-wrapper {
   position: absolute;
   inset:0;
+  background-color: $avatar-hover-background;
   display: none;
   align-items: center;
   justify-content: center;
-  background-color: $avatar-hover-background;
+  z-index: 1;
 }
 
 .avatar-load-popup-wrapper_open {
@@ -54,6 +55,7 @@
 
 .avatar-big {
   background-color: rgb(128 128 128 / 17%);
+  cursor: pointer;
   height: 8.125rem;
   width: 8.125rem;
 }

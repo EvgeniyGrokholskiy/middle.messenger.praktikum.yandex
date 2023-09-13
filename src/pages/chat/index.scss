@@ -59,6 +59,18 @@
   padding-bottom: 0.625rem
 }
 
+.header_avatar {
+  cursor: pointer;
+  padding: 0;
+  height: 2.9375rem;
+  width: 2.9375rem;
+}
+
+.small-avatar img {
+  height: 2.9375rem;
+  width: auto;
+}
+
 .chat-name {
   font-size: 0.8125rem;
   font-weight: 600;
@@ -82,6 +94,8 @@
   flex-grow: 1;
   justify-content: flex-start;
   padding-bottom: 1.875rem;
+  overflow-y: auto;
+  max-height: 86vh;
   width: 100%;
 }
 
