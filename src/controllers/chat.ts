@@ -2,6 +2,7 @@ import { APP_PATH } from '../common/appPath';
 import store, { TStore } from '../utils/store';
 import router, { TRouter } from '../utils/router';
 import { chatApi, TChatApi } from '../api/chatApi';
+import { BASE_RESOURCES_URL } from '../common/apiConst';
 import {
   TChat,
   TChatUserData,
@@ -10,7 +11,6 @@ import {
   TDeleteChatByIdData,
   TAddUsersToChatByIdsData,
 } from '../api/types';
-import { BASE_RESOURCES_URL } from '../common/apiConst';
 
 type TErrorResponse = {
   isError: boolean;
@@ -70,7 +70,7 @@ export class ChatController {
       .then(response => {
         const { avatar } = response.response;
         const chatWithNewAvatar = response.response;
-        const avatarUrl = `${BASE_RESOURCES_URL}${avatar}`
+        const avatarUrl = `${BASE_RESOURCES_URL}${avatar}`;
 
         const newChatList = this.store.getState().chats.map(item => {
           if (item.id === +chatId) {
