@@ -69,7 +69,7 @@ class AuthController {
         };
       })
       .catch(error => {
-        return this.errorHandler(error)
+        return this.errorHandler(error);
       });
   }
 
@@ -101,7 +101,7 @@ class AuthController {
 
   errorHandler(error: XMLHttpRequest) {
     const { status } = error;
-    const reason = error.response.reason;
+    const { reason } = error.response;
 
     if (status === 400 && reason === API_ERROR_MESSAGES.USER_ALREADY_IN_SYSTEM) {
       this.router.go(APP_PATH.MESSENGER);

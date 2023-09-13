@@ -7,7 +7,7 @@ export type TUserApi = typeof userApi;
 const headers = {
   'Content-type': 'application/json; charset=UTF-8',
   withCredentials: true,
-}
+};
 
 export const userApi = {
   getUserProfileById(userId: number): Promise<XMLHttpRequest> {
