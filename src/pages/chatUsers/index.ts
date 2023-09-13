@@ -79,7 +79,7 @@ export class ChatUsers extends Block<TChatUsersProps> {
   }
 
   renderChatPage() {
-    router.go(APP_PATH.CHAT);
+    router.go(APP_PATH.MESSENGER);
   }
 
   protected render(): DocumentFragment {

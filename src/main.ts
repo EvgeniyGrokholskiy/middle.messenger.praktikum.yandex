@@ -78,9 +78,9 @@ registerComponent('UnreadMessageIndicator', UnreadMessageIndicator);
 window.addEventListener('DOMContentLoaded', () => {
   Router.use(APP_PATH.SIGN_IN, LoginPage)
     .use(APP_PATH.SIGNUP, registrationPage)
-    .use(APP_PATH.CHAT, ChatPage)
+    .use(APP_PATH.MESSENGER, ChatPage)
     .use(APP_PATH.CHAT_USERS, ChatUserPage)
-    .use(APP_PATH.USER_PROFILE, UserProfilePage)
+    .use(APP_PATH.SETTINGS, UserProfilePage)
     .use(APP_PATH.ERROR_404, Error404)
     .use(APP_PATH.ERROR_5XX, Error5XX)
     .start();

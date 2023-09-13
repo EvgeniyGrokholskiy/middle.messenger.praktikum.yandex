@@ -5,12 +5,12 @@ import { TUserProfilePage } from '../common/userProfilePageData';
 import { TChatPage } from '../common/chatPageData';
 
 export const backToChat = () => {
-  router.go(APP_PATH.CHAT);
+  router.go(APP_PATH.MESSENGER);
 };
 
 export const renderUserProfile = (event: Event) => {
   event.preventDefault();
-  router.go(APP_PATH.USER_PROFILE);
+  router.go(APP_PATH.SETTINGS);
 };
 
 export const renderRegisterPage = (event: Event) => {
@@ -29,11 +29,11 @@ export const navigateToLoginPage = () => {
 
 export const renderChatPage = (event: Event) => {
   event.preventDefault();
-  router.go(APP_PATH.CHAT);
+  router.go(APP_PATH.MESSENGER);
 };
 export const renderChat = (event: Event) => {
   event.preventDefault();
-  router.go(APP_PATH.CHAT);
+  router.go(APP_PATH.MESSENGER);
 };
 
 export const renderError5XXPage = (event: Event) => {

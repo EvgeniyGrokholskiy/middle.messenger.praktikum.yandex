@@ -4,46 +4,37 @@ import { TSearchUserByLoginData, TSignInRequestData, TSignupRequestData } from '
 
 export type TAuthApi = typeof authApi;
 
+const headers = {
+    'Content-type': 'application/json; charset=UTF-8',
+    withCredentials: true,
+}
+
 export const authApi = {
   signup(data: TSignupRequestData): Promise<XMLHttpRequest> {
     return httpTransport.post(END_POINTS_URL.SIGN_UP, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       data,
     });
   },
   login(data: TSignInRequestData): Promise<XMLHttpRequest> {
     return httpTransport.post(END_POINTS_URL.SIGN_IN, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       data,
     });
   },
   logout() {
     return httpTransport.post(END_POINTS_URL.AUTH_LOGOUT, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
     });
   },
   getUserData() {
     return httpTransport.get(END_POINTS_URL.AUTH_USER, {
-      headers: {
-        withCredentials: true,
-      },
+      headers,
     });
   },
   searchUserByLogin(data: TSearchUserByLoginData) {
     return httpTransport.post(END_POINTS_URL.SEARCH_USER, {
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-        withCredentials: true,
-      },
+      headers,
       data,
     });
   },

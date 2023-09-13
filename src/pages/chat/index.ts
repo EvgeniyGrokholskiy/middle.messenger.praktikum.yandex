@@ -202,7 +202,7 @@ export class Chat extends Block<TChatProps> {
   }
 
   renderUserProfile() {
-    router.go(APP_PATH.USER_PROFILE);
+    router.go(APP_PATH.SETTINGS);
   }
 
   showAddPopup() {

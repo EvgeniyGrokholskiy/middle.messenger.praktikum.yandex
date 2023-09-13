@@ -1,9 +1,9 @@
 export enum APP_PATH {
   SIGN_IN = '/',
-  SIGNUP = '/registration',
-  CHAT = '/chat',
+  SIGNUP = '/sign-up',
+  MESSENGER = '/messenger',
   CHAT_USERS = '/users_in_chat',
-  USER_PROFILE = '/user_profile',
+  SETTINGS = '/settings',
   ERROR_404 = '/error_404',
   ERROR_5XX = '/error_5xx',
 }

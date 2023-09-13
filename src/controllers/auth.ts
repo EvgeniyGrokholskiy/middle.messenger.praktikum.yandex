@@ -25,9 +25,9 @@ class AuthController {
     return this.api
       .login(data)
       .then(async () => {
-        const result = await this.getUserData();
-        if (result) {
-          this.router.go(APP_PATH.CHAT);
+        const { isError } = await this.getUserData();
+        if (!isError) {
+          this.router.go(APP_PATH.MESSENGER);
           return {
             isError: false,
             errorMessage: '',
@@ -47,7 +47,7 @@ class AuthController {
     return this.api
       .signup(data)
       .then(() => {
-        this.router.go(APP_PATH.CHAT);
+        this.router.go(APP_PATH.MESSENGER);
         return {
           isError: false,
           errorMessage: '',
@@ -58,21 +58,18 @@ class AuthController {
       });
   }
 
-  getUserData(): Promise<boolean> {
+  getUserData(): Promise<TMethodsResponse> {
     return this.api
       .getUserData()
       .then(({ response: userData }) => {
         this.store.set('user', userData);
-        return true;
+        return {
+          isError: false,
+          errorMessage: '',
+        };
       })
       .catch(error => {
-        const { status } = error;
-        const errorText = error.response.reason;
-        if (status === 401 && errorText === API_ERROR_MESSAGES.COOKIE_NOT_VALID) {
-          this.router.go(APP_PATH.SIGN_IN);
-        }
-        this.router.go(APP_PATH.SIGN_IN);
-        return false;
+        return this.errorHandler(error)
       });
   }
 
@@ -104,6 +101,14 @@ class AuthController {
 
   errorHandler(error: XMLHttpRequest) {
     const { status } = error;
+    const reason = error.response.reason;
+
+    if (status === 400 && reason === API_ERROR_MESSAGES.USER_ALREADY_IN_SYSTEM) {
+      this.router.go(APP_PATH.MESSENGER);
+    }
+    if (status === 401 && reason === API_ERROR_MESSAGES.COOKIE_NOT_VALID) {
+      this.router.go(APP_PATH.SIGN_IN);
+    }
     if (status === 404) {
       this.router.go(APP_PATH.ERROR_404);
     }
