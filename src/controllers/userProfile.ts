@@ -2,9 +2,12 @@ import { APP_PATH } from '../common/appPath';
 import store, { TStore } from '../utils/store';
 import router, { TRouter } from '../utils/router';
 import { TUserApi, userApi } from '../api/userApi';
+import { BASE_RESOURCES_URL } from '../common/apiConst';
+import { addResourcesUrlInAvatars } from '../utils/helpers';
 import { TSignupRequestData, TUserPassword } from '../api/types';
 
 export type TUserProfileController = typeof userProfileController;
+
 export type TMethodsResponse = {
   isError: boolean;
   errorMessage: string;
@@ -70,8 +73,8 @@ class UserProfileController {
   setNewAvatar(data: FormData): Promise<TMethodsResponse> {
     return this.api
       .setNewAvatarData(data)
-      .then(response => {
-        this.store.set('user', response.response);
+      .then(({ response: userData }) => {
+        this.store.set('user', addResourcesUrlInAvatars(userData, BASE_RESOURCES_URL));
         return {
           isError: false,
           errorMessage: '',

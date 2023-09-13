@@ -17,6 +17,7 @@ export enum END_POINTS_URL {
   // chatApi
   CHATS = '/chats',
   USERS = '/chats/users',
+  AVATAR = '/chats/avatar',
   GET_CHAT_TOKEN = '/chats/token',
 }
 

@@ -1,3 +1,5 @@
+import { imageFileExtension } from './const';
+
 export enum USER_PROFILE_REFS {
   EMAIL = 'email',
   LOGIN = 'login',
@@ -17,7 +19,7 @@ export type TChangeUserPassword =
   typeof userProfilePageData.userProfileChangeLinks.changeUserPassword;
 
 export const userProfilePageData = {
-  fileExtension: ['jpg', 'jpeg', 'png'],
+  fileExtension: imageFileExtension,
   saveButtonInnerText: 'Сохранить',
   userProfileInputBlockData: [
     {

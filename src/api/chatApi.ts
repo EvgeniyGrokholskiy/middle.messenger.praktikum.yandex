@@ -26,6 +26,11 @@ export const chatApi = {
       data,
     });
   },
+  uploadChatAvatar(data: FormData) {
+    return httpTransport.put(END_POINTS_URL.AVATAR, {
+      data,
+    });
+  },
   deleteChatById(data: TDeleteChatByIdData) {
     return httpTransport.delete(END_POINTS_URL.CHATS, {
       headers,

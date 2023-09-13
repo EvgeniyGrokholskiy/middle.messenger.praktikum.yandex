@@ -61,6 +61,34 @@ export class ChatController {
       .catch(error => this.errorHandler(error));
   }
 
+  uploadChatAvatar(data: FormData): Promise<TErrorResponse> {
+    const chatId = String(this.store.getState().selectedChatId);
+    data.append('chatId', chatId);
+
+    return this.api
+      .uploadChatAvatar(data)
+      .then(response => {
+        const { avatar } = response.response;
+        const chatWithNewAvatar = response.response;
+        const avatarUrl = `${BASE_RESOURCES_URL}${avatar}`
+
+        const newChatList = this.store.getState().chats.map(item => {
+          if (item.id === +chatId) {
+            return { ...chatWithNewAvatar, avatar: avatarUrl };
+          }
+          return item;
+        });
+
+        this.store.set('chats', newChatList);
+        this.store.set('selectedChatAvatar', avatarUrl);
+        return {
+          isError: true,
+          errorMessage: '',
+        };
+      })
+      .catch(error => this.errorHandler(error));
+  }
+
   deleteChatById(data: TDeleteChatByIdData) {
     this.api
       .deleteChatById(data)

@@ -163,3 +163,10 @@ export function isEqualObj(lhs: unknown, rhs: unknown) {
 
   return true;
 }
+
+export const addResourcesUrlInAvatars = (userData: TUserData, resourcesUrl: string): TUserData => {
+  return {
+    ...userData,
+    avatar: `${resourcesUrl}${userData.avatar}`,
+  };
+};

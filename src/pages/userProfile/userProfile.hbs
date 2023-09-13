@@ -3,7 +3,12 @@
         {{{Button class='button back-button' onClick=exitFromUserProfile}}}
     </div>
     <div class='user-profile_content'>
-        {{{UserProfileAvatar imageSrc=user.avatar onClick=showAddFilePopup }}}
+        {{{UserProfileAvatar
+                imageSrc=user.avatar
+                onClick=showAddFilePopup
+                avatarBackground=avatarBackground
+                classToBackgroundImage='avatar-big'
+        }}}
         {{{H1 text=user.first_name class='user-profile_name font_16' }}}
         {{#Wrapper ref='userProfileInputBlockForm' class='user-profile_content'}}
             {{{UserProfileForm

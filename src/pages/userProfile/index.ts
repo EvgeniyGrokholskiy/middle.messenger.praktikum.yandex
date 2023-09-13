@@ -4,6 +4,7 @@ import store from '../../utils/store';
 import { withStore } from '../../utils/withStore';
 import { Wrapper } from '../../components/wrapper';
 import ErrorMessage from '../../components/errorMessage';
+import avatarBackground from '../../img/avatarBackground.jpg';
 import { UserProfileForm } from '../../components/userProfileForm';
 import authController, { TAuthController } from '../../controllers/auth';
 import { TSignupRequestData, TUserData, TUserPassword } from '../../api/types';
@@ -18,7 +19,7 @@ import {
 type TUserProfileBlockProps = {
   data: TUserProfilePage;
   user: TUserData;
-  fileExtension: string[] | undefined;
+  fileExtension: readonly string[] | undefined;
   changeUserData: TChangeUserData | undefined;
   changeUserPassword: TChangeUserPassword | undefined;
   exitFromUserProfile: () => void;
@@ -29,6 +30,8 @@ type TUserProfileBlockProps = {
   activatePasswordEditMode: () => void;
   disableUserEditMode: () => void;
   disablePasswordEditMode: () => void;
+  classToBackgroundImage: string;
+  avatarBackground: typeof avatarBackground;
   setNewUserData: (values: Record<string, string>) => void;
   setNewPassword: (values: Record<string, string>) => void;
   setNewAvatar: (data: FormData) => void;
@@ -46,6 +49,8 @@ class UserProfileBlock extends Block<TUserProfileBlockProps> {
 
     super({
       ...props,
+      avatarBackground,
+      classToBackgroundImage: 'avatar-big',
       fileExtension: props.data?.fileExtension,
       changeUserData: props.data?.userProfileChangeLinks?.changeUserData,
       changeUserPassword: props.data?.userProfileChangeLinks?.changeUserPassword,

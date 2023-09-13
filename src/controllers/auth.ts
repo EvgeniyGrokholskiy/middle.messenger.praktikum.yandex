@@ -4,7 +4,9 @@ import { TMethodsResponse } from './userProfile';
 import router, { TRouter } from '../utils/router';
 import { authApi, TAuthApi } from '../api/authApi';
 import { API_ERROR_MESSAGES } from '../common/const';
-import { TSearchUserByLoginData, TSignInRequestData, TSignupRequestData } from '../api/types';
+import { BASE_RESOURCES_URL } from '../common/apiConst';
+import { addResourcesUrlInAvatars } from '../utils/helpers';
+import { TSignInRequestData, TSignupRequestData, TSearchUserByLoginData } from '../api/types';
 
 export type TAuthController = typeof authController;
 
@@ -62,7 +64,7 @@ class AuthController {
     return this.api
       .getUserData()
       .then(({ response: userData }) => {
-        this.store.set('user', userData);
+        this.store.set('user', addResourcesUrlInAvatars(userData, BASE_RESOURCES_URL));
         return {
           isError: false,
           errorMessage: '',

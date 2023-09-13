@@ -11,6 +11,7 @@ import authController from '../../controllers/auth';
 import chatController from '../../controllers/chat';
 import { ChatItem } from '../../components/chatItem';
 import linkChevron from '../../img/chevronRight.svg';
+import { imageFileExtension } from '../../common/const';
 import { addChatDataInChatPageData } from '../../utils/helpers';
 import { TChat, TChatUserData, TMessage, TToken, TUserData } from '../../api/types';
 import { TaddChatPopupData, TaddUserPopupData, TChatPage } from '../../common/chatPageData';
@@ -18,6 +19,7 @@ import { TaddChatPopupData, TaddUserPopupData, TChatPage } from '../../common/ch
 type TChatProps = {
   messageImage: typeof image;
   linkChevron: typeof linkChevron;
+  fileExtension: readonly string[] | undefined;
   user: TUserData;
   data: TChatPage;
   chats: TChat[];
@@ -44,6 +46,9 @@ type TChatProps = {
   deleteChat: () => void;
   searchUser: (login: string) => void;
   sendNewMessage: (message: string) => void;
+  showAddFilePopup: () => void;
+  hideAddFilePopup: () => void;
+  setNewAvatar: (data: FormData) => void;
 };
 
 export class Chat extends Block<TChatProps> {
@@ -58,6 +63,7 @@ export class Chat extends Block<TChatProps> {
 
     super({
       ...props,
+      fileExtension: imageFileExtension,
       selectedChatTitle: props.selectedChatTitle,
       addChatPopupData: props.data.popupData.addChat,
       addUserPopupData: props.data.popupData.addUser,
@@ -112,9 +118,33 @@ export class Chat extends Block<TChatProps> {
       sendNewMessage: (message: string) => {
         this.sendNewMessage(message);
       },
+      showAddFilePopup: () => {
+        this.showAddFilePopup();
+      },
+      hideAddFilePopup: () => {
+        this.hideAddFilePopup();
+      },
+      setNewAvatar: (data: FormData) => {
+        this.setNewAvatar(data);
+      },
       messageImage: image,
       linkChevron,
     });
+  }
+
+  showAddFilePopup(): void {
+    (this.refs.addAvatarWrapper as Wrapper).show();
+  }
+
+  hideAddFilePopup(): void {
+    (this.refs.addAvatarWrapper as Wrapper).hide();
+  }
+
+  async setNewAvatar(data: FormData) {
+    const result = await chatController.uploadChatAvatar(data);
+    if (!result.isError) {
+      this.hideAddFilePopup();
+    }
   }
 
   async selectChatByClick(chatId: number) {

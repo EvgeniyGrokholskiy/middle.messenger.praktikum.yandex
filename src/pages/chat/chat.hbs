@@ -38,8 +38,27 @@
     <div class='chat-page_chat'>
         <div class='chat-page_header'>
             <div class='chat-name_wrapper'>
-                {{{Avatar src=selectedChatAvatar }}}
+                {{{UserProfileAvatar
+                        imageSrc=selectedChatAvatar
+                        onClick=showAddFilePopup
+                        class='header_avatar small-avatar'
+                        classToBackgroundImage='header_avatar'
+                }}}
                 {{{Paragraph text=selectedChatTitle class='chat-name' }}}
+                {{#Wrapper ref='addAvatarWrapper' class='user-profile_avatar-load-popup-wrapper'
+                           onClick=hideAddFilePopup
+                }}
+                    {{#Popup ref='addFilePopup' class='user-profile_avatar-load-popup'}}
+                        {{{AddFile
+                                isShowText='true'
+                                text='Выбрать файл на компьютере'
+                                accept='image/png, image/jpeg'
+                                isError=''
+                                setNewAvatar=setNewAvatar
+                                fileExtension=fileExtension
+                        }}}
+                    {{/Popup}}
+                {{/Wrapper}}
             </div>
             {{#if selectedChat}}
                 <div class='chat-button_wrapper'>
