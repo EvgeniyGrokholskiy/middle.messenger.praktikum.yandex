@@ -48,7 +48,7 @@ export const userProfilePageData = {
       required: true,
       header: 'Имя',
       id: 'first_name',
-      name: 'firstName',
+      name: 'first_name',
       type: 'text',
       value: '',
       class: 'block_input block_input_no-background font_13',

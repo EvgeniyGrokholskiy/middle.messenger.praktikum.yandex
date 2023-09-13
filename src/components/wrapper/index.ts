@@ -14,7 +14,11 @@ export class Wrapper extends Block<TProps> {
     super({
       ...props,
       events: {
-        click: (event: Event) => props.onClick(event),
+        click: (event: Event) => {
+          if (props.onClick) {
+            props.onClick(event);
+          }
+        },
       },
     });
   }

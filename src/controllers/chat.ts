@@ -2,7 +2,6 @@ import { APP_PATH } from '../common/appPath';
 import store, { TStore } from '../utils/store';
 import router, { TRouter } from '../utils/router';
 import { chatApi, TChatApi } from '../api/chatApi';
-import { BASE_RESOURCES_URL } from '../common/apiConst';
 import {
   TChat,
   TChatUserData,
@@ -11,6 +10,7 @@ import {
   TDeleteChatByIdData,
   TAddUsersToChatByIdsData,
 } from '../api/types';
+import { BASE_RESOURCES_URL } from '../common/apiConst';
 
 type TErrorResponse = {
   isError: boolean;
@@ -30,17 +30,18 @@ export class ChatController {
     this.router = routerObj;
   }
 
+  addResourcesUrlInAvatars(chat: TChat[], resourcesUrl: string): TChat[] {
+    return chat.map(item => ({
+      ...item,
+      avatar: `${resourcesUrl}${item.avatar}`,
+    }));
+  }
+
   getAllChats() {
     this.api
       .getChats()
       .then(response => {
-        const chats = response.response as TChat[];
-        const { selectedChatId } = this.store.getState();
-
-        if (!selectedChatId && chats.length) {
-          this.setSelectedChatData(chats[0]);
-        }
-
+        const chats = this.addResourcesUrlInAvatars(response.response, BASE_RESOURCES_URL);
         this.store.set('chats', chats);
       })
       .catch(error => {
@@ -128,8 +129,7 @@ export class ChatController {
     this.store.set('selectedChat', chat);
     this.store.set('selectedChatTitle', title);
     if (avatar) {
-      const newAvatar = `${BASE_RESOURCES_URL}/${avatar}`;
-      this.store.set('selectedChatAvatar', newAvatar);
+      this.store.set('selectedChatAvatar', avatar);
     }
   }
 
@@ -146,7 +146,7 @@ export class ChatController {
     }
     return {
       isError: true,
-      errorMessage: error.response.reason,
+      errorMessage: error.response?.reason,
     };
   }
 }

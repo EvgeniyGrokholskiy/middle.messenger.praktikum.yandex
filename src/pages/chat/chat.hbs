@@ -17,8 +17,8 @@
                 {{{ChatItem
                         id=this.id
                         ref=this.title
+                        avatar=this.avatar
                         chatName=this.title
-                        avatarUrl=this.avatar
                         selected=../selectedChat
                         onClick=../selectChatByClick
                         unreadMessages=this.unread_count
@@ -38,13 +38,15 @@
     <div class='chat-page_chat'>
         <div class='chat-page_header'>
             <div class='chat-name_wrapper'>
-                {{{Avatar }}}
+                {{{Avatar src=selectedChatAvatar }}}
                 {{{Paragraph text=selectedChatTitle class='chat-name' }}}
             </div>
-            <div class='chat-button_wrapper'>
-                {{{AddUserButton onClick=showAddPopup }}}
-                {{{DeleteChatButton onClick=deleteChat }}}
-            </div>
+            {{#if selectedChat}}
+                <div class='chat-button_wrapper'>
+                    {{{AddUserButton onClick=showAddPopup }}}
+                    {{{DeleteChatButton onClick=deleteChat }}}
+                </div>
+            {{/if}}
         </div>
         {{#Wrapper ref='addPopupWrapper' class='chat_add-chat-popup-wrapper' onClick=hideAddPopup}}
             {{#Popup class='chat-page_add-chat-popup'}}

@@ -126,6 +126,7 @@ export class Chat extends Block<TChatProps> {
     store.set('messages', []);
     store.set('selectedChatId', id);
     store.set('selectedChatTitle', selectedChat.title);
+    store.set('selectedChatAvatar', selectedChat.avatar);
     const newToken = (await chatController.getChatToken(id)) as TToken;
 
     if (newToken) {
@@ -249,7 +250,8 @@ const withChatStore = withStore(state => ({
   messages: state.messages,
   userList: state.usersInChat,
   selectedChat: state.selectedChatId,
-  selectedChatTitle: state.selectedChatTitle,
+  selectedChatTitle: state.selectedChatTitle ? state.selectedChatTitle : 'Выберите чат',
+  selectedChatAvatar: state.selectedChatAvatar,
 }));
 
 const ChatPage = withChatStore(Chat as TBlock);

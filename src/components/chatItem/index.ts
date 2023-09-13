@@ -6,6 +6,7 @@ type TProps = {
   id: number;
   selected: number;
   avatar: string;
+  avatarUrl: string;
   chatName: string;
   lastMessageTime: string;
   isLastMessageOutgoing: boolean;
