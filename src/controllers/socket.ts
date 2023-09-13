@@ -168,6 +168,11 @@ export class WebSocketController {
   }
 }
 
-const webSocketController = new WebSocketController(WEBSOCKET_URL, WEBSOCKET_STATUSES, store, WEBSOCKET_COMMANDS);
+const webSocketController = new WebSocketController(
+  WEBSOCKET_URL,
+  WEBSOCKET_STATUSES,
+  store,
+  WEBSOCKET_COMMANDS,
+);
 
 export default webSocketController;

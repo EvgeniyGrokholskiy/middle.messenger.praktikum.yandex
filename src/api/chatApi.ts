@@ -8,9 +8,9 @@ import {
 } from './types';
 
 const headers = {
-    'Content-type': 'application/json; charset=UTF-8',
-    withCredentials: true,
-  }
+  'Content-type': 'application/json; charset=UTF-8',
+  withCredentials: true,
+};
 
 export type TChatApi = typeof chatApi;
 

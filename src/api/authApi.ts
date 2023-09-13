@@ -5,9 +5,9 @@ import { TSearchUserByLoginData, TSignInRequestData, TSignupRequestData } from '
 export type TAuthApi = typeof authApi;
 
 const headers = {
-    'Content-type': 'application/json; charset=UTF-8',
-    withCredentials: true,
-}
+  'Content-type': 'application/json; charset=UTF-8',
+  withCredentials: true,
+};
 
 export const authApi = {
   signup(data: TSignupRequestData): Promise<XMLHttpRequest> {
