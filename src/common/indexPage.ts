@@ -44,9 +44,4 @@ export const links = [
     linkText: '404 page',
     onClick: renderError404Page,
   },
-  // {
-  //   href: 'pages/uiLib/uiLib.html',
-  //   class: 'font_20',
-  //   linkText: 'UI Lib page',
-  // },
 ];

@@ -1,7 +1,7 @@
 {
   "name": "my_chat",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "engines": {
     "node": ">=12"
@@ -41,6 +41,7 @@
     "vite-plugin-handlebars": "^1.6.0"
   },
   "dependencies": {
+    "express-history-api-fallback": "^2.2.1",
     "handlebars": "^4.7.8",
     "nanoid": "^4.0.2",
     "normalize.css": "^8.0.1"

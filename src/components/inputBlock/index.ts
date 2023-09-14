@@ -18,8 +18,14 @@ export type TInputBlockProps = {
   onBlur: () => void;
 };
 
+type TInputBlockState = {
+  value: string;
+  isValue: string;
+  isValid: boolean;
+};
+
 export class InputBlock extends Block<TInputBlockProps> {
-  private state: Record<string, any> = {
+  private state: TInputBlockState = {
     value: '',
     isValue: '',
     isValid: false,
@@ -46,7 +52,7 @@ export class InputBlock extends Block<TInputBlockProps> {
     return this.state.isValid;
   }
 
-  getInputsBlocks(): (Block<any> | Block[])[] {
+  getInputsBlocks(): (Block | Block[])[] {
     return Object.values(this.refs).filter(item => item instanceof InputElement);
   }
 

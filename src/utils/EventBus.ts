@@ -5,7 +5,7 @@ interface IEventBus {
 }
 
 export class EventBus implements IEventBus {
-  private readonly listeners: Record<string, ((props: any[]) => void)[]> = {};
+  private readonly listeners: Record<string, ((props: unknown[]) => void)[]> = {};
 
   on(event: string, callback: (...args: unknown[]) => void) {
     if (!this.listeners[event]) {
@@ -23,7 +23,7 @@ export class EventBus implements IEventBus {
     this.listeners[event] = this.listeners[event].filter(listener => listener !== callback);
   }
 
-  emit(event: string, ...args: any[]) {
+  emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
       throw new Event(`Нет события: ${event}`);
     }

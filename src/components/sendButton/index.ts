@@ -6,7 +6,7 @@ type TProps = {
   imageSrc: typeof image;
 };
 
-export class SendButton extends Block {
+export class SendButton extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

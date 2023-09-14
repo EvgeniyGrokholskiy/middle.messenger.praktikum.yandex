@@ -3,7 +3,9 @@ import template from './userProfileAvatar.hbs';
 import avatarBackground from '../../img/avatarBackground.jpg';
 
 type TProps = {
+  avatarBackground: typeof avatarBackground;
   imageSrc: string;
+  classToBackgroundImage: string;
   class: string;
   onClick: () => void;
   events: {
@@ -11,11 +13,10 @@ type TProps = {
   };
 };
 
-export class UserProfileAvatar extends Block {
+export class UserProfileAvatar extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,
-      avatarBackground,
       events: {
         click: props.onClick,
       },

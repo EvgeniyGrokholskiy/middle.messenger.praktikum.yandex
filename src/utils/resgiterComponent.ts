@@ -2,7 +2,7 @@ import Handlebars, { HelperOptions } from 'handlebars';
 
 import Block from './block';
 
-interface IComponent<TProps = any> {
+interface IComponent<TProps = unknown> {
   new (props: TProps): Block;
 }
 
