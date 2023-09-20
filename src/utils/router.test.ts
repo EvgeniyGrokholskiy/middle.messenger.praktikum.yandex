@@ -1,44 +1,65 @@
-import Router from "./Router";
-import { expect } from "chai";
-import sinon from "sinon";
+import sinon from 'sinon';
+import { expect } from 'chai';
 
-describe("Router", () => {
-  global.window.history.back = () => {
-    if (typeof window.onpopstate === "function") {
-      window.onpopstate({ currentTarget: window } as unknown as PopStateEvent);
-    }
-  };
-  global.window.history.forward = () => {
-    if (typeof window.onpopstate === "function") {
-      window.onpopstate({ currentTarget: window } as unknown as PopStateEvent);
-    }
-  };
+import Block from './block.ts';
+import router from './router.ts';
+import { APP_PATH } from '../common/appPath.ts';
 
-  const getContentFake = sinon.fake.returns(document.createElement("div"));
+describe('Router class', () => {
+  const baseURL = 'http://localhost:3000';
+  const windowHistoryBack = window.history.back;
+  const windowHistoryForward = window.history.forward;
+  const getFirstFakeContent = sinon.fake.returns(document.createElement('div'));
 
-  const BlockMock = class {
-    getContent = getContentFake;
-  } as any;
+  const fakeBlock = class {
+    getContent = getFirstFakeContent;
 
-  it("use() should return Router instance", () => {
-    const result = Router.use("/", BlockMock);
+    componentWillUnmount = () => {
+      console.log('fakeBlock will unmount');
+    };
+  } as unknown as typeof Block;
 
-    expect(result).to.eq(Router);
+  before(() => {
+    router.use(APP_PATH.SIGN_IN, fakeBlock).use(APP_PATH.SIGNUP, fakeBlock);
   });
 
-  describe(".back()", () => {
-    it("should render a page on history back action", () => {
-      Router.use("/", BlockMock).start();
-
-      Router.back();
-
-      expect(getContentFake.callCount).to.eq(1);
-    });
+  beforeEach(() => {
+    window.history.back = sinon.fake();
+    window.history.forward = sinon.fake();
   });
 
-  it("should render a page on start", () => {
-    Router.use("/", BlockMock).start();
+  after(() => {
+    window.history.back = windowHistoryBack;
+    window.history.forward = windowHistoryForward;
+  });
 
-    expect(getContentFake.callCount).to.eq(1);
+  it('Method .use() should return Router instance', () => {
+    const result = router.use(APP_PATH.SIGN_IN, fakeBlock);
+
+    expect(result).to.eq(router);
+  });
+
+  it('Method .start() should render a page on start', () => {
+    router.start();
+
+    expect(getFirstFakeContent.callCount).to.eq(1);
+  });
+
+  it('Method .forward() should call window history forward', () => {
+    router.forward();
+
+    expect((window.history.forward as any).callCount).to.eq(1);
+  });
+
+  it('Method .back() should call window history back', () => {
+    router.back();
+
+    expect((window.history.back as any).callCount).to.eq(1);
+  });
+
+  it('Method .go() should render correct page on right path', () => {
+    router.go(APP_PATH.SIGNUP);
+
+    expect(window.location.href).to.be.eq(`${baseURL}${APP_PATH.SIGNUP}`);
   });
 });

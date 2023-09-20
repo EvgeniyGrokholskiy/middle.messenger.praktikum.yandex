@@ -5,12 +5,18 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "target": "ES6",
-    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "target": "es2016",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "esnext",
-      "dom"
+      "ESNext",
+      "DOM"
     ]
+  },
+  "ts-node": {
+    "files": true
   }
 }

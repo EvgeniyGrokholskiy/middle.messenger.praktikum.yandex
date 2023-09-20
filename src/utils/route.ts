@@ -1,5 +1,5 @@
-import Block from './block';
-import { render } from './render';
+import Block from './block.ts';
+import { render } from './render.ts';
 
 const isEqualStrings = (a: string, b: string): boolean => {
   return a === b;

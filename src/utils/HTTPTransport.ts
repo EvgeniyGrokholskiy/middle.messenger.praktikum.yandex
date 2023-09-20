@@ -1,4 +1,4 @@
-import { BASE_URL } from '../common/apiConst';
+import { BASE_URL } from '../common/apiConst.ts';
 
 type HTTPMethod = (url: string, options: Record<string, any>) => Promise<XMLHttpRequest>;
 type TRequestMethod = (
@@ -33,7 +33,7 @@ const queryStringify = (data: Record<string, string>) => {
   );
 };
 
-class HTTPTransport implements IHTTPTransport {
+export class HTTPTransport implements IHTTPTransport {
   private static _instance: HTTPTransport;
 
   private readonly baseUrl: string;
