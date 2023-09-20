@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 
-import { EventBus } from './EventBus';
-import { InputType } from './validator';
+import { EventBus } from './EventBus.ts';
+import { InputType } from './validator.ts';
 
 export type TEvent = (event: Event) => void;
 
@@ -20,7 +20,7 @@ class Block<TProps extends Record<string, unknown> = any> {
 
   public id = nanoid(6);
 
-  protected props: TProps;
+  props: TProps;
 
   protected refs: Record<string, Block | Block[]> = {};
 
