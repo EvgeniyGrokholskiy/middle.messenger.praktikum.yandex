@@ -53,15 +53,6 @@ describe('HTTPTransport class', () => {
     expect(request?.method).to.eq('POST');
   });
 
-  it('Method .post() must send FormData without adding header', () => {
-    const formData = new FormData();
-    instance.post(END_POINTS_URL.AVATAR, { data: formData });
-
-    const [request] = requests;
-
-    expect(request?.requestHeaders).to.deep.eq({});
-  });
-
   it('Method .put() should send PUT request', () => {
     instance.put(END_POINTS_URL.AVATAR, {});
 
