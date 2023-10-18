@@ -24,7 +24,7 @@ The design mockups for this project are available on Figma. You can view them [h
 
 ## Version
 
-0.0.3
+0.0.4
 
 ##Implemented in version 0.0.2:
  - Added component approach
@@ -38,6 +38,12 @@ The design mockups for this project are available on Figma. You can view them [h
 - Added routing to the project
 - Implemented HTTP chat API
 - WebSocket is connected to work with real-time messages
+
+##Implemented in version 0.0.3:
+- Added pre commit hook
+- Added Mocha and Chai
+- Written tests for HTTPTransport, Block, Router 
+- Package audit carried out
 
 ## Installation
 

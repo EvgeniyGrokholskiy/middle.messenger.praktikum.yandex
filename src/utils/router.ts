@@ -1,6 +1,6 @@
-import Block from './block';
-import { Route } from './route';
-import { APP_PATH } from '../common/appPath';
+import Block from './block.ts';
+import { Route } from './route.ts';
+import { APP_PATH } from '../common/appPath.ts';
 
 class Router {
   private static _instance: Router;

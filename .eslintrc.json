@@ -20,6 +20,7 @@
     "@typescript-eslint/no-this-alias": "off",
     "func-names": "off",
     "import/no-cycle": "off",
+    "import/extensions": "off",
     "no-useless-constructor": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "class-methods-use-this": "off",
@@ -83,19 +84,11 @@
       "newlines-between": "always",
       "groups": ["builtin", "external", "internal"]
     }],
-    "import/no-useless-path-segments": ["warn", {
-      "noUselessIndex": true
-    }],
+    "import/no-useless-path-segments": "off",
     // "import/no-extraneous-dependencies": ["error", {
     //   devDependencies: ["**/*.test.ts", "**/*.test.tsx", "**/setupTests.ts"]
     // }],
-    "import/no-extraneous-dependencies": "off",
-    "import/extensions": ["error", "ignorePackages", {
-      "js": "never",
-      "jsx": "never",
-      "ts": "never",
-      "tsx": "never"
-    }]
+    "import/no-extraneous-dependencies": "off"
   },
   "settings": {
     "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
